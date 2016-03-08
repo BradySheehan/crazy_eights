@@ -6,7 +6,7 @@
 //the table has two images the deck and the top card showing on the discard pile
 //an element that gets replaced , a span, with a card image as the program is running
 //
-//what about removing card from a hand when it is played? at every current time, 
+//what about removing card from a hand when it is played? at every current time,
 //the dom has a set of hands, you can just remove them all and replace them with
 //a new hand (could use append child instead, but it turns out the updates are so fast
 //you don't even see them erase)
@@ -29,45 +29,35 @@
  * Hand is an array of card's.
  */
  View.prototype.displayComputerHand = function(hand) {
-  //window.alert("here2");
   var left = 0;
   var computerHand = window.document.getElementById("computerHand");
-    for (var i = 0; i < hand.length; i++) {
-      left+=15;
-      var img = window.document.createElement("img");
-      img.setAttribute("src", "../images/PlayingCards/back.png");
-      img.setAttribute("alt", "Card Back");
-      img.style.position = "absolute";
-      img.style.left = (left + "px");
-      img.style.top = "0";
-      img.style.width = "71px";
-      img.style.height = "96px";
-      img.style.zIndex = i;
-      computerHand.appendChild(img);
-    }
-    return;
+  for (var i = 0; i < hand.length; i++) {
+    left+=15;
+    var img = window.document.createElement("img");
+    img.setAttribute("src", "../images/PlayingCards/back.png");
+    img.setAttribute("alt", "Card Back");
+    img.style.position = "absolute";
+    img.style.left = (left + "px");
+    img.style.top = "0";
+    img.style.width = "71px";
+    img.style.height = "96px";
+    img.style.zIndex = i;
+    computerHand.appendChild(img);
+  }
+  return;
 };
 
-// I think this is for for part d, which is for selecting a suit graphically, not for changing the card displayed
-View.prototype.setSuitListener = function() { 
-  var presenter = this.presenter;
-  var suitClickHandler = function(event) {
-           // My code uses id attribute of event target to get suit
-        var suit = ; // Fill in your own code here
-        var table = window.document.getElementById("table");
-        table.childNodes[1].setAttribute("src", img.getURL());
-        cardString = hand[i].toString();
-        //still need to update the displayed hand
-        //
-        var newHand = new Array();
-        for (var i = 0; i < hand.length; i++) {
-          if(hand[i].toString != cardString) {
-            newHand.push(hand[i]);
-          }
-        }
-        this.displayHumanHand(newHand);
-        presenter.setSuit(suit);
-};
+// I think this is for for part d, which is for selecting a suit graphically, 
+// not for changing the card displayed
+
+// View.prototype.setSuitListener = function() {
+//   var presenter = this.presenter;
+//   var suitClickHandler = function(event) {
+//            // My code uses id attribute of event target to get suit
+//         var suit = 0; // Fill in your own code here
+//         presenter.setSuit(suit);
+//       };
+// }
 
 /**
  * Display the top card of the discard pile (at the next opportunity).
@@ -96,8 +86,6 @@ View.prototype.setSuitListener = function() {
   img2.style.width = "71px";
   img2.style.height = "96px";
   element.appendChild(img2);
-
-  //window.alert("here2");
   return element;
 
 };
@@ -110,43 +98,41 @@ View.prototype.setSuitListener = function() {
 };
 
 /**
- * Display the human hand.  This version also prompts the user 
+ * Display the human hand.  This version also prompts the user
  * and returns the string entered.
  */
  View.prototype.displayHumanHand = function(hand) {
   //window.alert("here1");
   var left = 0;
   var playerHand = window.document.getElementById("playerHand");
-  var cardString;
-    for (var i = 0; i < hand.length; i++) {
-      left+=15;
-      var img = window.document.createElement("img");
-      img.style.position = "absolute";
-      img.style.left = (left + "px");
-      img.style.top = "0";
-      img.style.width = "71px";
-      img.style.height = "96px";
-      img.setAttribute("src", hand[i].getURL());
-      img.setAttribute("alt", hand[i].toString());
-      img.style.zIndex = i;
-      img.addEventListener("click", function(){
-        var table = window.document.getElementById("table");
-        table.childNodes[1].setAttribute("src", img.getURL());
-        cardString = hand[i].toString();
-        //still need to update the displayed hand
-        //
-        var newHand = new Array();
-        for (var i = 0; i < hand.length; i++) {
-          if(hand[i].toString != cardString) {
-            newHand.push(hand[i]);
-          }
+  var cardString = null;
+  for (var i = 0; i < hand.length; i++) {
+    left+=15;
+    var img = window.document.createElement("img");
+    img.style.position = "absolute";
+    img.style.left = (left + "px");
+    img.style.top = "0";
+    img.style.width = "71px";
+    img.style.height = "96px";
+    img.setAttribute("src", hand[i].getURL());
+    img.setAttribute("alt", hand[i].toString());
+    img.style.zIndex = i;
+    img.addEventListener("click", function(){
+      var table = window.document.getElementById("table");
+      table.childNodes[1].setAttribute("src", img.getURL());
+      cardString = hand[i].toString();
+      var newHand = new Array();
+      for (var i = 0; i < hand.length; i++) {
+        if(hand[i].toString != cardString) {
+          newHand.push(hand[i]);
         }
-        this.displayHumanHand(newHand);
+      }
+      this.displayHumanHand(newHand);
 
-      }, false);
-      playerHand.appendChild(img);
-    }
-    return cardString;
+    }, false);
+    playerHand.appendChild(img);
+  }
+  return cardString;
 };
 
 /**
@@ -154,7 +140,7 @@ View.prototype.setSuitListener = function() {
  * and returns the string entered.
  */
  View.prototype.displaySuitPicker = function(hand) {
-   return window.prompt("Your hand: " + hand.toString() + 
+   return window.prompt("Your hand: " + hand.toString() +
     "\nWhat suit would you like the 8 to represent" +
     " (c, d, h, or s)?");
  };
@@ -164,13 +150,13 @@ View.prototype.setSuitListener = function() {
  * Announce that human has won.
  */
  View.prototype.announceHumanWinner = function() {
-      window.alert("Like, congrats 'n' 'at...");
-    };
+  window.alert("Like, congrats 'n' 'at...");
+};
 
 /**
  * Announce that I have won.
  */
  View.prototype.announceComputerWinner = function() {
-      window.alert("Oh yeah!!  I am a WINNER and you are a, well, non-winner.");
-    };
+  window.alert("Oh yeah!!  I am a WINNER and you are a, well, non-winner.");
+};
 

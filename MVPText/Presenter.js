@@ -1,10 +1,10 @@
 "use strict";
-// One addition you will probably want to make to the end of the 
-// Presenter constructor is code to ask the View to display the computer hand. 
-// Otherwise, you won’t see the computer hand until after the user’s first round 
-// of play. (The text-based program did not show the computer hand until after the 
-//   user’s first play, but that was not a problem. Visually, however, it would look 
-//   odd.) Other than this change, you will probably be able to use the provided 
+// One addition you will probably want to make to the end of the
+// Presenter constructor is code to ask the View to display the computer hand.
+// Otherwise, you won’t see the computer hand until after the user’s first round
+// of play. (The text-based program did not show the computer hand until after the
+//   user’s first play, but that was not a problem. Visually, however, it would look
+//   odd.) Other than this change, you will probably be able to use the provided
 // Presenter as-is for part (a) and make all of your changes in View.js.
 
 
@@ -34,7 +34,7 @@ function Presenter() {
   // pass a reference to the Presenter (this) to the View constructor.
   this.view = new View(this);
   this.view.displayComputerHand(this.computer.getHandCopy());
-  this.view.setSuitListener();
+  //this.view.setSuitListener();
   window.alert("game started");
 }
   /**
@@ -56,9 +56,14 @@ Presenter.prototype.playHuman = function() {
       this.view.displayPileTopCard(this.pile.getTopCard());
       var cardString = this.view.displayHumanHand(hand);
       var card = this.human.find(cardString);
-      while (cardString != "p" && (!card || !this.pile.isValidToPlay(card))) { 
-		// this is causing the infinite loop (even though it's an &&), because we never return cardString, 		making it never == "p"
-		// until the onclick works for the cards, the second condition will also be false because card isn't 		being assigned to anything so the first condition of the || part is always false
+
+      //if cardString!= null and the their card was in their hand or their card was valid to play
+      while (cardString != null && (!card || !this.pile.isValidToPlay(card))) {
+		// this is causing the infinite loop (even though it's an &&), because we
+    // never return cardString, making it never == "p"
+		// until the onclick works for the cards, the second condition will also be
+    // false because card isn't
+    // being assigned to anything so the first condition of the || part is always false
 
         this.view.displayWrongCardMsg(cardString);
         cardString = this.view.displayHumanHand(hand);
