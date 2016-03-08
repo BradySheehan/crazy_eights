@@ -56,7 +56,10 @@ Presenter.prototype.playHuman = function() {
       this.view.displayPileTopCard(this.pile.getTopCard());
       var cardString = this.view.displayHumanHand(hand);
       var card = this.human.find(cardString);
-      while (cardString != "p" && (!card || !this.pile.isValidToPlay(card))) {
+      while (cardString != "p" && (!card || !this.pile.isValidToPlay(card))) { 
+		// this is causing the infinite loop (even though it's an &&), because we never return cardString, 		making it never == "p"
+		// until the onclick works for the cards, the second condition will also be false because card isn't 		being assigned to anything so the first condition of the || part is always false
+
         this.view.displayWrongCardMsg(cardString);
         cardString = this.view.displayHumanHand(hand);
         card = this.human.find(cardString);

@@ -48,6 +48,7 @@
     return;
 };
 
+// I think this is for for part d, which is for selecting a suit graphically, not for changing the card displayed
 View.prototype.setSuitListener = function() { 
   var presenter = this.presenter;
   var suitClickHandler = function(event) {
