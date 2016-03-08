@@ -77,6 +77,13 @@
   img1.style.top = "0";
   img1.style.width = "71px";
   img1.style.height = "96px";
+  img1.addEventListener("click", function(){
+    // here we want to add a card from the top of the deck
+    // to the player's hand to be displayed
+    var card = this.presenter.pile.getTopCard();
+    this.displayHumanHand(this.presenter.human.add(card););
+  }, false);
+
   element.appendChild(img1);
 
   img2.setAttribute("src", card.getURL());
