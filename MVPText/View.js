@@ -125,16 +125,12 @@
     img.setAttribute("alt", hand[i].toString());
     img.style.zIndex = i;
     img.addEventListener("click", function(){
-      var table = window.document.getElementById("table");
-      table.childNodes[1].setAttribute("src", hand[i].getURL());
+      //remove the card the user played from their hand
+      //then call displayHand again with the updated hand
       cardString = hand[i].toString();
-      var newHand = new Array();
-      for (var i = 0; i < hand.length; i++) {
-        if(hand[i].toString != cardString) {
-          newHand.push(hand[i]);
-        }
-      }
-      this.displayHumanHand(newHand);
+      var ind = this.presenter.human.indexOf(cardString);
+      this.presenter.human.remove(ind);
+      this.displayHumanHand(this.presenter.human.list);
 
     }, false);
     playerHand.appendChild(img);
