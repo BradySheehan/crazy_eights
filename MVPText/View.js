@@ -24,31 +24,6 @@
   this.presenter = presenter;
 }
 
-
-// My View constructor takes an argument from Presenter that is a 
-// reference to the Presenter object itself. The View constructor 
-// stores this reference in an instance variable named presenter.
-//  It does this so that, when the user clicks on a suit symbol, the 
-//  event listener assigned to the click event by View can call an 
-//  appropriate method on the Presenter to handle the event. My View 
-//  code for creating the event listener (the setSuitListener() method 
-//   is called by the Presenter constructor) looks something like this:
-// View.prototype.setSuitListener = function() { var presenter = this.presenter;
-// var suitClickHandler = function(event) {
-//            // My code uses id attribute of event target to get suit
-//             var suit = ... // Fill in your own code here
-//             presenter.setSuit(suit);
-// };
-// // Code to add suitClickHandler event listener to DOM // elements containing suit characters
-// // ...
-// };
-// It’s important that you use a local presenter variable within the event 
-// listener, as shown above, rather than using this.presenter directly in the 
-// listener body. This is because the event listener is not a method of the View 
-// object, so this will not refer to the View object within the body of the event 
-// listener. In other words, avoid using this within event listeners unless you know 
-// what you’re doing.
-
 /**
  * Display information about the computer's hand.
  * Hand is an array of card's.
@@ -90,7 +65,7 @@ View.prototype.setSuitListener = function() {
           }
         }
         this.displayHumanHand(newHand);
-            presenter.setSuit(suit);
+        presenter.setSuit(suit);
 };
 
 /**
