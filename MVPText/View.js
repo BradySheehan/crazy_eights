@@ -17,10 +17,11 @@
 /**
  * Provide methods for interacting with the user.
  */
- function View() {
+ function View(presenter) {
   this.topCard = null;
   this.topCardString = "";
   this.errorString = "";
+  this.presenter = presenter;
 }
 
 
@@ -69,8 +70,15 @@
       img.style.zIndex = i;
       computerHand.appendChild(img);
     }
-    //window.alert("here");
     return;
+};
+
+View.prototype.setSuitListener = function() { 
+  var presenter = this.presenter;
+  var suitClickHandler = function(event) {
+           // My code uses id attribute of event target to get suit
+            var suit = ... // Fill in your own code here
+            presenter.setSuit(suit);
 };
 
 /**
@@ -139,7 +147,6 @@
         cardString = hand[i].toString();
         //still need to update the displayed hand
         //
-        
         var newHand = new Array();
         for (var i = 0; i < hand.length; i++) {
           if(hand[i].toString != cardString) {
@@ -147,7 +154,6 @@
           }
         }
         this.displayHumanHand(newHand);
-
 
       }, false);
       playerHand.appendChild(img);

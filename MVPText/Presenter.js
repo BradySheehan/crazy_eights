@@ -32,9 +32,10 @@ function Presenter() {
   // In this program, the view does not need to be able to
   // refer back to the Presenter, but some programs might need to
   // pass a reference to the Presenter (this) to the View constructor.
-  this.view = new View();
+  this.view = new View(this);
   this.view.displayComputerHand(this.computer.getHandCopy());
-  window.prompt("game started");
+  this.view.setSuitListener();
+  window.alert("game started");
 }
   /**
    * Play one complete game.
