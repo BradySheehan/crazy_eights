@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      Crazy Eights, MVP version
+    </title>
+    <!-- Model classes -->
+    <script type="text/javascript" src="Card.js">
+    </script>
+    <script type="text/javascript" src="Deck.js">
+    </script>
+    <script type="text/javascript" src="Pile.js">
+    </script>
+    <script type="text/javascript" src="Player.js">
+    </script>
+    <!-- View and Presenter classes -->
+    <script type="text/javascript" src="View.js">
+    </script>
+    <script type="text/javascript" src="Presenter.js">
+    </script>
+    <!-- Main program -->
+    <script type="text/javascript" src="Main.js">
+    </script>
+    <!-- You'll probably want to add one or more style elements. -->
+
+  </head>
+  <body onload="init();">
+    <!--
+	 You can add div's and whatnot here, as in the
+	 static page provided.  You might also want to add
+	 a div, initially set to display:none, representing
+	 the suit picker (if you are implementing part (d)).
+
+	 However, for full credit, you should not add any HTML
+	 intrinsic event attributes, e.g., onclick.
+      -->
+
+    <div id="computerHand" style='position:relative;height:100px'></div>
+    <div id="table" style='height:100px'></div>
+    <div id="playerHand" style='position:relative;height:100px'></div>
+  </body>
+</html>
