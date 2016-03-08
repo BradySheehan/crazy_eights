@@ -80,8 +80,8 @@
   img1.addEventListener("click", function(){
     // here we want to add a card from the top of the deck
     // to the player's hand to be displayed
-    var card = this.presenter.pile.getTopCard();
-    this.displayHumanHand(this.presenter.human.add(card););
+    var pickedCard = this.presenter.pile.getTopCard();
+    this.displayHumanHand(this.presenter.human.add(pickedCard));
   }, false);
 
   element.appendChild(img1);
@@ -126,7 +126,7 @@
     img.style.zIndex = i;
     img.addEventListener("click", function(){
       var table = window.document.getElementById("table");
-      table.childNodes[1].setAttribute("src", img.getURL());
+      table.childNodes[1].setAttribute("src", hand[i].getURL());
       cardString = hand[i].toString();
       var newHand = new Array();
       for (var i = 0; i < hand.length; i++) {
