@@ -126,7 +126,7 @@
     img.style.zIndex = i;
     img.addEventListener("click", function(){
       //remove the card the user played from their hand
-      //then call displayHand again with the updated hand
+      //then call displayHumanHand again with the updated hand
       cardString = hand[i].toString();
       var ind = this.presenter.human.indexOf(cardString);
       this.presenter.human.remove(ind);

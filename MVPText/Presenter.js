@@ -58,6 +58,8 @@ Presenter.prototype.playHuman = function() {
       var card = this.human.find(cardString);
 
       //if cardString!= null and the their card was in their hand or their card was valid to play
+      //not sure how this while loop will know whether or not the user selected a card from the pile
+      //or played a card from their hand (whats the relationship between the two event listeners?)
       while (cardString != null && (!card || !this.pile.isValidToPlay(card))) {
 		// this is causing the infinite loop (even though it's an &&), because we
     // never return cardString, making it never == "p"
