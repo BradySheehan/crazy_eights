@@ -77,7 +77,19 @@ View.prototype.setSuitListener = function() {
   var presenter = this.presenter;
   var suitClickHandler = function(event) {
            // My code uses id attribute of event target to get suit
-            var suit = ... // Fill in your own code here
+        var suit = ; // Fill in your own code here
+        var table = window.document.getElementById("table");
+        table.childNodes[1].setAttribute("src", img.getURL());
+        cardString = hand[i].toString();
+        //still need to update the displayed hand
+        //
+        var newHand = new Array();
+        for (var i = 0; i < hand.length; i++) {
+          if(hand[i].toString != cardString) {
+            newHand.push(hand[i]);
+          }
+        }
+        this.displayHumanHand(newHand);
             presenter.setSuit(suit);
 };
 
