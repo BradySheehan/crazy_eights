@@ -99,8 +99,8 @@ Presenter.prototype.playCard = function (cardString) {
 
 	// THIS ALL NEEDS TO BE MODIFIED TO REFLECT THE FACT THAT WE AREN'T USING 'p' ANYMORE OR RETURNING cardString
 
-      // var cardString = this.view.displayHumanHand(hand);
-	    // var card = this.human.find(cardString); //returns the card object from the cardString
+      var cardString = this.view.displayHumanHand(hand);
+	   var card = this.human.find(cardString); //returns the card object from the cardString
                                               //if the card is in the players hand
 
       //if cardString!= null and the their card was in their hand or their card was valid to play
@@ -116,9 +116,9 @@ Presenter.prototype.playCard = function (cardString) {
     
     //for part D: check to see if they selected an 8, if they did, we graphically display
     //4 suits that they can pick from for playing that card
-    // if(cardString[0] == "8") {
+    if(cardString[0] == "8") {
 
-    // }
+    }
 
     while (cardString != null && (!card || !this.pile.isValidToPlay(card))) {
       this.view.displayWrongCardMsg(cardString);

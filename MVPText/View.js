@@ -41,7 +41,7 @@
     img.style.top = "0";
     img.style.width = "71px";
     img.style.height = "96px";
-    img.style.zIndex = i.toString();
+    img.style.zIndex = i;
     computerHand.appendChild(img);
   }
   return;
@@ -145,7 +145,7 @@
     img.style.top = "0";
     img.style.width = "71px";
     img.style.height = "96px";
-	img.style.zIndex = i.toString();
+	img.style.zIndex = i;
     img.setAttribute("src", hand[i].getURL());
     img.setAttribute("alt", hand[i].toString());
     img.addEventListener("click", humanSelect, false);
