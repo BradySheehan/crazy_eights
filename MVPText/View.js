@@ -142,6 +142,12 @@
     var ind = pres.human.indexOf(card);
     if(ind == -1 ) window.alert("index of card was not found");
 		pres.human.remove(ind);
+    //now remove all the children of this div and then call displayHumanHand to re add them
+    var playerHand = window.document.getElementById("playerHand");
+    var childNodes = playerHand.childNodes;
+    for(var i = 0; i < childNodes.length; i++) {
+      playerHand.removeChild(childNodes[i]);
+    }
 		pres.view.displayHumanHand(pres.human.getHandCopy());
 		return cardString;
     }, 
