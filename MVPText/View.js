@@ -124,14 +124,21 @@
     img.setAttribute("src", hand[i].getURL());
     img.setAttribute("alt", hand[i].toString());
     img.style.zIndex = i;
-    img.addEventListener("click", function(){
+    img.addEventListener("click", function() {
       //remove the card the user played from their hand
       //then call displayHumanHand again with the updated hand
-      cardString = hand[i].toString();
-      var ind = this.presenter.human.indexOf(cardString);
-      this.presenter.human.remove(ind);
-      this.displayHumanHand(this.presenter.human.list);
 
+
+		cardString = img.alt;
+		// still not right, says the last card that added was clicked no matter what card is clicked
+		// could help ---> https://archive.appcelerator.com/question/84241/dynamically-assign-listener-to-button
+		// but I'm still not entirely sure how to use that in this case
+		
+		window.alert(cardString + " was clicked");
+		var ind = this.presenter.human.indexOf(cardString);
+		this.presenter.human.remove(ind);
+		this.displayHumanHand(this.presenter.human.list);
+		return cardString;
     }, false);
     playerHand.appendChild(img);
   }
