@@ -11,7 +11,7 @@
 /**
  * Logic for the game Crazy Eights between a human and the computer.
  */
-function Presenter() {
+ function Presenter() {
   /** Constructor:
    * Initialize game by creating and shuffling the deck,
    * dealing one card (other than an 8) to the discard pile, and
@@ -19,8 +19,8 @@ function Presenter() {
    * Then create View object, which will be responsible for the
    * user interface.
    */
-  this.deck = new Deck();
-  do {
+   this.deck = new Deck();
+   do {
     this.deck.shuffle();
   } while (this.deck.isTopCardAnEight());
   this.pile = new Pile();
@@ -40,25 +40,22 @@ function Presenter() {
   /**
    * Play one complete game.
    */
-Presenter.prototype.play = function () {
+   Presenter.prototype.play = function () {
     do {
       this.playHuman();
       if (!this.human.isHandEmpty()) {
         this.playComputer();
       }
     } while (!(this.human.isHandEmpty() || this.computer.isHandEmpty()));
-};
-
+  };
 /**
  * Allow human to play.
  */
-Presenter.prototype.playHuman = function() {
+ Presenter.prototype.playHuman = function() {
       var hand = this.human.getHandCopy(); // copy of hand for convenience
       this.view.displayPileTopCard(this.pile.getTopCard());
       var cardString = this.view.displayHumanHand(hand);
-	  window.alert("cardString: " + cardString);
-      
-	  var card = this.human.find(cardString); //returns the card object from the cardString
+	    var card = this.human.find(cardString); //returns the card object from the cardString
                                               //if the card is in the players hand
 
       //if cardString!= null and the their card was in their hand or their card was valid to play
@@ -70,20 +67,27 @@ Presenter.prototype.playHuman = function() {
 		// until the onclick works for the cards, the second condition will also be
     // false because card isn't
     // being assigned to anything so the first condition of the || part is always false
-		
-	  while (cardString != null && (!card || !this.pile.isValidToPlay(card))) {
-        this.view.displayWrongCardMsg(cardString);
-        cardString = this.view.displayHumanHand(hand);
-        card = this.human.find(cardString);
-      }
+    // 
+    
+    //for part D: check to see if they selected an 8, if they did, we graphically display
+    //4 suits that they can pick from for playing that card
+    // if(cardString[0] == "8") {
+
+    // }
+
+    while (cardString != null && (!card || !this.pile.isValidToPlay(card))) {
+      this.view.displayWrongCardMsg(cardString);
+      cardString = this.view.displayHumanHand(hand);
+      card = this.human.find(cardString);
+    }
       hand = null; // actual hand will change below, so don't use copy
       if (cardString == "p") {
         this.human.add(this.deck.dealACard());
       }
       else {
         this.human.remove(this.human.indexOf(card));
-        this.pile.acceptACard(card); // this is null 
-        if (this.pile.getTopCard().getValue() == "8") { // so this cannot get top card because we never added one
+        this.pile.acceptACard(card);
+        if (this.pile.getTopCard().getValue() == "8") {
           var suit;
           do {
             suit = this.view.displaySuitPicker(this.human.getHandCopy());
@@ -91,17 +95,17 @@ Presenter.prototype.playHuman = function() {
           this.pile.setAnnouncedSuit(suit);
         }
       }
-    if (this.human.isHandEmpty()) {
-      this.view.announceHumanWinner();
-    }
-};
+      if (this.human.isHandEmpty()) {
+        this.view.announceHumanWinner();
+      }
+    };
 
 /**
  * Play for the computer.  In this version, the computer always plays
  * the first card in its hand that is playable.  If it plays an 8,
  * the suit implicitly announced is the suit on the card.
  */
-Presenter.prototype.playComputer = function() {
+ Presenter.prototype.playComputer = function() {
   // Play the first playable card, or pick if none is playable.
   var i=0;
   var hand = this.computer.getHandCopy(); // copy of hand for convenience
@@ -126,5 +130,9 @@ Presenter.prototype.playComputer = function() {
   else {
     this.computer.add(this.deck.dealACard());
     this.view.displayComputerHand(this.computer.getHandCopy());
+  }
+
+  Presenter.prototype.setSuit(suit) = function() {
+    //set the suit
   }
 };
