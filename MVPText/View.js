@@ -69,7 +69,7 @@
   var pileSelect = function() {
     // here we want to add a card from the top of the deck
     // to the player's hand to be displayed
-    var pickedCard = pres.pile.getTopCard();
+    var pickedCard = pres.deck.dealACard();
     window.alert(pickedCard + " was clicked");
     pres.human.add(pickedCard);
     pres.view.displayHumanHand(pres.human.getHandCopy()); //pass the updated hand to be displayed
@@ -113,7 +113,7 @@
   var playerHand = window.document.getElementById("playerHand");
   var pres = this.presenter;
   var humanSelect = function(event) {
-	  	var cardString = event.target.alt; // now PASS this cardString to a Presenter function, but it's not working.....so we'll keep trying here
+	  var cardString = event.target.alt; // now PASS this cardString to a Presenter function, but it's not working.....so we'll keep trying here
 		window.alert(cardString + " was clicked");
 		var card = pres.human.find(cardString);
 		window.alert("Card picked: " + card);
@@ -131,12 +131,13 @@
 	   	for(var i = 0; i < childNodesArray.length; i++) {
 	   		playerHand.removeChild(childNodesArray[i]);
 	    }
-		pres.view.displayHumanHand(pres.human.getHandCopy());
+		pres.view.displayHumanHand(pres.human.getHandCopy()); //display new cards
 
     //updating pile to have new top card
     var pile = window.document.getElementById("table");
     var img2 = pile.childNodes[1];
     img2.setAttribute("src", card.getURL());
+    pres.pile.acceptACard(card);
   } //end humanSelect()
 
   var left = 0;
