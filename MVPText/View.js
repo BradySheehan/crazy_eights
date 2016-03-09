@@ -47,7 +47,7 @@
   return;
 };
 
-// I think this is for for part d, which is for selecting a suit graphically, 
+// I think this is for for part d, which is for selecting a suit graphically,
 // not for changing the card displayed
 
 /*View.prototype.setSuitListener = function() {
@@ -65,28 +65,26 @@
  View.prototype.displayPileTopCard = function(card) {
   this.topCard = card;
   this.topCardString = "Top card of pile: " + card;
-
-  var element = window.document.getElementById("table");
-
-  var img1 = window.document.createElement("img");
-  var img2 = window.document.createElement("img");
-
-  img1.setAttribute("src", "../images/PlayingCards/back.png");
-  img1.setAttribute("alt", "Card Back");
-  img1.style.left = "0";
-  img1.style.top = "0";
-  img1.style.width = "71px";
-  img1.style.height = "96px";
   var pres = this.presenter;
-  img1.addEventListener("click", function() {
+  var pileSelect = function() {
     // here we want to add a card from the top of the deck
     // to the player's hand to be displayed
     var pickedCard = pres.pile.getTopCard();
     window.alert(pickedCard + " was clicked");
     pres.human.add(pickedCard);
     pres.view.displayHumanHand(pres.human.getHandCopy()); //pass the updated hand to be displayed
-  }, false);
+  }
 
+  var element = window.document.getElementById("table");
+  var img1 = window.document.createElement("img");
+  var img2 = window.document.createElement("img");
+  img1.setAttribute("src", "../images/PlayingCards/back.png");
+  img1.setAttribute("alt", "Card Back");
+  img1.style.left = "0";
+  img1.style.top = "0";
+  img1.style.width = "71px";
+  img1.style.height = "96px";
+  img1.addEventListener("click", pileSelect, false);
   element.appendChild(img1);
 
   img2.setAttribute("src", card.getURL());
@@ -96,8 +94,8 @@
   img2.style.width = "71px";
   img2.style.height = "96px";
   element.appendChild(img2);
-  return element;
 
+  return element;
 };
 
 /**
@@ -118,15 +116,15 @@
 	  	var cardString = event.target.alt; // now PASS this cardString to a Presenter function, but it's not working.....so we'll keep trying here
 		window.alert(cardString + " was clicked");
 		var card = pres.human.find(cardString);
-		window.alert("Card picked: " + card); 
+		window.alert("Card picked: " + card);
 		var ind = pres.human.indexOf(card); // this only returns that it was found sometimes
 		window.alert("Index: " + ind);
-		
+
 		if(ind == -1 ) {
 			window.alert("Index of card was not found.");
 		}
 		pres.human.remove(ind);
-		
+
 	    //now remove all the children of this div and then call displayHumanHand to re add them
 		var playerHand = window.document.getElementById("playerHand");
 	   	var childNodesArray = playerHand.childNodes;
@@ -134,7 +132,12 @@
 	   		playerHand.removeChild(childNodesArray[i]);
 	    }
 		pres.view.displayHumanHand(pres.human.getHandCopy());
-  }
+
+    //updating pile to have new top card
+    var pile = window.document.getElementById("table");
+    var img2 = pile.childNodes[1];
+    img2.setAttribute("src", card.getURL());
+  } //end humanSelect()
 
   var left = 0;
   for (var i = 0; i < hand.length; i++) {
@@ -146,6 +149,8 @@
     img.style.width = "71px";
     img.style.height = "96px";
 	img.style.zIndex = i;
+    img.style.height = "96px";
+	img.style.zIndex = i.toString();
     img.setAttribute("src", hand[i].getURL());
     img.setAttribute("alt", hand[i].toString());
     img.addEventListener("click", humanSelect, false);
