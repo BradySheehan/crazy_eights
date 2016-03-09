@@ -83,8 +83,8 @@
     // to the player's hand to be displayed
     var pickedCard = pres.pile.getTopCard();
     window.alert(pickedCard + " was clicked");
-    pres.human.add(pickedCard)
-    pres.view.displayHumanHand(pres.human.getHandCopy());
+    pres.human.add(pickedCard);
+    pres.view.displayHumanHand(pres.human.getHandCopy()); //pass the updated hand to be displayed
   }, false);
 
   element.appendChild(img1);
@@ -112,7 +112,6 @@
  * and returns the string entered.
  */
  View.prototype.displayHumanHand = function(hand) {
-  //window.alert("here1");
   var left = 0;
   var playerHand = window.document.getElementById("playerHand");
   var cardString = null;
@@ -132,7 +131,6 @@
       //remove the card the user played from their hand
       //then call displayHumanHand again with the updated hand
 
-
 		cardString = img.alt;
 		// still not right, says the last card that added was clicked no matter what card is clicked
 		// could help ---> https://archive.appcelerator.com/question/84241/dynamically-assign-listener-to-button
@@ -140,12 +138,14 @@
 		
 		window.alert(cardString + " was clicked");
 		var card = pres.human.find(cardString);
+    window.alert("card picked " + card);
     var ind = pres.human.indexOf(card);
     if(ind == -1 ) window.alert("index of card was not found");
 		pres.human.remove(ind);
 		pres.view.displayHumanHand(pres.human.getHandCopy());
 		return cardString;
-    }, false);
+    }, 
+    false);
     playerHand.appendChild(img);
   }
   return cardString;
