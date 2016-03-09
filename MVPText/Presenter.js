@@ -102,17 +102,6 @@ Presenter.prototype.playCard = function (cardString) {
       var cardString = this.view.displayHumanHand(hand);
 	   var card = this.human.find(cardString); //returns the card object from the cardString
                                               //if the card is in the players hand
-
-      //if cardString!= null and the their card was in their hand or their card was valid to play
-      //not sure how this while loop will know whether or not the user selected a card from the pile
-      //or played a card from their hand (whats the relationship between the two event listeners?)
-
-		// this is causing the infinite loop (even though it's an &&), because we
-    // never return cardString, making it never == "p"
-		// until the onclick works for the cards, the second condition will also be
-    // false because card isn't
-    // being assigned to anything so the first condition of the || part is always false
-    // 
     
     //for part D: check to see if they selected an 8, if they did, we graphically display
     //4 suits that they can pick from for playing that card
