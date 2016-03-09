@@ -117,33 +117,33 @@
   var cardString = null;
   var pres = this.presenter;
   var humanSelect = function(event) {
-	      //remove the card the user played from their hand
-	      //then call displayHumanHand again with the updated hand
+	  	var cardString = event.target.alt; // now PASS this cardString to a Presenter function
+		// pres.playHuman(cardString); // but it's not working.....so we'll keep trying here
 		
-			var cardString = event.target.alt;
-			// still not right, says the last card that added was clicked no matter what card is clicked
-			// could help ---> https://archive.appcelerator.com/question/84241/dynamically-assign-listener-to-button
-			// but I'm still not entirely sure how to use that in this case
-			
-			// now PASS this cardString to a Presenter function
-			
-			window.alert(cardString + " was clicked");
-			/*var card = pres.human.find(cardString);
-	    	window.alert("card picked " + card);
-	    	var ind = pres.human.indexOf(card);
-	    	if(ind == -1 ) window.alert("index of card was not found");
+		window.alert(cardString + " was clicked");
+		var card = pres.human.find(cardString.toString());
+		pres.pile.acceptACard(card);
+		window.alert("Card picked: " + card);
+		var ind = pres.human.indexOf(card);
+		
+		if(ind == -1 ) {
+			window.alert("Index of card was not found.");
+		}
+		else {
 			pres.human.remove(ind);
+		}
+		
 	    //now remove all the children of this div and then call displayHumanHand to re add them
-	    	var playerHand = window.document.getElementById("playerHand");
-	    	var childNodes = playerHand.childNodes;
-	    	for(var i = 0; i < childNodes.length; i++) {
-	      		playerHand.removeChild(childNodes[i]);
-	    	}
-			pres.view.displayHumanHand(pres.human.getHandCopy());*/
+		var playerHand = window.document.getElementById("playerHand");
+	   	var childNodes = playerHand.childNodes;
+	   	for(var i = 0; i < childNodes.length; i++) {
+	   		playerHand.removeChild(childNodes[i]);
+	    }
+		pres.view.displayHumanHand(pres.human.getHandCopy());
   }
 
   for (var i = 0; i < hand.length; i++) {
-    left+=15;
+	left+=15;
     var img = window.document.createElement("img");
     img.style.position = "absolute";
     img.style.left = (left + "px");
