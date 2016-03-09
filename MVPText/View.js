@@ -77,11 +77,13 @@
   img1.style.top = "0";
   img1.style.width = "71px";
   img1.style.height = "96px";
+  var presenter = this.presenter;
   img1.addEventListener("click", function(){
     // here we want to add a card from the top of the deck
     // to the player's hand to be displayed
-    var pickedCard = this.presenter.pile.getTopCard();
-    this.displayHumanHand(this.presenter.human.add(pickedCard));
+    var pickedCard = presenter.pile.getTopCard();
+    window.alert(pickedCard + " was clicked");
+    this.displayHumanHand(presenter.human.add(pickedCard));
   }, false);
 
   element.appendChild(img1);
@@ -124,6 +126,7 @@
     img.setAttribute("src", hand[i].getURL());
     img.setAttribute("alt", hand[i].toString());
     img.style.zIndex = i;
+    var presenter = this.presenter;
     img.addEventListener("click", function() {
       //remove the card the user played from their hand
       //then call displayHumanHand again with the updated hand
@@ -135,9 +138,9 @@
 		// but I'm still not entirely sure how to use that in this case
 		
 		window.alert(cardString + " was clicked");
-		var ind = this.presenter.human.indexOf(cardString);
-		this.presenter.human.remove(ind);
-		this.displayHumanHand(this.presenter.human.list);
+		var ind = presenter.human.indexOf(cardString);
+		presenter.human.remove(ind);
+		this.displayHumanHand(presenter.human.list);
 		return cardString;
     }, false);
     playerHand.appendChild(img);
