@@ -112,38 +112,33 @@
  * and returns the string entered.
  */
  View.prototype.displayHumanHand = function(hand) {
-  var left = 0;
   var playerHand = window.document.getElementById("playerHand");
-  var cardString = null;
   var pres = this.presenter;
   var humanSelect = function(event) {
-	  	var cardString = event.target.alt; // now PASS this cardString to a Presenter function
-		// pres.playHuman(cardString); // but it's not working.....so we'll keep trying here
-		
+	  	var cardString = event.target.alt; // now PASS this cardString to a Presenter function, but it's not working.....so we'll keep trying here
 		window.alert(cardString + " was clicked");
-		var card = pres.human.find(cardString.toString());
-		pres.pile.acceptACard(card);
-		window.alert("Card picked: " + card);
-		var ind = pres.human.indexOf(card);
+		var card = pres.human.find(cardString);
+		window.alert("Card picked: " + card); 
+		var ind = pres.human.indexOf(card); // this only returns that it was found sometimes
+		window.alert("Index: " + ind);
 		
 		if(ind == -1 ) {
 			window.alert("Index of card was not found.");
 		}
-		else {
-			pres.human.remove(ind);
-		}
+		pres.human.remove(ind);
 		
 	    //now remove all the children of this div and then call displayHumanHand to re add them
 		var playerHand = window.document.getElementById("playerHand");
-	   	var childNodes = playerHand.childNodes;
-	   	for(var i = 0; i < childNodes.length; i++) {
-	   		playerHand.removeChild(childNodes[i]);
+	   	var childNodesArray = playerHand.childNodes;
+	   	for(var i = 0; i < childNodesArray.length; i++) {
+	   		playerHand.removeChild(childNodesArray[i]);
 	    }
 		pres.view.displayHumanHand(pres.human.getHandCopy());
   }
 
+  var left = 0;
   for (var i = 0; i < hand.length; i++) {
-	left+=15;
+	left += 15;
     var img = window.document.createElement("img");
     img.style.position = "absolute";
     img.style.left = (left + "px");
