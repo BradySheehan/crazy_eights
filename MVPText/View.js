@@ -32,7 +32,7 @@
   var left = 0;
   var computerHand = window.document.getElementById("computerHand");
   for (var i = 0; i < hand.length; i++) {
-    left+=15;
+    left += 15;
     var img = window.document.createElement("img");
     img.setAttribute("src", "../images/PlayingCards/back.png");
     img.setAttribute("alt", "Card Back");
@@ -41,7 +41,7 @@
     img.style.top = "0";
     img.style.width = "71px";
     img.style.height = "96px";
-    img.style.zIndex = i;
+    img.style.zIndex = i.toString();
     computerHand.appendChild(img);
   }
   return;
@@ -145,13 +145,13 @@
     img.style.top = "0";
     img.style.width = "71px";
     img.style.height = "96px";
+	img.style.zIndex = i.toString();
     img.setAttribute("src", hand[i].getURL());
     img.setAttribute("alt", hand[i].toString());
-    img.style.zIndex = i;
     img.addEventListener("click", humanSelect, false);
     playerHand.appendChild(img);
   }
-  return cardString;
+  // return cardString;
 };
 
 /**

@@ -96,8 +96,11 @@ Presenter.prototype.playCard = function (cardString) {
  Presenter.prototype.playHuman = function() {
       var hand = this.human.getHandCopy(); // copy of hand for convenience
       this.view.displayPileTopCard(this.pile.getTopCard());
-      var cardString = this.view.displayHumanHand(hand);
-	    var card = this.human.find(cardString); //returns the card object from the cardString
+
+	// THIS ALL NEEDS TO BE MODIFIED TO REFLECT THE FACT THAT WE AREN'T USING 'p' ANYMORE OR RETURNING cardString
+
+      // var cardString = this.view.displayHumanHand(hand);
+	    // var card = this.human.find(cardString); //returns the card object from the cardString
                                               //if the card is in the players hand
 
       //if cardString!= null and the their card was in their hand or their card was valid to play
