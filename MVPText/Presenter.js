@@ -48,6 +48,7 @@ Presenter.prototype.play = function () {
       }
     } while (!(this.human.isHandEmpty() || this.computer.isHandEmpty()));
 };
+
 /**
  * Allow human to play.
  */
@@ -55,6 +56,7 @@ Presenter.prototype.playHuman = function() {
       var hand = this.human.getHandCopy(); // copy of hand for convenience
       this.view.displayPileTopCard(this.pile.getTopCard());
       var cardString = this.view.displayHumanHand(hand);
+	  window.alert("cardString: " + cardString);
       
 	  var card = this.human.find(cardString); //returns the card object from the cardString
                                               //if the card is in the players hand
@@ -80,8 +82,8 @@ Presenter.prototype.playHuman = function() {
       }
       else {
         this.human.remove(this.human.indexOf(card));
-        this.pile.acceptACard(card);
-        if (this.pile.getTopCard().getValue() == "8") {
+        this.pile.acceptACard(card); // this is null 
+        if (this.pile.getTopCard().getValue() == "8") { // so this cannot get top card because we never added one
           var suit;
           do {
             suit = this.view.displaySuitPicker(this.human.getHandCopy());
