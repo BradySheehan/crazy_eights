@@ -50,14 +50,14 @@
 // I think this is for for part d, which is for selecting a suit graphically, 
 // not for changing the card displayed
 
-View.prototype.setSuitListener = function() {
+/*View.prototype.setSuitListener = function() {
    var presenter = this.presenter;
    var suitClickHandler = function(event) {
    // My code uses id attribute of event target to get suit
-   		var suit = 0; // Fill in your own code here
+   		var suit = event.target.alt
    		presenter.setSuit(suit);
    };
-}
+}*/
 
 /**
  * Display the top card of the discard pile (at the next opportunity).
@@ -125,8 +125,10 @@ View.prototype.setSuitListener = function() {
 			// could help ---> https://archive.appcelerator.com/question/84241/dynamically-assign-listener-to-button
 			// but I'm still not entirely sure how to use that in this case
 			
+			// now PASS this cardString to a Presenter function
+			
 			window.alert(cardString + " was clicked");
-			var card = pres.human.find(cardString);
+			/*var card = pres.human.find(cardString);
 	    	window.alert("card picked " + card);
 	    	var ind = pres.human.indexOf(card);
 	    	if(ind == -1 ) window.alert("index of card was not found");
@@ -137,7 +139,7 @@ View.prototype.setSuitListener = function() {
 	    	for(var i = 0; i < childNodes.length; i++) {
 	      		playerHand.removeChild(childNodes[i]);
 	    	}
-			pres.view.displayHumanHand(pres.human.getHandCopy());
+			pres.view.displayHumanHand(pres.human.getHandCopy());*/
   }
 
   for (var i = 0; i < hand.length; i++) {
