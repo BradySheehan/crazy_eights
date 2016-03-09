@@ -83,7 +83,8 @@
     // to the player's hand to be displayed
     var pickedCard = pres.pile.getTopCard();
     window.alert(pickedCard + " was clicked");
-    presenter.view.displayHumanHand(pres.human.add(pickedCard));
+    pres.human.add(pickedCard)
+    pres.view.displayHumanHand(pres.human.getHandCopy());
   }, false);
 
   element.appendChild(img1);
@@ -126,7 +127,7 @@
     img.setAttribute("src", hand[i].getURL());
     img.setAttribute("alt", hand[i].toString());
     img.style.zIndex = i;
-    var presenter = this.presenter;
+    var pres = this.presenter;
     img.addEventListener("click", function() {
       //remove the card the user played from their hand
       //then call displayHumanHand again with the updated hand
@@ -138,9 +139,11 @@
 		// but I'm still not entirely sure how to use that in this case
 		
 		window.alert(cardString + " was clicked");
-		var ind = presenter.human.indexOf(cardString);
-		presenter.human.remove(ind);
-		presenter.view.displayHumanHand(presenter.human.list);
+		var card = pres.human.find(cardString);
+    var ind = pres.human.indexOf(card);
+    if(ind == -1 ) window.alert("index of card was not found");
+		pres.human.remove(ind);
+		pres.view.displayHumanHand(pres.human.getHandCopy());
 		return cardString;
     }, false);
     playerHand.appendChild(img);
