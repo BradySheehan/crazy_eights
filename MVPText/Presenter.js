@@ -90,49 +90,90 @@ Presenter.prototype.playCard = function (cardString) {
 };
 
 
-/**
- * Allow human to play.
- */
- Presenter.prototype.playHuman = function() {
-      var hand = this.human.getHandCopy(); // copy of hand for convenience
-      this.view.displayPileTopCard(this.pile.getTopCard());
-
-	// THIS ALL NEEDS TO BE MODIFIED TO REFLECT THE FACT THAT WE AREN'T USING 'p' ANYMORE OR RETURNING cardString
-
-      var cardString = this.view.displayHumanHand(hand);
-	   var card = this.human.find(cardString); //returns the card object from the cardString
-                                              //if the card is in the players hand
-    
-    //for part D: check to see if they selected an 8, if they did, we graphically display
-    //4 suits that they can pick from for playing that card
-    if(cardString[0] == "8") {
-
-    }
-
-    while (cardString != null && (!card || !this.pile.isValidToPlay(card))) {
-      this.view.displayWrongCardMsg(cardString);
-      cardString = this.view.displayHumanHand(hand);
-      card = this.human.find(cardString);
-    }
-      hand = null; // actual hand will change below, so don't use copy
-      if (cardString == "p") {
-        this.human.add(this.deck.dealACard());
-      }
-      else {
-        this.human.remove(this.human.indexOf(card));
-        this.pile.acceptACard(card);
-        if (this.pile.getTopCard().getValue() == "8") {
-          var suit;
-          do {
-            suit = this.view.displaySuitPicker(this.human.getHandCopy());
-          } while (!(suit == "c" || suit == "d" || suit == "h" || suit == "s"));
-          this.pile.setAnnouncedSuit(suit);
+Presenter.prototype.checkPlayedCard = function(cardString) {
+    var card = this.human.find(cardString);
+    window.alert("card picked " + cardString);
+    //we have the card. now check if this card is valid to play
+    //if this card is valid to play, we want to make the changes to the board
+    //if it isn't valid to play, we want to print an error message (but not change anything else)
+    if(this.pile.isValidToPlay(card)) {
+      window.alert("card is valid to play");
+      var ind = this.human.indexOf(card);
+      this.human.remove(ind);
+      //now remove all the children of this div and then call displayHumanHand to re add them
+      var playerHand = window.document.getElementById("playerHand");
+        var childNodesArray = playerHand.childNodes;
+        for(var i = 0; i < childNodesArray.length; i++) {
+          playerHand.removeChild(childNodesArray[i]);
         }
+      this.view.displayHumanHand(pres.human.getHandCopy()); //display new cards
+      //updating pile to have new top card
+      var pile = window.document.getElementById("table");
+      var img2 = this.pile.childNodes[1];
+      img2.setAttribute("src", card.getURL());
+      this.pile.acceptACard(card);
+      if (this.pile.getTopCard().getValue() == "8") {
+        var suit;
+        do {
+          suit = this.view.displaySuitPicker(this.human.getHandCopy());
+        } while (!(suit == "c" || suit == "d" || suit == "h" || suit == "s"));
+        this.pile.setAnnouncedSuit(suit);
       }
       if (this.human.isHandEmpty()) {
         this.view.announceHumanWinner();
       }
-    };
+    } else {
+      window.alert("card is not valid, try again please");
+    }
+};
+/**
+ * Allow human to play.
+ */
+ Presenter.prototype.playHuman = function() {
+  this.view.displayPileTopCard(this.pile.getTopCard());
+  this.view.displayHumanHand(this.human.getHandCopy());
+};
+
+
+ //      var hand = this.human.getHandCopy(); // copy of hand for convenience
+ //      this.view.displayPileTopCard(this.pile.getTopCard());
+
+	// // THIS ALL NEEDS TO BE MODIFIED TO REFLECT THE FACT THAT WE AREN'T USING 'p' ANYMORE OR RETURNING cardString
+
+ //      var cardString = this.view.displayHumanHand(hand);
+	//    var card = this.human.find(cardString); //returns the card object from the cardString
+ //                                              //if the card is in the players hand
+    
+ //    //for part D: check to see if they selected an 8, if they did, we graphically display
+ //    //4 suits that they can pick from for playing that card
+ //    if(cardString[0] == "8") {
+
+ //    }
+
+ //    while (cardString != null && (!card || !this.pile.isValidToPlay(card))) {
+ //      this.view.displayWrongCardMsg(cardString);
+ //      cardString = this.view.displayHumanHand(hand);
+ //      card = this.human.find(cardString);
+ //    }
+ //      hand = null; // actual hand will change below, so don't use copy
+ //      if (cardString == "p") {
+ //        this.human.add(this.deck.dealACard());
+ //      }
+ //      else {
+ //        this.human.remove(this.human.indexOf(card));
+ //        this.pile.acceptACard(card);
+ //        if (this.pile.getTopCard().getValue() == "8") {
+ //          var suit;
+ //          do {
+ //            suit = this.view.displaySuitPicker(this.human.getHandCopy());
+ //          } while (!(suit == "c" || suit == "d" || suit == "h" || suit == "s"));
+ //          this.pile.setAnnouncedSuit(suit);
+ //        }
+ //      }
+ //      if (this.human.isHandEmpty()) {
+ //        this.view.announceHumanWinner();
+ //      }
+ //    };
 
 /**
  * Play for the computer.  In this version, the computer always plays
@@ -169,4 +210,5 @@ Presenter.prototype.playCard = function (cardString) {
   Presenter.prototype.setSuit(suit) = function() {
     //set the suit
   }
+
 };
