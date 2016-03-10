@@ -57,17 +57,18 @@ View.prototype.setSuitListener = function() {
   window.alert("displaying pile top card");
   this.topCard = card;
   this.topCardString = "Top card of pile: " + card;
-  var pres = this.presenter;
   var table = window.document.getElementById("table");
-  var oldPile = table.childNodes[1];
   var newPile = window.document.createElement("img");
+  window.alert(table);
   newPile.setAttribute("src", card.getURL());
   newPile.setAttribute("alt", card.toString());
   newPile.style.left = "71px";
   newPile.style.top = "0";
   newPile.style.width = "71px";
   newPile.style.height = "96px";
-  table.replaceChild(oldPile, newPile);
+  table.removeChild(table.childNodes[1]);
+  table.appendChild(newPile);
+  window.alert("finished displaying pile top card");
   return table;
 };
 
