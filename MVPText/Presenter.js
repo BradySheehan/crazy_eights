@@ -58,44 +58,44 @@
   };
 
 
-Presenter.prototype.playCard = function (cardString) {
-	var card = this.human.find(cardString);
-   	window.alert("card picked " + card);
-	/*var ind = this.human.indexOf(card);
-   	if(ind == -1 ) {
-		window.alert("index of card was not found");
-	}
-	this.human.remove(ind);
-	//now remove all the children of this div and then call displayHumanHand to re add them
-	var playerHand = window.document.getElementById("playerHand");
-  	var childNodes = playerHand.childNodes;    	for(var i = 0; i < childNodes.length; i++) {
-		playerHand.removeChild(childNodes[i]);
-	}
-	this.view.displayHumanHand(pres.human.getHandCopy());*/
+// Presenter.prototype.playCard = function (cardString) {
+// 	var card = this.human.find(cardString);
+//    	window.alert("card picked " + card);
+// 	/*var ind = this.human.indexOf(card);
+//    	if(ind == -1 ) {
+// 		window.alert("index of card was not found");
+// 	}
+// 	this.human.remove(ind);
+// 	//now remove all the children of this div and then call displayHumanHand to re add them
+// 	var playerHand = window.document.getElementById("playerHand");
+//   	var childNodes = playerHand.childNodes;    	for(var i = 0; i < childNodes.length; i++) {
+// 		playerHand.removeChild(childNodes[i]);
+// 	}
+// 	this.view.displayHumanHand(pres.human.getHandCopy());*/
 
-	while (cardString != null && (!card || !this.pile.isValidToPlay(card))) {
-      this.view.displayWrongCardMsg(cardString);
-      card = this.human.find(cardString);
-    }
-	hand = null; // actual hand will change below, so don't use copy
-	if (cardString == "p") {
-		this.human.add(this.deck.dealACard());
-	}
-	else {
-	    this.human.remove(this.human.indexOf(card));
-	    this.pile.acceptACard(card);
-	    if (this.pile.getTopCard().getValue() == "8") {
-			var suit;
-	       	do {
-				suit = this.view.displaySuitPicker(this.human.getHandCopy());
-	       } while (!(suit == "c" || suit == "d" || suit == "h" || suit == "s"));
-	          this.pile.setAnnouncedSuit(suit);
-	    }
-	}
-	if (this.human.isHandEmpty()) {
-		this.view.announceHumanWinner();
-	}
-};
+// 	while (cardString != null && (!card || !this.pile.isValidToPlay(card))) {
+//       this.view.displayWrongCardMsg(cardString);
+//       card = this.human.find(cardString);
+//     }
+// 	hand = null; // actual hand will change below, so don't use copy
+// 	if (cardString == "p") {
+// 		this.human.add(this.deck.dealACard());
+// 	}
+// 	else {
+// 	    this.human.remove(this.human.indexOf(card));
+// 	    this.pile.acceptACard(card);
+// 	    if (this.pile.getTopCard().getValue() == "8") {
+// 			var suit;
+// 	       	do {
+// 				suit = this.view.displaySuitPicker(this.human.getHandCopy());
+// 	       } while (!(suit == "c" || suit == "d" || suit == "h" || suit == "s"));
+// 	          this.pile.setAnnouncedSuit(suit);
+// 	    }
+// 	}
+// 	if (this.human.isHandEmpty()) {
+// 		this.view.announceHumanWinner();
+// 	}
+// };
 
   /**
    * Verify that the card selected by the user is valid to play
@@ -160,13 +160,14 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
   window.alert("computer player's turn");
   var i=0;
   var hand = this.computer.getHandCopy(); // copy of hand for convenience
+  window.alert("computers hand size = " + hand.length);
   var card = hand[0];
   while (!this.pile.isValidToPlay(card) && i<hand.length-1) {
     i++;
     card = hand[i];
   }
-  hand = null; // actual hand will change below, so don't continue to use copy
   if (this.pile.isValidToPlay(card)) {
+    window.alert("card choice = " + card);
     this.computer.remove(i);
     this.pile.acceptACard(card);
     this.view.displayPileTopCard(card);
@@ -179,9 +180,11 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
     }
   }
   else {
+    window.alert("no valid card, pick a card");
     this.computer.add(this.deck.dealACard());
     this.view.displayComputerHand(this.computer.getHandCopy());
   }
+  window.alert("hand size now = " + hand.length);
   this.playHuman();
 };
 

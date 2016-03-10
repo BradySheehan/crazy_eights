@@ -90,6 +90,8 @@ View.prototype.displayTable = function(topCard) {
     window.alert(pickedCard + " was clicked");
     pres.human.add(pickedCard);
     pres.view.displayHumanHand(pres.human.getHandCopy()); //pass the updated hand to be displayed
+    window.alert("finished selecting card, call playComputer()");
+    pres.playComputer();
   };
   deck.setAttribute("src", "../images/PlayingCards/back.png");
   deck.setAttribute("alt", "Card Back");
