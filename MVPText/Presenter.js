@@ -103,7 +103,6 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       window.alert("card is valid to play");
       var ind = this.human.indexOf(card);
       this.human.remove(ind);
-      //now remove all the children of this div and then call displayHumanHand to re add them
       var playerHand = window.document.getElementById("playerHand");
       var childNodesArray = playerHand.childNodes;
       for(var i = 0; i < childNodesArray.length; i++) {
@@ -112,16 +111,17 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       this.view.displayHumanHand(this.human.getHandCopy()); //display new cards
       //updating pile to have new top card
       var pile = window.document.getElementById("table");
-      var img2 = this.pile.childNodes[1];
+      var img2 = pile.childNodes[1];
       img2.setAttribute("src", card.getURL());
-      this.pile.acceptACard(card);
       if (this.pile.getTopCard().getValue() == "8") {
+        window.alert("you played an 8!");
         var suit;
         do {
           suit = this.view.displaySuitPicker(this.human.getHandCopy());
         } while (!(suit == "c" || suit == "d" || suit == "h" || suit == "s"));
         this.pile.setAnnouncedSuit(suit);
-      }
+      } //end if
+      this.pile.acceptACard(card);
       if (this.human.isHandEmpty()) {
         this.view.announceHumanWinner();
       }

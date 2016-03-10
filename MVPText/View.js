@@ -15,6 +15,7 @@
  * Hand is an array of card's.
  */
  View.prototype.displayComputerHand = function(hand) {
+  window.alert("displaying computer hand");
   var left = 0;
   var computerHand = window.document.getElementById("computerHand");
   for (var i = 0; i < hand.length; i++) {
@@ -33,9 +34,10 @@
   return;
 };
 
-// I think this is for for part d, which is for selecting a suit graphically,
-// not for changing the card displayed
 
+/**
+ *  think this is for for part d, which is for selecting a suit graphically
+ */
 View.prototype.setSuitListener = function() {
    var presenter = this.presenter;
    var suitClickHandler = function(event) {
@@ -52,11 +54,12 @@ View.prototype.setSuitListener = function() {
   //when this function gets called, the image elements already exist
   //lets just replace the current top card of the pile with the top card
   //that needs to be there now
+  window.alert("displaying pile top card");
   this.topCard = card;
   this.topCardString = "Top card of pile: " + card;
   var pres = this.presenter;
-  var element = window.document.getElementById("table");
-  var oldPile = element.childNodes[1];
+  var table = window.document.getElementById("table");
+  var oldPile = table.childNodes[1];
   var newPile = window.document.createElement("img");
   newPile.setAttribute("src", card.getURL());
   newPile.setAttribute("alt", card.toString());
@@ -64,20 +67,20 @@ View.prototype.setSuitListener = function() {
   newPile.style.top = "0";
   newPile.style.width = "71px";
   newPile.style.height = "96px";
-  element.replaceChild(oldPile, newPile);
-  return element;
+  table.replaceChild(oldPile, newPile);
+  return table;
 };
-
 
 /**
  * Display the initial pile and deck images on the table.
+ * Only meant for initialization.
  */
 View.prototype.displayTable = function(topCard) {
+  window.alert("displaying table");
   this.topCard = topCard;
   this.topCardString = "Top card of pile: " + topCard;
   var pres = this.presenter;
   var element = window.document.getElementById("table");
-  
   var deck = window.document.createElement("img");
   var deckSelect = function() {
     // here we want to add a card from the top of the deck
