@@ -37,14 +37,23 @@
   window.alert("game started");
 }
   /**
-   * Play one complete game.
+   * Play one complete game. 
    */
+	// this function is only called once, and the do-while continues until someone wins
+	// this doesn't work yet..it might only be because the computerPlayer graphics need to be done...
+	// ...sometimes I will play a card and it will be displayed both on the pile and also still displayed in my hand
    Presenter.prototype.play = function () {
     do {
-      this.playHuman();
-      if (!this.human.isHandEmpty()) {
-        this.playComputer();
-      }
+		var humanHandSize = this.human.list.length; // previous length
+		window.alert("humanHandSize: " + humanHandSize);
+		var handSizeDifferent = false;
+      	this.playHuman(); 
+		if(humanHandSize != this.human.list.length) {
+			handSizeDifferent = true;
+		}
+      	if (!this.human.isHandEmpty() || handSizeDifferent) { // I made this '||', but feel like it should be '&&'
+        	this.playComputer();
+      	}
     } while (!(this.human.isHandEmpty() || this.computer.isHandEmpty()));
   };
 
@@ -133,7 +142,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
  * Allow human to play.
  */
  Presenter.prototype.playHuman = function() {
-  window.alert("human player's turn");
+  // window.alert("human player's turn");
   this.view.displayHumanHand(this.human.getHandCopy());
 };
 
@@ -165,7 +174,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       this.view.announceComputerWinner();
     }
   }
-  else {
+  else { 
     this.computer.add(this.deck.dealACard());
     this.view.displayComputerHand(this.computer.getHandCopy());
   }
