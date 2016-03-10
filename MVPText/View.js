@@ -1,19 +1,5 @@
 "use strict";
 
-
-//for each card in the hand, it will set the properties in the dom to display that card
-//by calling replace child, we "clear the screen"? - use it for the table
-//the table has two images the deck and the top card showing on the discard pile
-//an element that gets replaced , a span, with a card image as the program is running
-//
-//what about removing card from a hand when it is played? at every current time,
-//the dom has a set of hands, you can just remove them all and replace them with
-//a new hand (could use append child instead, but it turns out the updates are so fast
-//you don't even see them erase)
-//
-//need to call remove explicity (dom doesn't konw what is happening in the data structure)
-//
-
 /**
  * Provide methods for interacting with the user.
  */
@@ -79,7 +65,6 @@ View.prototype.setSuitListener = function() {
   newPile.style.width = "71px";
   newPile.style.height = "96px";
   element.replaceChild(oldPile, newPile);
-
   return element;
 };
 
@@ -92,8 +77,8 @@ View.prototype.displayTable = function(topCard) {
   this.topCardString = "Top card of pile: " + topCard;
   var pres = this.presenter;
   var element = window.document.getElementById("table");
+  
   var deck = window.document.createElement("img");
-
   var deckSelect = function() {
     // here we want to add a card from the top of the deck
     // to the player's hand to be displayed
@@ -102,7 +87,6 @@ View.prototype.displayTable = function(topCard) {
     pres.human.add(pickedCard);
     pres.view.displayHumanHand(pres.human.getHandCopy()); //pass the updated hand to be displayed
   };
-
   deck.setAttribute("src", "../images/PlayingCards/back.png");
   deck.setAttribute("alt", "Card Back");
   deck.style.left = "0";
@@ -120,21 +104,7 @@ View.prototype.displayTable = function(topCard) {
   pile.style.width = "71px";
   pile.style.height = "96px";
   element.appendChild(pile);
-}
-
-// View.prototype.displayDeck = function() {
-//   var pres = this.presenter;
-//   var element = window.document.getElementById("table");
-//   var deck = window.document.createElement("img");
-//   deck.setAttribute("src", "../images/PlayingCards/back.png");
-//   deck.setAttribute("alt", "Card Back");
-//   deck.style.left = "0";
-//   deck.style.top = "0";
-//   deck.style.width = "71px";
-//   deck.style.height = "96px";
-//   deck.addEventListener("click", deckSelect, false);
-//   element.appendChild(deck);
-// };
+};
 
 /**
  * Display a "wrong card" message (at the next opportunity).
@@ -144,15 +114,15 @@ View.prototype.displayTable = function(topCard) {
 };
 
 /**
- * Display the human hand.  This version also prompts the user
- * and returns the string entered.
+ * Display the human hand. This function assumes
+ * that the human hand is not displayed yet and 
+ * creates the necessary elements accordingly.
  */
  View.prototype.displayHumanHand = function(hand) {
   var playerHand = window.document.getElementById("playerHand");
   var pres = this.presenter;
   var humanSelect = function(event) {
 	  var cardString = event.target.alt;
-    // now PASS this cardString to a Presenter function,
 		pres.checkPlayedCard(cardString);
   }; //end humanSelect()
 

@@ -28,16 +28,13 @@
   this.human = new Player(this.deck);
   this.computer = new Player(this.deck);
 
-  // Create View.
-  // In this program, the view does not need to be able to
-  // refer back to the Presenter, but some programs might need to
-  // pass a reference to the Presenter (this) to the View constructor.
+  //create the view and start displaying the computer's hand and the table
   this.view = new View(this);
   this.view.displayComputerHand(this.computer.getHandCopy());
   this.view.displayTable(this.pile.getTopCard());
 
   //this.view.setSuitListener();
-  // window.alert("game started");
+  window.alert("game started");
 }
   /**
    * Play one complete game.
@@ -91,7 +88,11 @@ Presenter.prototype.playCard = function (cardString) {
 	}
 };
 
-
+  /**
+   * Verify that the card selected by the user is valid to play
+   * and update the hand and table accordingly. If the card is not
+   * valid to play, alert the user.
+   */
 Presenter.prototype.checkPlayedCard = function(cardString) {
     var card = this.human.find(cardString);
     window.alert("card picked " + cardString);
@@ -132,6 +133,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
  * Allow human to play.
  */
  Presenter.prototype.playHuman = function() {
+  window.alert("human player's turn");
   this.view.displayHumanHand(this.human.getHandCopy());
 };
 
