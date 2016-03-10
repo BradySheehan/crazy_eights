@@ -50,24 +50,50 @@
 // I think this is for for part d, which is for selecting a suit graphically,
 // not for changing the card displayed
 
-/*View.prototype.setSuitListener = function() {
+View.prototype.setSuitListener = function() {
    var presenter = this.presenter;
    var suitClickHandler = function(event) {
    // My code uses id attribute of event target to get suit
    		var suit = event.target.alt
    		presenter.setSuit(suit);
    };
-}*/
+};
 
 /**
  * Display the top card of the discard pile (at the next opportunity).
  */
- View.prototype.displayPileTopCard = function(card) {
-  window.alert("displayng Pile Top Card");
+ View.prototype.displayPileTopCard = function(card) { 
+  //when this function gets called, the image elements already exist
+  //lets just replace the current top card of the pile with the top card
+  //that needs to be there now
   this.topCard = card;
   this.topCardString = "Top card of pile: " + card;
   var pres = this.presenter;
   var element = window.document.getElementById("table");
+  var oldPile = element.childNodes[1];
+  var newPile = window.document.createElement("img");
+  newPile.setAttribute("src", card.getURL());
+  newPile.setAttribute("alt", card.toString());
+  newPile.style.left = "71px";
+  newPile.style.top = "0";
+  newPile.style.width = "71px";
+  newPile.style.height = "96px";
+  element.replaceChild(oldPile, newPile);
+
+  return element;
+};
+
+
+/**
+ * Display the initial pile and deck images on the table.
+ */
+View.prototype.displayTable = function(topCard) {
+  this.topCard = topCard;
+  this.topCardString = "Top card of pile: " + topCard;
+  var pres = this.presenter;
+  var element = window.document.getElementById("table");
+  var deck = window.document.createElement("img");
+
   var deckSelect = function() {
     // here we want to add a card from the top of the deck
     // to the player's hand to be displayed
@@ -75,14 +101,7 @@
     window.alert(pickedCard + " was clicked");
     pres.human.add(pickedCard);
     pres.view.displayHumanHand(pres.human.getHandCopy()); //pass the updated hand to be displayed
-  }
-  //remove any previous children of this div before adding the new ones.
-  var childNodesArray = element.childNodes;
-  for(var i = 0; i < childNodesArray.length; i++) {
-    element.removeChild(childNodesArray[i]);
-  }
-  var deck = window.document.createElement("img");
-  var pile = window.document.createElement("img");
+  };
 
   deck.setAttribute("src", "../images/PlayingCards/back.png");
   deck.setAttribute("alt", "Card Back");
@@ -93,16 +112,29 @@
   deck.addEventListener("click", deckSelect, false);
   element.appendChild(deck);
 
-  pile.setAttribute("src", card.getURL());
-  pile.setAttribute("alt", card.toString());
+  var pile = window.document.createElement("img");
+  pile.setAttribute("src", topCard.getURL());
+  pile.setAttribute("alt", topCard.toString());
   pile.style.left = "71px";
   pile.style.top = "0";
   pile.style.width = "71px";
   pile.style.height = "96px";
   element.appendChild(pile);
+}
 
-  return element;
-};
+// View.prototype.displayDeck = function() {
+//   var pres = this.presenter;
+//   var element = window.document.getElementById("table");
+//   var deck = window.document.createElement("img");
+//   deck.setAttribute("src", "../images/PlayingCards/back.png");
+//   deck.setAttribute("alt", "Card Back");
+//   deck.style.left = "0";
+//   deck.style.top = "0";
+//   deck.style.width = "71px";
+//   deck.style.height = "96px";
+//   deck.addEventListener("click", deckSelect, false);
+//   element.appendChild(deck);
+// };
 
 /**
  * Display a "wrong card" message (at the next opportunity).
@@ -119,52 +151,28 @@
   var playerHand = window.document.getElementById("playerHand");
   var pres = this.presenter;
   var humanSelect = function(event) {
-	  var cardString = event.target.alt; // now PASS this cardString to a Presenter function, but it's not working.....so we'll keep trying here
+	  var cardString = event.target.alt;
+    // now PASS this cardString to a Presenter function,
 		pres.checkPlayedCard(cardString);
-
-  //   window.alert(cardString + " was clicked");
-		// var card = pres.human.find(cardString);
-		// window.alert("Card picked: " + card);
-		// var ind = pres.human.indexOf(card); // this only returns that it was found sometimes
-		// window.alert("Index: " + ind);
-
-		// if(ind == -1 ) {
-		// 	window.alert("Index of card was not found.");
-		// }
-		// pres.human.remove(ind);
-
-	 //    //now remove all the children of this div and then call displayHumanHand to re add them
-		// var playerHand = window.document.getElementById("playerHand");
-	 //   	var childNodesArray = playerHand.childNodes;
-	 //   	for(var i = 0; i < childNodesArray.length; i++) {
-	 //   		playerHand.removeChild(childNodesArray[i]);
-	 //    }
-		// pres.view.displayHumanHand(pres.human.getHandCopy()); //display new cards
-
-  //   //updating pile to have new top card
-  //   var pile = window.document.getElementById("table");
-  //   var img2 = pile.childNodes[1];
-  //   img2.setAttribute("src", card.getURL());
-  //   pres.pile.acceptACard(card);
-  } //end humanSelect()
+  }; //end humanSelect()
 
   var left = 0;
   for (var i = 0; i < hand.length; i++) {
-	left += 15;
-    var img = window.document.createElement("img");
-    img.style.position = "absolute";
-    img.style.left = (left + "px");
-    img.style.top = "0";
-    img.style.width = "71px";
-    img.style.height = "96px";
-	img.style.zIndex = i;
-    img.style.height = "96px";
-	img.style.zIndex = i.toString();
-    img.setAttribute("src", hand[i].getURL());
-    img.setAttribute("alt", hand[i].toString());
-    img.addEventListener("click", humanSelect, false);
-    playerHand.appendChild(img);
-  }
+   left += 15;
+   var img = window.document.createElement("img");
+   img.style.position = "absolute";
+   img.style.left = (left + "px");
+   img.style.top = "0";
+   img.style.width = "71px";
+   img.style.height = "96px";
+   img.style.zIndex = i;
+   img.style.height = "96px";
+   img.style.zIndex = i.toString();
+   img.setAttribute("src", hand[i].getURL());
+   img.setAttribute("alt", hand[i].toString());
+   img.addEventListener("click", humanSelect, false);
+   playerHand.appendChild(img);
+ }
   // return cardString;
 };
 
