@@ -1,12 +1,4 @@
 "use strict";
-// One addition you will probably want to make to the end of the
-// Presenter constructor is code to ask the View to display the computer hand.
-// Otherwise, you won’t see the computer hand until after the user’s first round
-// of play. (The text-based program did not show the computer hand until after the
-//   user’s first play, but that was not a problem. Visually, however, it would look
-//   odd.) Other than this change, you will probably be able to use the provided
-// Presenter as-is for part (a) and make all of your changes in View.js.
-
 
 /**
  * Logic for the game Crazy Eights between a human and the computer.
@@ -44,58 +36,10 @@
 	// ...sometimes I will play a card and it will be displayed both on the pile and also still displayed in my hand
    Presenter.prototype.play = function () {
     this.playHuman();
-   // this.playComputer();
-
-
-    // do {
-    //   var humanHandSize = this.human.list.length; // previous length//
-    //   window.alert(humanHandSize);
-    //   this.playHuman();
-    // 	if (!this.human.isHandEmpty() && (this.human.list.length != humanHandSize)) {
-    //   	this.playComputer();
-    // 	}
-    // } while (!(this.human.isHandEmpty() || this.computer.isHandEmpty()));
   };
 
-
-// Presenter.prototype.playCard = function (cardString) {
-// 	var card = this.human.find(cardString);
-//    	window.alert("card picked " + card);
-// 	/*var ind = this.human.indexOf(card);
-//    	if(ind == -1 ) {
-// 		window.alert("index of card was not found");
-// 	}
-// 	this.human.remove(ind);
-// 	//now remove all the children of this div and then call displayHumanHand to re add them
-// 	var playerHand = window.document.getElementById("playerHand");
-//   	var childNodes = playerHand.childNodes;    	for(var i = 0; i < childNodes.length; i++) {
-// 		playerHand.removeChild(childNodes[i]);
-// 	}
-// 	this.view.displayHumanHand(pres.human.getHandCopy());*/
-
-// 	while (cardString != null && (!card || !this.pile.isValidToPlay(card))) {
-//       this.view.displayWrongCardMsg(cardString);
-//       card = this.human.find(cardString);
-//     }
-// 	hand = null; // actual hand will change below, so don't use copy
-// 	if (cardString == "p") {
-// 		this.human.add(this.deck.dealACard());
-// 	}
-// 	else {
-// 	    this.human.remove(this.human.indexOf(card));
-// 	    this.pile.acceptACard(card);
-// 	    if (this.pile.getTopCard().getValue() == "8") {
-// 			var suit;
-// 	       	do {
-// 				suit = this.view.displaySuitPicker(this.human.getHandCopy());
-// 	       } while (!(suit == "c" || suit == "d" || suit == "h" || suit == "s"));
-// 	          this.pile.setAnnouncedSuit(suit);
-// 	    }
-// 	}
-// 	if (this.human.isHandEmpty()) {
-// 		this.view.announceHumanWinner();
-// 	}
-// };
+  //NOTE: we should call the same function to
+  //continue game play after each event listener is called
 
   /**
    * Verify that the card selected by the user is valid to play
