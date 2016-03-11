@@ -45,6 +45,9 @@ View.prototype.setSuitListener = function() {
    		var suit = event.target.alt
    		presenter.setSuit(suit);
    };
+
+   //this code will add a listener to the 4 graphical suits that we 
+   //will display on the screen
 };
 
 /**

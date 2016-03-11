@@ -26,7 +26,6 @@
   this.view.displayTable(this.pile.getTopCard());
 
   //this.view.setSuitListener();
-  window.alert("game started");
 }
   /**
    * Play one complete game.
@@ -43,13 +42,6 @@
    * This function will update the human hand and have the computer take its turn.
    */
   Presenter.prototype.continueGame = function(pickedCard) {
-
-    // if (this.human.isHandEmpty()) {
-    //     this.view.announceHumanWinner();
-    // }
-    // if (this.computer.isHandEmpty()) {
-    //   this.view.announceComputerWinner();
-    // }
     this.human.add(pickedCard);
     this.view.displayHumanHand(this.human.getHandCopy()); //pass the updated hand to be displayed
     this.playComputer();
@@ -154,6 +146,8 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
 };
 
 
-  // Presenter.prototype.setSuit(suit) = function() {
-  //   //set the suit
-  // };
+  Presenter.prototype.setSuit(suit) = function() {
+    //set the suit
+    //
+    
+  };
