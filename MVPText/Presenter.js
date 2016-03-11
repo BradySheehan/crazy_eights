@@ -75,13 +75,20 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       var pile = window.document.getElementById("table");
       var img2 = pile.childNodes[1];
       img2.setAttribute("src", card.getURL());
+
       if (this.pile.getTopCard().getValue() == "8") {
+	
+		// if (condition), then set the display value of the div to "block"
+		// the event listener of the chosen suit will then be responsible for calling setAnnouncedSuit
+	
         var suit;
         do {
           suit = this.view.displaySuitPicker(this.human.getHandCopy());
         } while (!(suit == "c" || suit == "d" || suit == "h" || suit == "s"));
         this.pile.setAnnouncedSuit(suit);
       } //end if
+
+
       this.pile.acceptACard(card);
       this.view.displayPileTopCard(card);
       if (this.human.isHandEmpty()) {

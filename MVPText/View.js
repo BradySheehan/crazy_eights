@@ -36,19 +36,34 @@
 
 
 /**
- *  think this is for for part d, which is for selecting a suit graphically
+ *  Select a suit graphically for an 8 
  */
 View.prototype.setSuitListener = function() {
-   var presenter = this.presenter;
-   var suitClickHandler = function(event) {
-   // My code uses id attribute of event target to get suit
-   		var suit = event.target.alt
+	var presenter = this.presenter;
+	
+	var clubs = window.document.createElement("span");
+	clubs.id = "c";
+	var diamonds = window.document.createElement("span");
+	diamonds.id = "d";
+	var hearts = window.document.createElement("span");
+	hearts.id = "h";
+	var spades = window.document.createElement("span");
+	spades.id = "s";
+	
+	var suitPicker = window.document.createElement("div");
+	suitPicker.id = "suitPicker";
+	window.document.getElementById("body")[0].appendChild(suitPicker);
+	
+	var suitClickHandler = function(event) {
+		// My code uses id attribute of event target to get suit
+   		var suit = event.target.suit;
    		presenter.setSuit(suit);
    };
 
    //this code will add a listener to the 4 graphical suits that we 
    //will display on the screen
 };
+
 
 /**
  * Display the top card of the discard pile (at the next opportunity).
@@ -120,6 +135,9 @@ View.prototype.displayTable = function(topCard) {
  * Display the human hand. This function assumes
  * that the human hand is not displayed yet and 
  * creates the necessary elements accordingly.
+ * 
+ * For now, display graphical suit picker here
+ * 
  */
  View.prototype.displayHumanHand = function(hand) {
   var playerHand = window.document.getElementById("playerHand");
@@ -154,6 +172,9 @@ View.prototype.displayTable = function(topCard) {
  * and returns the string entered.
  */
  View.prototype.displaySuitPicker = function(hand) {
+	
+	// set the display value of the div to "block"
+	
    return window.prompt("Your hand: " + hand.toString() +
     "\nWhat suit would you like the 8 to represent" +
     " (c, d, h, or s)?");
