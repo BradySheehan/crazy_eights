@@ -38,6 +38,16 @@
     this.playHuman();
   };
 
+  // Presenter.prototype.continueGame() {
+
+  //   if (this.human.isHandEmpty()) {
+  //       this.view.announceHumanWinner();
+  //   }
+  //   if (this.computer.isHandEmpty()) {
+  //     this.view.announceComputerWinner();
+  //   }
+  // };
+
   //NOTE: we should call the same function to
   //continue game play after each event listener is called
 
@@ -48,12 +58,12 @@
    */
 Presenter.prototype.checkPlayedCard = function(cardString) {
     var card = this.human.find(cardString);
-    window.alert("card picked " + cardString);
+    //window.alert("card picked " + cardString);
     //we have the card. now check if this card is valid to play
     //if this card is valid to play, we want to make the changes to the board
     //if it isn't valid to play, we want to print an error message (but not change anything else)
     if(this.pile.isValidToPlay(card)) {
-      window.alert("card is valid to play");
+      //window.alert("card is valid to play");
       var ind = this.human.indexOf(card);
       this.human.remove(ind);
       var playerHand = window.document.getElementById("playerHand");
@@ -67,30 +77,30 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       var img2 = pile.childNodes[1];
       img2.setAttribute("src", card.getURL());
       if (this.pile.getTopCard().getValue() == "8") {
-        window.alert("you played an 8!");
+        //window.alert("you played an 8!");
         var suit;
         do {
           suit = this.view.displaySuitPicker(this.human.getHandCopy());
         } while (!(suit == "c" || suit == "d" || suit == "h" || suit == "s"));
         this.pile.setAnnouncedSuit(suit);
       } //end if
-      window.alert("here");
+      //window.alert("here");
       this.pile.acceptACard(card);
       this.view.displayPileTopCard(card);
       if (this.human.isHandEmpty()) {
         this.view.announceHumanWinner();
       }
-      window.alert("human finished turn");
+      //window.alert("human finished turn");
       this.playComputer();
     } else {
-      window.alert("card is not valid, try again please");
+      //window.alert("card is not valid, try again please");
     }
 };
 /**
  * Allow human to play.
  */
  Presenter.prototype.playHuman = function() {
-  //window.alert("human player's turn");
+  ////window.alert("human player's turn");
   this.view.displayHumanHand(this.human.getHandCopy());
 };
 
@@ -106,6 +116,12 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
   var hand = this.computer.getHandCopy(); // copy of hand for convenience
   window.alert("computers hand size = " + hand.length);
   var card = hand[0];
+  var computerHand = window.document.getElementById("computerHand");
+  var childNodesArray = computerHand.childNodes;
+  for(var i = 0; i < childNodesArray.length; i++) {
+    computerHand.removeChild(childNodesArray[i]);
+  }
+
   while (!this.pile.isValidToPlay(card) && i<hand.length-1) {
     i++;
     card = hand[i];
@@ -119,6 +135,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       this.pile.setAnnouncedSuit(card.getSuit());
     }
     this.view.displayComputerHand(this.computer.getHandCopy());
+    window.alert("finished displaying computer hand");
     if (this.computer.isHandEmpty()) {
       this.view.announceComputerWinner();
     }
@@ -128,7 +145,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
     this.computer.add(this.deck.dealACard());
     this.view.displayComputerHand(this.computer.getHandCopy());
   }
-  window.alert("hand size now = " + hand.length);
+  window.alert("hand size now = " + this.computer.list.length);
   this.playHuman();
 };
 

@@ -54,12 +54,12 @@ View.prototype.setSuitListener = function() {
   //when this function gets called, the image elements already exist
   //lets just replace the current top card of the pile with the top card
   //that needs to be there now
-  window.alert("displaying pile top card");
+  //window.alert("displaying pile top card");
   this.topCard = card;
   this.topCardString = "Top card of pile: " + card;
   var table = window.document.getElementById("table");
   var newPile = window.document.createElement("img");
-  window.alert(table);
+  //window.alert(table);
   newPile.setAttribute("src", card.getURL());
   newPile.setAttribute("alt", card.toString());
   newPile.style.left = "71px";
@@ -68,7 +68,7 @@ View.prototype.setSuitListener = function() {
   newPile.style.height = "96px";
   table.removeChild(table.childNodes[1]);
   table.appendChild(newPile);
-  window.alert("finished displaying pile top card");
+  //window.alert("finished displaying pile top card");
   return table;
 };
 
@@ -77,7 +77,7 @@ View.prototype.setSuitListener = function() {
  * Only meant for initialization.
  */
 View.prototype.displayTable = function(topCard) {
-  window.alert("displaying table");
+  //window.alert("displaying table");
   this.topCard = topCard;
   this.topCardString = "Top card of pile: " + topCard;
   var pres = this.presenter;
@@ -87,10 +87,10 @@ View.prototype.displayTable = function(topCard) {
     // here we want to add a card from the top of the deck
     // to the player's hand to be displayed
     var pickedCard = pres.deck.dealACard();
-    window.alert(pickedCard + " was clicked");
+    //window.alert(pickedCard + " was clicked");
     pres.human.add(pickedCard);
     pres.view.displayHumanHand(pres.human.getHandCopy()); //pass the updated hand to be displayed
-    window.alert("finished selecting card, call playComputer()");
+    //window.alert("finished selecting card, call playComputer()");
     pres.playComputer();
   };
   deck.setAttribute("src", "../images/PlayingCards/back.png");
