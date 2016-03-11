@@ -25,7 +25,7 @@
   this.view.displayComputerHand(this.computer.getHandCopy());
   this.view.displayTable(this.pile.getTopCard());
 
-  //this.view.setSuitListener();
+  this.view.setSuitListener();
 }
   /**
    * Play one complete game.
@@ -62,7 +62,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
     //if this card is valid to play, we want to make the changes to the board
     //if it isn't valid to play, we want to print an error message (but not change anything else)
     if(this.pile.isValidToPlay(card)) {
-      //window.alert("card is valid to play");
+      window.alert("card is valid to play");
       var ind = this.human.indexOf(card);
       this.human.remove(ind);
       var playerHand = window.document.getElementById("playerHand");
@@ -75,22 +75,15 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       var pile = window.document.getElementById("table");
       var img2 = pile.childNodes[1];
       img2.setAttribute("src", card.getURL());
-
-      if (this.pile.getTopCard().getValue() == "8") {
-	
-		// if (condition), then set the display value of the div to "block"
-		// the event listener of the chosen suit will then be responsible for calling setAnnouncedSuit
-	
-        var suit;
-        do {
-          suit = this.view.displaySuitPicker(this.human.getHandCopy());
-        } while (!(suit == "c" || suit == "d" || suit == "h" || suit == "s"));
-        this.pile.setAnnouncedSuit(suit);
-      } //end if
+      window.alert("here");
 
 
       this.pile.acceptACard(card);
       this.view.displayPileTopCard(card);
+      if (this.pile.getTopCard().getValue() == "8") {
+          window.alert("card is eight");
+         this.view.displaySuitPicker();
+      }
       if (this.human.isHandEmpty()) {
         this.view.announceHumanWinner();
       }
@@ -117,7 +110,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
   // Play the first playable card, or pick if none is playable.
   var i=0;
   var hand = this.computer.getHandCopy(); // copy of hand for convenience
-  window.alert("computer player's turn\n computer hand: " + hand);
+  //window.alert("computer player's turn\n computer hand: " + hand);
   // window.alert("computers hand size = " + hand.length);
   var computerHand = window.document.getElementById("computerHand");
   var childNodesArray = computerHand.childNodes;
@@ -131,7 +124,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
   }
   hand = null;
   if (this.pile.isValidToPlay(card)) {
-    window.alert("card choice = " + card);
+    //window.alert("card choice = " + card);
     this.computer.remove(i);
     this.pile.acceptACard(card);
     this.view.displayPileTopCard(card);
@@ -139,22 +132,26 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       this.pile.setAnnouncedSuit(card.getSuit());
     }
     this.view.displayComputerHand(this.computer.getHandCopy());
-    window.alert("finished displaying computer hand");
+    //window.alert("finished displaying computer hand");
     if (this.computer.isHandEmpty()) {
       this.view.announceComputerWinner();
     }
   }
   else {
-    window.alert("no valid card, pick a card");
+    //window.alert("no valid card, pick a card");
     this.computer.add(this.deck.dealACard());
     this.view.displayComputerHand(this.computer.getHandCopy());
   }
-  window.alert("hand now: " + this.computer.list);
+  //window.alert("hand now: " + this.computer.list);
 };
 
+/**
+ * Called from view with selected suit. Updates pile accordingly.
+ */
 
   Presenter.prototype.setSuit = function(suit) {
     //set the suit
     //
-    
+    this.pile.setAnnouncedSuit(suit);
+
   };

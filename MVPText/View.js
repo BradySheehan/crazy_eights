@@ -15,7 +15,7 @@
  * Hand is an array of card's.
  */
  View.prototype.displayComputerHand = function(hand) {
-  window.alert("displaying computer hand");
+ // window.alert("displaying computer hand");
   var left = 0;
   var computerHand = window.document.getElementById("computerHand");
   for (var i = 0; i < hand.length; i++) {
@@ -36,39 +36,41 @@
 
 
 /**
- *  Select a suit graphically for an 8 
+ *  Select a suit graphically for an 8
  */
 View.prototype.setSuitListener = function() {
-	var presenter = this.presenter;
-	
-	var clubs = window.document.createElement("span");
-	clubs.id = "c";
-	var diamonds = window.document.createElement("span");
-	diamonds.id = "d";
-	var hearts = window.document.createElement("span");
-	hearts.id = "h";
-	var spades = window.document.createElement("span");
-	spades.id = "s";
-	
-	var suitPicker = window.document.createElement("div");
-	suitPicker.id = "suitPicker";
-	window.document.getElementById("body")[0].appendChild(suitPicker);
-	
-	var suitClickHandler = function(event) {
-		// My code uses id attribute of event target to get suit
-   		var suit = event.target.suit;
-   		presenter.setSuit(suit);
-   };
 
-   //this code will add a listener to the 4 graphical suits that we 
+   //this code will add a listener to the 4 graphical suits that we
    //will display on the screen
+	var presenter = this.presenter;
+  var suitClicker = function(event) {
+    var suit = event.target.id;
+    presenter.setSuit(suit);
+    var pile = window.document.getElementById("table").childNodes[1];
+    pile.setAttribute("src", "../images/PlayingCards/" + "8"+suit + ".png");
+    pile.setAttribute("alt", "8"+suit);
+    var suitMenu = window.document.getElementById("suitMenu");
+    suitMenu.style.display="none";
+  };
+
+  var clubs = window.document.getElementById("c");
+  clubs.addEventListener("click",suitClicker, false);
+
+  var diamonds = window.document.getElementById("d");
+  diamonds.addEventListener("click",suitClicker, false);
+
+  var hearts = window.document.getElementById("h");
+  hearts.addEventListener("click",suitClicker, false);
+
+  var spades = window.document.getElementById("s");
+  spades.addEventListener("click",suitClicker, false);
 };
 
 
 /**
  * Display the top card of the discard pile (at the next opportunity).
  */
- View.prototype.displayPileTopCard = function(card) { 
+ View.prototype.displayPileTopCard = function(card) {
   //when this function gets called, the image elements already exist
   //lets just replace the current top card of the pile with the top card
   //that needs to be there now
@@ -133,11 +135,11 @@ View.prototype.displayTable = function(topCard) {
 
 /**
  * Display the human hand. This function assumes
- * that the human hand is not displayed yet and 
+ * that the human hand is not displayed yet and
  * creates the necessary elements accordingly.
- * 
+ *
  * For now, display graphical suit picker here
- * 
+ *
  */
  View.prototype.displayHumanHand = function(hand) {
   var playerHand = window.document.getElementById("playerHand");
@@ -172,12 +174,13 @@ View.prototype.displayTable = function(topCard) {
  * and returns the string entered.
  */
  View.prototype.displaySuitPicker = function(hand) {
-	
+
 	// set the display value of the div to "block"
-	
-   return window.prompt("Your hand: " + hand.toString() +
-    "\nWhat suit would you like the 8 to represent" +
-    " (c, d, h, or s)?");
+  
+  //grab reference to the div and remove display:none
+  window.alert("display suit picker");
+  var suitMenu = window.document.getElementById("suitMenu");
+  suitMenu.style.display="block";
  };
 
 

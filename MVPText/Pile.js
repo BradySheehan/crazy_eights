@@ -7,7 +7,6 @@ function Pile() {
   /** List of cards on the pile. */
   // For simplicity, 0 is considered the top card of the pile.
   this.list = new Array();
-  
   /** If an 8 is played, this is the announced suit preference. */
   this.announcedSuit = "";
 }
@@ -19,7 +18,7 @@ Pile.prototype = {
   isValidToPlay: function (card) {
     var retVal = false;
     var topCard = this.getTopCard();
-	//window.alert("Top Card of Pile: " + topCard.toString());
+	window.alert("Top Card of Pile: " + topCard.toString());
     if (card.getValue() == "8") {
       retVal = true;
     }
