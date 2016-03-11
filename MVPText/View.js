@@ -177,3 +177,5 @@ View.prototype.displayTable = function(topCard) {
   window.alert("Oh yeah!!  I am a WINNER and you are a, well, non-winner.");
 };
 
+
+//still need event listener for suit picker

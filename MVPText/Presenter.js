@@ -54,7 +54,7 @@
   /**
    * Verify that the card selected by the user is valid to play
    * and update the hand and table accordingly. If the card is not
-   * valid to play, alert the user.
+   * valid to play, alert the user. THIS IS A HANDLER
    */
 Presenter.prototype.checkPlayedCard = function(cardString) {
     var card = this.human.find(cardString);
@@ -93,7 +93,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       //window.alert("human finished turn");
       this.playComputer();
     } else {
-      //window.alert("card is not valid, try again please");
+      window.alert("card is not valid, try again please");
     }
 };
 /**
@@ -115,13 +115,12 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
   var i=0;
   var hand = this.computer.getHandCopy(); // copy of hand for convenience
   window.alert("computers hand size = " + hand.length);
-  var card = hand[0];
   var computerHand = window.document.getElementById("computerHand");
   var childNodesArray = computerHand.childNodes;
   for(var i = 0; i < childNodesArray.length; i++) {
     computerHand.removeChild(childNodesArray[i]);
   }
-
+  var card = hand[0];
   while (!this.pile.isValidToPlay(card) && i<hand.length-1) {
     i++;
     card = hand[i];
@@ -146,7 +145,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
     this.view.displayComputerHand(this.computer.getHandCopy());
   }
   window.alert("hand size now = " + this.computer.list.length);
-  this.playHuman();
+  //this.playHuman();
 };
 
 
