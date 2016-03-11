@@ -146,7 +146,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
 };
 
 
-  Presenter.prototype.setSuit(suit) = function() {
+  Presenter.prototype.setSuit = function(suit) {
     //set the suit
     //
     
