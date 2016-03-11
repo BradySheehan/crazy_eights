@@ -38,15 +38,22 @@
     this.playHuman();
   };
 
-  // Presenter.prototype.continueGame() {
+  /**
+   * This function gets called whenever the human selects a card off the deck. 
+   * This function will update the human hand and have the computer take its turn.
+   */
+  Presenter.prototype.continueGame = function(pickedCard) {
 
-  //   if (this.human.isHandEmpty()) {
-  //       this.view.announceHumanWinner();
-  //   }
-  //   if (this.computer.isHandEmpty()) {
-  //     this.view.announceComputerWinner();
-  //   }
-  // };
+    // if (this.human.isHandEmpty()) {
+    //     this.view.announceHumanWinner();
+    // }
+    // if (this.computer.isHandEmpty()) {
+    //   this.view.announceComputerWinner();
+    // }
+    this.human.add(pickedCard);
+    this.view.displayHumanHand(this.human.getHandCopy()); //pass the updated hand to be displayed
+    this.playComputer();
+  };
 
   //NOTE: we should call the same function to
   //continue game play after each event listener is called
@@ -77,14 +84,12 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       var img2 = pile.childNodes[1];
       img2.setAttribute("src", card.getURL());
       if (this.pile.getTopCard().getValue() == "8") {
-        //window.alert("you played an 8!");
         var suit;
         do {
           suit = this.view.displaySuitPicker(this.human.getHandCopy());
         } while (!(suit == "c" || suit == "d" || suit == "h" || suit == "s"));
         this.pile.setAnnouncedSuit(suit);
       } //end if
-      //window.alert("here");
       this.pile.acceptACard(card);
       this.view.displayPileTopCard(card);
       if (this.human.isHandEmpty()) {
@@ -111,10 +116,10 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
  */
  Presenter.prototype.playComputer = function() {
   // Play the first playable card, or pick if none is playable.
-  window.alert("computer player's turn");
   var i=0;
   var hand = this.computer.getHandCopy(); // copy of hand for convenience
-  window.alert("computers hand size = " + hand.length);
+  window.alert("computer player's turn\n computer hand: " + hand);
+  // window.alert("computers hand size = " + hand.length);
   var computerHand = window.document.getElementById("computerHand");
   var childNodesArray = computerHand.childNodes;
   for(var i = 0; i < childNodesArray.length; i++) {
@@ -125,6 +130,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
     i++;
     card = hand[i];
   }
+  hand = null;
   if (this.pile.isValidToPlay(card)) {
     window.alert("card choice = " + card);
     this.computer.remove(i);
@@ -144,8 +150,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
     this.computer.add(this.deck.dealACard());
     this.view.displayComputerHand(this.computer.getHandCopy());
   }
-  window.alert("hand size now = " + this.computer.list.length);
-  //this.playHuman();
+  window.alert("hand now: " + this.computer.list);
 };
 
 

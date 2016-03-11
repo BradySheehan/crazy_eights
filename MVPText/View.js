@@ -77,7 +77,6 @@ View.prototype.setSuitListener = function() {
  * Only meant for initialization.
  */
 View.prototype.displayTable = function(topCard) {
-  //window.alert("displaying table");
   this.topCard = topCard;
   this.topCardString = "Top card of pile: " + topCard;
   var pres = this.presenter;
@@ -86,12 +85,7 @@ View.prototype.displayTable = function(topCard) {
   var deckSelect = function() {
     // here we want to add a card from the top of the deck
     // to the player's hand to be displayed
-    var pickedCard = pres.deck.dealACard();
-    //window.alert(pickedCard + " was clicked");
-    pres.human.add(pickedCard);
-    pres.view.displayHumanHand(pres.human.getHandCopy()); //pass the updated hand to be displayed
-    //window.alert("finished selecting card, call playComputer()");
-    pres.playComputer();
+    pres.continueGame(pres.deck.dealACard());
   };
   deck.setAttribute("src", "../images/PlayingCards/back.png");
   deck.setAttribute("alt", "Card Back");
