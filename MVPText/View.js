@@ -158,6 +158,7 @@ View.prototype.displaySuitPicker = function(hand) {
  */
  View.prototype.announceHumanWinner = function() {
   window.alert("Your weak father should be ashamed of you");
+  window.location.reload(false);
 };
 
 /**
@@ -165,4 +166,5 @@ View.prototype.displaySuitPicker = function(hand) {
  */
  View.prototype.announceComputerWinner = function() {
   window.alert("Oh yeah!!  I am a WINNER and you are a, well, non-winner.");
+  window.location.reload(false);
 };
