@@ -162,7 +162,7 @@ View.prototype.displaySuitPicker = function(hand) {
  * Announce that human has won.
  */
  View.prototype.announceHumanWinner = function() {
-  window.alert("Like, congrats 'n' 'at...");
+  window.alert("Your weak father should be ashamed of you");
 };
 
 /**
