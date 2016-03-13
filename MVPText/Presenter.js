@@ -19,12 +19,10 @@
   this.pile.acceptACard(this.deck.dealACard());
   this.human = new Player(this.deck);
   this.computer = new Player(this.deck);
-
   //create the view and start displaying the computer's hand and the table
   this.view = new View(this);
   this.view.displayComputerHand(this.computer.getHandCopy());
   this.view.displayTable(this.pile.getTopCard());
-
   this.view.setSuitListener();
 }
   /**
@@ -38,7 +36,7 @@
   };
 
   /**
-   * This function gets called whenever the human selects a card off the deck. 
+   * This function gets called whenever the human selects a card off the deck.
    * This function will update the human hand and have the computer take its turn.
    */
   Presenter.prototype.continueGame = function(pickedCard) {
@@ -62,7 +60,7 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
     //if this card is valid to play, we want to make the changes to the board
     //if it isn't valid to play, we want to print an error message (but not change anything else)
     if(this.pile.isValidToPlay(card)) {
-      window.alert("card is valid to play");
+      //window.alert("card is valid to play");
       var ind = this.human.indexOf(card);
       this.human.remove(ind);
       var playerHand = window.document.getElementById("playerHand");
@@ -75,13 +73,11 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       var pile = window.document.getElementById("table");
       var img2 = pile.childNodes[1];
       img2.setAttribute("src", card.getURL());
-      window.alert("here");
-
-
+     // window.alert("here");
       this.pile.acceptACard(card);
       this.view.displayPileTopCard(card);
       if (this.pile.getTopCard().getValue() == "8") {
-          window.alert("card is eight");
+          //window.alert("card is eight");
          this.view.displaySuitPicker();
       }
       if (this.human.isHandEmpty()) {
@@ -150,8 +146,5 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
  */
 
   Presenter.prototype.setSuit = function(suit) {
-    //set the suit
-    //
     this.pile.setAnnouncedSuit(suit);
-
   };
