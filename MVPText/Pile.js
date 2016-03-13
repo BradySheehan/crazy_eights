@@ -18,7 +18,7 @@ Pile.prototype = {
   isValidToPlay: function (card) {
     var retVal = false;
     var topCard = this.getTopCard();
-	window.alert("Top Card of Pile: " + topCard.toString());
+	//window.alert("Top Card of Pile: " + topCard.toString());
     if (card.getValue() == "8") {
       retVal = true;
     }

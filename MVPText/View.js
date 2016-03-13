@@ -178,7 +178,7 @@ View.prototype.displayTable = function(topCard) {
 	// set the display value of the div to "block"
   
   //grab reference to the div and remove display:none
-  window.alert("display suit picker");
+ // window.alert("display suit picker");
   var suitMenu = window.document.getElementById("suitMenu");
   suitMenu.style.display="block";
  };
