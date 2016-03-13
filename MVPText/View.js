@@ -13,7 +13,6 @@
  * Hand is an array of card's.
  */
  View.prototype.displayComputerHand = function(hand) {
-  //were not removing the computer's hand before
   var computerHand = window.document.getElementById("computerHand");
   while (computerHand.firstChild) {
     computerHand.removeChild(computerHand.firstChild);
@@ -68,9 +67,6 @@ View.prototype.setSuitListener = function() {
  * Display the top card of the discard pile (at the next opportunity).
  */
  View.prototype.displayPileTopCard = function(card) {
-  //when this function gets called, the image elements already exist
-  //lets just replace the current top card of the pile with the top card
-  //that needs to be there now
   this.topCard = card;
   var table = window.document.getElementById("table");
   var newPile = window.document.createElement("img");
@@ -156,7 +152,6 @@ View.prototype.displaySuitPicker = function(hand) {
 	var suitMenu = window.document.getElementById("suitMenu");
 	suitMenu.style.display="block";
 };
-
 
 /**
  * Announce that human has won.

@@ -41,9 +41,6 @@
     this.playComputer();
   };
 
-  //NOTE: we should call the same function to
-  //continue game play after each event listener is called
-
   /**
    * Verify that the card selected by the user is valid to play
    * and update the hand and table accordingly. If the card is not
