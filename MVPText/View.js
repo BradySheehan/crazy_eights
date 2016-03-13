@@ -158,7 +158,7 @@ View.prototype.displaySuitPicker = function(hand) {
  * so that they can play again.
  */
  View.prototype.announceHumanWinner = function() {
-  window.alert("Your weak father should be ashamed of you");
+  window.alert("Congratulations... you can beat a computer in a silly card game");
   window.location.reload(false);
   return;
 };
@@ -168,7 +168,7 @@ View.prototype.displaySuitPicker = function(hand) {
  * so that they can play again.
  */
  View.prototype.announceComputerWinner = function() {
-  window.alert("Oh yeah!!  I am a WINNER and you are a, well, non-winner.");
+  window.alert("Your weak father should be ashamed of you");
   window.location.reload(false);
   return;
 };
