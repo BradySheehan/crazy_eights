@@ -5,8 +5,6 @@
  */
  function View(presenter) {
   this.topCard = null;
-  this.topCardString = "";
-  this.errorString = "";
   this.presenter = presenter;
 }
 
@@ -93,7 +91,6 @@ View.prototype.setSuitListener = function() {
  */
 View.prototype.displayTable = function(topCard) {
   this.topCard = topCard;
-  this.topCardString = "Top card of pile: " + topCard;
   var pres = this.presenter;
   var element = window.document.getElementById("table");
   var deck = window.document.createElement("img");
@@ -133,8 +130,7 @@ View.prototype.displayHumanHand = function(hand) {
   var playerHand = window.document.getElementById("playerHand");
 	var pres = this.presenter;
 	var humanSelect = function(event) {
- 	var cardString = event.target.alt;
-    pres.checkPlayedCard(cardString);
+    pres.checkPlayedCard(event.target.alt);
 	}; //end humanSelect()
 
 	while (playerHand.firstChild) {
@@ -157,7 +153,6 @@ View.prototype.displayHumanHand = function(hand) {
    img.addEventListener("click", humanSelect, false);
    playerHand.appendChild(img);
  }
-  // return cardString;
 };
 
 /**

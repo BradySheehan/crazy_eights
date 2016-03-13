@@ -64,24 +64,9 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       var ind = this.human.indexOf(card);
       this.human.remove(ind);
       var playerHand = window.document.getElementById("playerHand");
-      var childNodesArray = playerHand.childNodes;
-		window.alert("Length of player hand: " + playerHand.childNodes.length);
-		
-		// I looked at the html as the game was playing and cards weren't actually getting 
-    // removed (which was causing weird things to happen with z-indices too). 
-    // I used the while loop below instead from Stack Overflow 
-    // [http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript] 
-    // to remove all the children and it seems to work fine when we are just playing a card from our hand. 
-    // If you watch the player hand div while the game is playing, it makes sense now
-		
-      /*for(var i = 0; i < playerHand.childNodes.length; i++) {
-        playerHand.removeChild(childNodesArray[i]);
-      }*/
-
-		while (playerHand.firstChild) {
-			playerHand.removeChild(playerHand.firstChild);
-		}
-		window.alert("After removal length of player hand (should be 0): " + playerHand.childNodes.length); // should be 0
+		  while (playerHand.firstChild) {
+			 playerHand.removeChild(playerHand.firstChild);
+		  }
       this.view.displayHumanHand(this.human.getHandCopy()); //display new cards
       //updating pile to have new top card
       var pile = window.document.getElementById("table");
@@ -97,17 +82,15 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       if (this.human.isHandEmpty()) {
         this.view.announceHumanWinner();
       }
-      //window.alert("human finished turn");
       this.playComputer();
     } else {
-      window.alert("card is not valid, try again please");
+      window.alert("That card is not valid, please pick another card.");
     }
 };
 /**
  * Allow human to play.
  */
  Presenter.prototype.playHuman = function() {
-  ////window.alert("human player's turn");
   this.view.displayHumanHand(this.human.getHandCopy());
 };
 
