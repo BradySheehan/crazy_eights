@@ -137,17 +137,18 @@ View.prototype.displayTable = function(topCard) {
  * Display the human hand. This function assumes
  * that the human hand is not displayed yet and
  * creates the necessary elements accordingly.
- *
- * For now, display graphical suit picker here
- *
  */
- View.prototype.displayHumanHand = function(hand) {
-  var playerHand = window.document.getElementById("playerHand");
-  var pres = this.presenter;
-  var humanSelect = function(event) {
-	  var cardString = event.target.alt;
-		pres.checkPlayedCard(cardString);
-  }; //end humanSelect()
+View.prototype.displayHumanHand = function(hand) {
+  	var playerHand = window.document.getElementById("playerHand");
+  	var pres = this.presenter;
+  	var humanSelect = function(event) {
+ 		var cardString = event.target.alt;	  		pres.checkPlayedCard(cardString);
+	}; //end humanSelect()
+	
+	// we weren't removing the children here before
+	while (playerHand.firstChild) {
+		playerHand.removeChild(playerHand.firstChild);
+	}
 
   var left = 0;
   for (var i = 0; i < hand.length; i++) {
@@ -173,15 +174,15 @@ View.prototype.displayTable = function(topCard) {
  * Display the suit picker.  This version also prompts the user
  * and returns the string entered.
  */
- View.prototype.displaySuitPicker = function(hand) {
+View.prototype.displaySuitPicker = function(hand) {
 
 	// set the display value of the div to "block"
   
   //grab reference to the div and remove display:none
  // window.alert("display suit picker");
-  var suitMenu = window.document.getElementById("suitMenu");
-  suitMenu.style.display="block";
- };
+	var suitMenu = window.document.getElementById("suitMenu");
+	suitMenu.style.display="block";
+};
 
 
 /**
