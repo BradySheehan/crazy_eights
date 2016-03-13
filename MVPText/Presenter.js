@@ -101,8 +101,6 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
   // Play the first playable card, or pick if none is playable.
   var i=0;
   var hand = this.computer.getHandCopy(); // copy of hand for convenience
-  //window.alert("computer player's turn\n computer hand: " + hand);
-  // window.alert("computers hand size = " + hand.length);
   var computerHand = window.document.getElementById("computerHand");
   while (computerHand.firstChild) {
     computerHand.removeChild(computerHand.firstChild);

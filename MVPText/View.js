@@ -60,6 +60,7 @@ View.prototype.setSuitListener = function() {
   hearts.addEventListener("click",suitClicker, false);
   var spades = window.document.getElementById("s");
   spades.addEventListener("click",suitClicker, false);
+  return;
 };
 
 
@@ -71,7 +72,6 @@ View.prototype.setSuitListener = function() {
   //lets just replace the current top card of the pile with the top card
   //that needs to be there now
   this.topCard = card;
-  this.topCardString = "Top card of pile: " + card;
   var table = window.document.getElementById("table");
   var newPile = window.document.createElement("img");
   newPile.setAttribute("src", card.getURL());
@@ -114,13 +114,7 @@ View.prototype.displayTable = function(topCard) {
   pile.style.width = "71px";
   pile.style.height = "96px";
   element.appendChild(pile);
-};
-
-/**
- * Display a "wrong card" message (at the next opportunity).
- */
- View.prototype.displayWrongCardMsg = function(cardString) {
-  this.errorString = "Bad input '" + cardString + "'. Please try again.";
+  return;
 };
 
 /**
