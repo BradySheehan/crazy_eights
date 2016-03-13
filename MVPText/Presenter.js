@@ -19,7 +19,6 @@
   this.pile.acceptACard(this.deck.dealACard());
   this.human = new Player(this.deck);
   this.computer = new Player(this.deck);
-  //create the view and start displaying the computer's hand and the table
   this.view = new View(this);
   this.view.displayComputerHand(this.computer.getHandCopy());
   this.view.displayTable(this.pile.getTopCard());
@@ -28,9 +27,6 @@
   /**
    * Play one complete game.
    */
-	// this function is only called once, and the do-while continues until someone wins
-	// this doesn't work yet..it might only be because the computerPlayer graphics need to be done...
-	// ...sometimes I will play a card and it will be displayed both on the pile and also still displayed in my hand
    Presenter.prototype.play = function () {
     this.playHuman();
   };
