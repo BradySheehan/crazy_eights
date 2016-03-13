@@ -45,13 +45,12 @@ View.prototype.setSuitListener = function() {
 	var presenter = this.presenter;
   var suitClicker = function(event) {
     var suit = event.target.id;
-    presenter.setSuit(suit);
     var pile = window.document.getElementById("table").childNodes[1];
     pile.setAttribute("src", "../images/PlayingCards/" + "8"+suit + ".png");
     pile.setAttribute("alt", "8"+suit);
     var suitMenu = window.document.getElementById("suitMenu");
     suitMenu.style.display="none";
-    presenter.playComputer(); //we didn't call playComputer if we displayed the suit picker..
+    presenter.continueGameAfterSuitSelection(suit);
   };
   var clubs = window.document.getElementById("c");
   clubs.addEventListener("click",suitClicker, false);

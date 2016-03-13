@@ -76,13 +76,10 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       } else {
         if (this.human.isHandEmpty()) {
           this.view.announceHumanWinner();
+        } else {
+          this.playComputer();
         }
-        this.playComputer();
       }
-      if (this.human.isHandEmpty()) {
-        this.view.announceHumanWinner();
-      }
-      //this.playComputer();
     } else {
       window.alert("That card is not valid, please pick another card.");
     }
@@ -137,6 +134,11 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
 /**
  * Called from view with selected suit. Updates pile accordingly.
  */
-  Presenter.prototype.setSuit = function(suit) {
+  Presenter.prototype.continueGameAfterSuitSelection = function(suit) {
     this.pile.setAnnouncedSuit(suit);
+    if (this.human.isHandEmpty()) {
+        this.view.announceHumanWinner();
+    } else {
+      this.playComputer(); //we didn't call playComputer if we displayed the suit picker..
+    }
   };
