@@ -51,6 +51,7 @@ View.prototype.setSuitListener = function() {
     pile.setAttribute("alt", "8"+suit);
     var suitMenu = window.document.getElementById("suitMenu");
     suitMenu.style.display="none";
+    presenter.playComputer(); //we didn't call playComputer if we displayed the suit picker..
   };
   var clubs = window.document.getElementById("c");
   clubs.addEventListener("click",suitClicker, false);

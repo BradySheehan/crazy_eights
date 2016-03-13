@@ -55,12 +55,10 @@
    */
 Presenter.prototype.checkPlayedCard = function(cardString) {
     var card = this.human.find(cardString);
-    //window.alert("card picked " + cardString);
     //we have the card. now check if this card is valid to play
     //if this card is valid to play, we want to make the changes to the board
     //if it isn't valid to play, we want to print an error message (but not change anything else)
     if(this.pile.isValidToPlay(card)) {
-      //window.alert("card is valid to play");
       var ind = this.human.indexOf(card);
       this.human.remove(ind);
       var playerHand = window.document.getElementById("playerHand");
@@ -68,25 +66,28 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
 			 playerHand.removeChild(playerHand.firstChild);
 		  }
       this.view.displayHumanHand(this.human.getHandCopy()); //display new cards
-      //updating pile to have new top card
       var pile = window.document.getElementById("table");
       var img2 = pile.childNodes[1];
       img2.setAttribute("src", card.getURL());
-     // window.alert("here");
       this.pile.acceptACard(card);
       this.view.displayPileTopCard(card);
       if (this.pile.getTopCard().getValue() == "8") {
-          //window.alert("card is eight");
          this.view.displaySuitPicker();
+      } else {
+        if (this.human.isHandEmpty()) {
+          this.view.announceHumanWinner();
+        }
+        this.playComputer();
       }
       if (this.human.isHandEmpty()) {
         this.view.announceHumanWinner();
       }
-      this.playComputer();
+      //this.playComputer();
     } else {
       window.alert("That card is not valid, please pick another card.");
     }
 };
+
 /**
  * Allow human to play.
  */
@@ -116,7 +117,6 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
   }
   hand = null;
   if (this.pile.isValidToPlay(card)) {
-    //window.alert("card choice = " + card);
     this.computer.remove(i);
     this.pile.acceptACard(card);
     this.view.displayPileTopCard(card);
@@ -124,23 +124,19 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       this.pile.setAnnouncedSuit(card.getSuit());
     }
     this.view.displayComputerHand(this.computer.getHandCopy());
-    //window.alert("finished displaying computer hand");
     if (this.computer.isHandEmpty()) {
       this.view.announceComputerWinner();
     }
   }
   else {
-    //window.alert("no valid card, pick a card");
     this.computer.add(this.deck.dealACard());
     this.view.displayComputerHand(this.computer.getHandCopy());
   }
-  //window.alert("hand now: " + this.computer.list);
 };
 
 /**
  * Called from view with selected suit. Updates pile accordingly.
  */
-
   Presenter.prototype.setSuit = function(suit) {
     this.pile.setAnnouncedSuit(suit);
   };
