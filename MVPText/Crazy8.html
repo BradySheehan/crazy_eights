@@ -22,24 +22,14 @@
     <!-- Main program -->
     <script type="text/javascript" src="Main.js">
     </script>
-    <!-- You'll probably want to add one or more style elements. -->
-
   </head>
   <body onload="init();">
-    <!--
-	 You can add div's and whatnot here, as in the
-	 static page provided.  You might also want to add
-	 a div, initially set to display:none, representing
-	 the suit picker (if you are implementing part (d)).
-
-	 However, for full credit, you should not add any HTML
-	 intrinsic event attributes, e.g., onclick.
-      -->
 
     <div id="computerHand" style='position:relative;height:100px'></div>
     <div id="table" style='height:100px'></div>
     <div id="playerHand" style='position:relative;height:100px'></div>
-    <div id="suitMenu" style='position:absolute;height:30px;left:250px;top:150px;display:none;'>
+    <div id="suitMenu" style='position:absolute;height:30px;left:250px;top:125px;display:none;'>
+        <p>What suit would you like the 8 to be?</p>
         <span id="c">&clubs;</span>
         <span id="d" style='color:red'>&diams;</span>
         <span id="h" style='color:red'>&hearts;</span>

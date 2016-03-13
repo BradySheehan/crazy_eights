@@ -67,7 +67,12 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
       var childNodesArray = playerHand.childNodes;
 		window.alert("Length of player hand: " + playerHand.childNodes.length);
 		
-		// I looked at the html as the game was playing and cards weren't actually getting removed (which was causing weird things to happen with z-indices too). I used the while loop below instead from Stack Overflow [http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript] to remove all the children and it seems to work fine when we are just playing a card from our hand. If you watch the player hand div while the game is playing, it makes sense now
+		// I looked at the html as the game was playing and cards weren't actually getting 
+    // removed (which was causing weird things to happen with z-indices too). 
+    // I used the while loop below instead from Stack Overflow 
+    // [http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript] 
+    // to remove all the children and it seems to work fine when we are just playing a card from our hand. 
+    // If you watch the player hand div while the game is playing, it makes sense now
 		
       /*for(var i = 0; i < playerHand.childNodes.length; i++) {
         playerHand.removeChild(childNodesArray[i]);
@@ -118,9 +123,8 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
   //window.alert("computer player's turn\n computer hand: " + hand);
   // window.alert("computers hand size = " + hand.length);
   var computerHand = window.document.getElementById("computerHand");
-  var childNodesArray = computerHand.childNodes;
-  for(var i = 0; i < childNodesArray.length; i++) {
-    computerHand.removeChild(childNodesArray[i]);
+  while (computerHand.firstChild) {
+    computerHand.removeChild(computerHand.firstChild);
   }
   var card = hand[0];
   while (!this.pile.isValidToPlay(card) && i<hand.length-1) {
