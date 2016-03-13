@@ -101,7 +101,6 @@ View.prototype.displayTable = function(topCard) {
   deck.style.height = "96px";
   deck.addEventListener("click", deckSelect, false);
   element.appendChild(deck);
-
   var pile = window.document.createElement("img");
   pile.setAttribute("src", topCard.getURL());
   pile.setAttribute("alt", topCard.toString());
@@ -122,7 +121,6 @@ View.prototype.displayHumanHand = function(hand) {
 	var humanSelect = function(event) {
     pres.checkPlayedCard(event.target.alt);
 	}; //end humanSelect()
-
 	while (playerHand.firstChild) {
 		playerHand.removeChild(playerHand.firstChild);
 	}
@@ -143,6 +141,7 @@ View.prototype.displayHumanHand = function(hand) {
    img.addEventListener("click", humanSelect, false);
    playerHand.appendChild(img);
  }
+ return;
 };
 
 /**
@@ -151,20 +150,25 @@ View.prototype.displayHumanHand = function(hand) {
 View.prototype.displaySuitPicker = function(hand) {
 	var suitMenu = window.document.getElementById("suitMenu");
 	suitMenu.style.display="block";
+  return;
 };
 
 /**
- * Announce that human has won.
+ * Announce that human has won and when they click the prompt refresh the page
+ * so that they can play again.
  */
  View.prototype.announceHumanWinner = function() {
   window.alert("Your weak father should be ashamed of you");
   window.location.reload(false);
+  return;
 };
 
 /**
- * Announce that I have won.
+ * Announce that I have won and when they click the prompt refresh the page
+ * so that they can play again.
  */
  View.prototype.announceComputerWinner = function() {
   window.alert("Oh yeah!!  I am a WINNER and you are a, well, non-winner.");
   window.location.reload(false);
+  return;
 };
