@@ -15,9 +15,12 @@
  * Hand is an array of card's.
  */
  View.prototype.displayComputerHand = function(hand) {
- // window.alert("displaying computer hand");
-  var left = 0;
+  //were not removing the computer's hand before
   var computerHand = window.document.getElementById("computerHand");
+  while (computerHand.firstChild) {
+    computerHand.removeChild(computerHand.firstChild);
+  }
+  var left = 0;
   for (var i = 0; i < hand.length; i++) {
     left += 15;
     var img = window.document.createElement("img");
@@ -36,12 +39,11 @@
 
 
 /**
- *  Select a suit graphically for an 8
+ *  Select a suit graphically for an 8. Function creates an event
+ *  listener that will manage adjusting the card based on the user's
+ *  choice of suit
  */
 View.prototype.setSuitListener = function() {
-
-   //this code will add a listener to the 4 graphical suits that we
-   //will display on the screen
 	var presenter = this.presenter;
   var suitClicker = function(event) {
     var suit = event.target.id;
@@ -52,16 +54,12 @@ View.prototype.setSuitListener = function() {
     var suitMenu = window.document.getElementById("suitMenu");
     suitMenu.style.display="none";
   };
-
   var clubs = window.document.getElementById("c");
   clubs.addEventListener("click",suitClicker, false);
-
   var diamonds = window.document.getElementById("d");
   diamonds.addEventListener("click",suitClicker, false);
-
   var hearts = window.document.getElementById("h");
   hearts.addEventListener("click",suitClicker, false);
-
   var spades = window.document.getElementById("s");
   spades.addEventListener("click",suitClicker, false);
 };
@@ -74,12 +72,10 @@ View.prototype.setSuitListener = function() {
   //when this function gets called, the image elements already exist
   //lets just replace the current top card of the pile with the top card
   //that needs to be there now
-  //window.alert("displaying pile top card");
   this.topCard = card;
   this.topCardString = "Top card of pile: " + card;
   var table = window.document.getElementById("table");
   var newPile = window.document.createElement("img");
-  //window.alert(table);
   newPile.setAttribute("src", card.getURL());
   newPile.setAttribute("alt", card.toString());
   newPile.style.left = "71px";
@@ -88,7 +84,6 @@ View.prototype.setSuitListener = function() {
   newPile.style.height = "96px";
   table.removeChild(table.childNodes[1]);
   table.appendChild(newPile);
-  //window.alert("finished displaying pile top card");
   return table;
 };
 
@@ -103,8 +98,6 @@ View.prototype.displayTable = function(topCard) {
   var element = window.document.getElementById("table");
   var deck = window.document.createElement("img");
   var deckSelect = function() {
-    // here we want to add a card from the top of the deck
-    // to the player's hand to be displayed
     pres.continueGame(pres.deck.dealACard());
   };
   deck.setAttribute("src", "../images/PlayingCards/back.png");
@@ -134,22 +127,19 @@ View.prototype.displayTable = function(topCard) {
 };
 
 /**
- * Display the human hand. This function assumes
- * that the human hand is not displayed yet and
- * creates the necessary elements accordingly.
+ * Display the human hand.
  */
 View.prototype.displayHumanHand = function(hand) {
-  	var playerHand = window.document.getElementById("playerHand");
-  	var pres = this.presenter;
-  	var humanSelect = function(event) {
- 		var cardString = event.target.alt;	  		pres.checkPlayedCard(cardString);
+  var playerHand = window.document.getElementById("playerHand");
+	var pres = this.presenter;
+	var humanSelect = function(event) {
+ 	var cardString = event.target.alt;
+    pres.checkPlayedCard(cardString);
 	}; //end humanSelect()
-	
-	// we weren't removing the children here before
+
 	while (playerHand.firstChild) {
 		playerHand.removeChild(playerHand.firstChild);
 	}
-
   var left = 0;
   for (var i = 0; i < hand.length; i++) {
    left += 15;
@@ -171,15 +161,9 @@ View.prototype.displayHumanHand = function(hand) {
 };
 
 /**
- * Display the suit picker.  This version also prompts the user
- * and returns the string entered.
+ * Display the suit picker.
  */
 View.prototype.displaySuitPicker = function(hand) {
-
-	// set the display value of the div to "block"
-  
-  //grab reference to the div and remove display:none
- // window.alert("display suit picker");
 	var suitMenu = window.document.getElementById("suitMenu");
 	suitMenu.style.display="block";
 };
@@ -198,6 +182,3 @@ View.prototype.displaySuitPicker = function(hand) {
  View.prototype.announceComputerWinner = function() {
   window.alert("Oh yeah!!  I am a WINNER and you are a, well, non-winner.");
 };
-
-
-//still need event listener for suit picker
