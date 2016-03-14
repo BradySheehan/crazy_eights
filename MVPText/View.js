@@ -1,5 +1,8 @@
 "use strict";
 
+// Crazy Eights Game Develped by Mathew Sobocinski and Brady Sheehan
+
+
 /**
  * Provide methods for interacting with the user.
  */
@@ -61,7 +64,6 @@ View.prototype.setSuitListener = function() {
   spades.addEventListener("click",suitClicker, false);
   return;
 };
-
 
 /**
  * Display the top card of the discard pile (at the next opportunity).

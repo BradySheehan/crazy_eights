@@ -1,5 +1,8 @@
 "use strict";
 
+// Crazy Eights Game Develped by Mathew Sobocinski and Brady Sheehan
+
+
 /**
  * Logic for the game Crazy Eights between a human and the computer.
  */
@@ -24,24 +27,24 @@
   this.view.displayTable(this.pile.getTopCard());
   this.view.setSuitListener();
 }
-  /**
-   * Play one complete game.
-   */
-   Presenter.prototype.play = function () {
-    this.playHuman();
-    return;
-  };
+/**
+ * Play one complete game.
+ */
+ Presenter.prototype.play = function () {
+  this.playHuman();
+  return;
+};
 
-  /**
-   * This function gets called whenever the human selects a card off the deck.
-   * This function will update the human hand and have the computer take its turn.
-   */
-  Presenter.prototype.continueGame = function(pickedCard) {
-    this.human.add(pickedCard);
-    this.view.displayHumanHand(this.human.getHandCopy()); //pass the updated hand to be displayed
-    this.playComputer();
-    return;
-  };
+/**
+ * This function gets called whenever the human selects a card off the deck.
+ * This function will update the human hand and have the computer take its turn.
+ */
+Presenter.prototype.continueGame = function(pickedCard) {
+  this.human.add(pickedCard);
+  this.view.displayHumanHand(this.human.getHandCopy()); //pass the updated hand to be displayed
+  this.playComputer();
+  return;
+};
 
   /**
    * Verify that the card selected by the user is valid to play
@@ -127,12 +130,12 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
 /**
  * Called from view with selected suit. Updates pile accordingly.
  */
-  Presenter.prototype.continueGameAfterSuitSelection = function(suit) {
-    this.pile.setAnnouncedSuit(suit);
-    if (this.human.isHandEmpty()) {
-        this.view.announceHumanWinner();
-    } else {
-      this.playComputer(); //we didn't call playComputer if we displayed the suit picker..
-    }
-    return;
-  };
+Presenter.prototype.continueGameAfterSuitSelection = function(suit) {
+  this.pile.setAnnouncedSuit(suit);
+  if (this.human.isHandEmpty()) {
+      this.view.announceHumanWinner();
+  } else {
+    this.playComputer(); //we didn't call playComputer if we displayed the suit picker..
+  }
+  return;
+};

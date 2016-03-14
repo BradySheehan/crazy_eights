@@ -1,5 +1,7 @@
 "use strict";
 
+// Crazy Eights Game Develped by Mathew Sobocinski and Brady Sheehan
+
 /**
  * Deck of playing cards.
  */

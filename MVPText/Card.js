@@ -1,5 +1,7 @@
 "use strict";
 
+// Crazy Eights Game Develped by Mathew Sobocinski and Brady Sheehan
+
 /**
  * A single playing card.  It's debatable whether or not card image information
  * should be stored here, but it's convenient.
