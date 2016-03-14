@@ -40,6 +40,9 @@
  * This function will update the human hand and have the computer take its turn.
  */
 Presenter.prototype.continueGame = function(pickedCard) {
+  if(this.deck.list.length == 0) {
+    this.view.displayEmptyDeckMessage();
+  }
   this.human.add(pickedCard);
   this.view.displayHumanHand(this.human.getHandCopy()); //pass the updated hand to be displayed
   this.playComputer();

@@ -155,6 +155,10 @@ View.prototype.displaySuitPicker = function(hand) {
   return;
 };
 
+View.prototype.displayEmptyDeckMessage = function () {
+  window.alert("Be aware, there are no cards left to draw!");
+}
+
 /**
  * Announce that human has won and when they click the prompt refresh the page
  * so that they can play again.
