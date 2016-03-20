@@ -183,7 +183,7 @@ View.prototype.addCardPlayerHand = function(card){
       img1.style.top = "0";
       img1.removeEventListener("mouseover", onRollOver);
       img1.removeEventListener("mouseleave", offRollOver);
-      pres.checkPlayedCard(event.target.alt);
+      pres.playCard(event.target.alt);
     };
     var hand = window.document.getElementById("playerHand");
     var left = 20 + 20*(hand.childNodes.length); //get the position for the new card to be added
@@ -230,10 +230,11 @@ View.prototype.displaySuitPicker = function(hand) {
   return;
 };
 
-View.prototype.displayEmptyDeckMessage = function () {
-  window.alert("Be aware, there are no cards left to draw!");
-};
-
+/**
+ * This function removes everything from the current table
+ * and calls displayTable with the new top card. 
+ * @param  {Card} topCard [The card to be put on the table]
+ */
 View.prototype.updateTable = function (topCard) {
 
   //remove everything from the current table and re-add it
@@ -265,8 +266,8 @@ View.prototype.updateTable = function (topCard) {
 };
 
 /**
- * Set an event listener on the buttonAnnounce that I have won and when they click the prompt refresh the page
- * so that they can play again.
+ * Set an event listener on the buttonAnnounce that I have won and
+ * when they click the prompt refresh the page so that they can play again.
  */
 View.prototype.setRuleListener= function(){
    //set an event listener for if the button for the rules is clicked
@@ -304,6 +305,11 @@ View.prototype.setForfeitListener = function(){
    button.addEventListener("click",forfeitSelect,false);
 };
 
+/**
+ * /
+ * @return {String choice} [The difficulty that the user selected in the
+ * dropdown menu.]
+ */
 View.prototype.getDifficulty = function() {
   var e = document.getElementById("difficulty_select");
   var choice = e.options[e.selectedIndex].value;
@@ -314,6 +320,10 @@ View.prototype.getDifficulty = function() {
   return choice;
 };
 
+/**
+ * This function adds an event listener to the div that contains the
+ * game itself (divs for player hand, computer hand, and the table).
+ */
 View.prototype.setStartGameListener = function(){
   var pres = this.presenter;
   var self = this;

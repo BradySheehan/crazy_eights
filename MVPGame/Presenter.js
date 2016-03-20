@@ -11,7 +11,7 @@
    * Then create View object, which will be responsible for the
    * user interface.
    */
-   this.deck = new Deck();
+  this.deck = new Deck();
    do {
     this.deck.shuffle();
   } while (this.deck.isTopCardAnEight());
@@ -20,7 +20,7 @@
   this.human = new Player(this.deck);
   this.computer = new Player(this.deck);
   this.view = new View(this);
-  this.difficultyLevel = 'easy';
+  this.difficultyLevel;
 }
 
 /**
@@ -43,7 +43,7 @@ Presenter.prototype.drawCard = function() {
    * and update the hand and table accordingly. If the card is not
    * valid to play, alert the user.
    */
-Presenter.prototype.checkPlayedCard = function(cardString) {
+Presenter.prototype.playCard = function(cardString) {
   var card = this.human.find(cardString);
   if(this.pile.isValidToPlay(card)) {
     this.human.remove(this.human.indexOf(card));
@@ -66,11 +66,11 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
         this.playComputer();
       }
     }
+    if(this.deck.list.length == 0) {
+      this.updateDeck();
+    }
   } else {
     window.alert("That card is not valid, please pick another card.");
-  }
-  if(this.deck.list.length == 0) {
-    this.updateDeck();
   }
   return;
 };
@@ -84,11 +84,12 @@ Presenter.prototype.checkPlayedCard = function(cardString) {
 };
 
 /**
- * Play for the computer.  
- * very easy: 
- * easy:
- * medium: In this version, the computer always plays
- * the first card in its hand that is playable.  If it plays an 8,
+ * Play for the computer. This function switches over the difficulty level
+ * and plays a card accordingly.
+ * very easy: randomly draws a card 50% of the time.
+ * easy: randomly draws a card 33% of the time.
+ * medium: the computer only draws if it has no playable card.
+ * Otherwise, the computer always plays the first playable card. If it plays an 8,
  * the suit implicitly announced is the suit on the card.
  */
  Presenter.prototype.playComputer = function() {
@@ -167,27 +168,28 @@ Presenter.prototype.continueGameAfterSuitSelection = function(suit) {
   return;
 };
 
+/**
+ * This function reshuffles the pile into the deck
+ * when the deck runs out of cards.
+ */
 Presenter.prototype.updateDeck = function() {
-    //update the deck by reshuffling the cards on the pile
-    //except for the top card and putting them where
-    //the current deck is
-    var i = 0;
-    var topCard = this.pile.removeTopCard();
-    var newDeck = new Array();
-    while(this.pile.list.length!=0) {
-      newDeck[i] = this.pile.removeTopCard();
-      i++;
-    }
-    this.pile.acceptACard(topCard); //put the old top card back on the pile
-    this.deck.list = newDeck;
-    this.deck.shuffle();
-    this.view.updateTable(topCard);
+  var i = 0;
+  var topCard = this.pile.removeTopCard();
+  var newDeck = new Array();
+  while(this.pile.list.length!=0) {
+    newDeck[i] = this.pile.removeTopCard();
+    i++;
+  }
+  this.pile.acceptACard(topCard); //put the old top card back on the pile
+  this.deck.list = newDeck;
+  this.deck.shuffle();
+  this.view.updateTable(topCard);
 }
 
 /**
  * Returns a random integer between min (inclusive) and max (inclusive)
  * Note: Using Math.round() will give you a non-uniform distribution!
- * Gotten here: http://stackoverflow.com/questions/1527803/generating-random-numbers-in-javascript-in-a-specific-range
+ * Retrieved from here: http://stackoverflow.com/questions/1527803/generating-random-numbers-in-javascript-in-a-specific-range
  */
 Presenter.prototype.getRandomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
