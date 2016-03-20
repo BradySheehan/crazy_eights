@@ -73,4 +73,4 @@ Player.prototype = {
     return this.list.slice(0);
   },
 
-};  
+};

@@ -18,17 +18,19 @@ Pile.prototype = {
    */
   isValidToPlay: function (card) {
     var retVal = false;
-    var topCard = this.getTopCard();
-    if (card.getValue() == "8") {
-      retVal = true;
-    }
-    else if (topCard.getValue() == "8") {
-      retVal = (card.getSuit() == this.announcedSuit);
-    }
-    else if (card.getSuit() == topCard.getSuit()
-               ||
-             card.getValue() == topCard.getValue()) {
-      retVal = true;
+    if(card!=null) {
+      var topCard = this.getTopCard();
+      if (card.getValue() == "8") {
+        retVal = true;
+      }
+      else if (topCard.getValue() == "8") {
+        retVal = (card.getSuit() == this.announcedSuit);
+      }
+      else if (card.getSuit() == topCard.getSuit()
+                 ||
+               card.getValue() == topCard.getValue()) {
+        retVal = true;
+      }
     }
     return retVal;
   },
@@ -53,5 +55,12 @@ Pile.prototype = {
    */
   getTopCard: function () {
     return this.list[0];
+  },
+
+  /**
+   * Remove top card from the pile and return it.
+   */
+  removeTopCard: function () {
+    return this.list.shift();
   }
 };
