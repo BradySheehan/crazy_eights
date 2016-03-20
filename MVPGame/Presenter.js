@@ -20,7 +20,7 @@
   this.human = new Player(this.deck);
   this.computer = new Player(this.deck);
   this.view = new View(this);
-  this.difficultyLevel;
+  this.difficultyLevel = 'medium'; //the default difficulty level
 }
 
 /**

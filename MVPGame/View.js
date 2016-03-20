@@ -133,7 +133,7 @@ View.prototype.displayHumanHand = function(hand) {
     img1.style.top = "0";
     img1.removeEventListener("mouseover", onRollOver);
     img1.removeEventListener("mouseleave", offRollOver);
-    pres.checkPlayedCard(event.target.alt);
+    pres.playCard(event.target.alt);
   };
   var onRollOver = function(event) {
     var img1 = window.document.getElementById(event.target.id);
