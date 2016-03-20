@@ -312,7 +312,11 @@ View.prototype.setForfeitListener = function(){
  */
 View.prototype.getDifficulty = function() {
   var e = document.getElementById("difficulty_select");
-  var choice = e.options[e.selectedIndex].value;
+  if(e == null) {
+    choice = this.presenter.difficultyLevel;
+  } else {
+    var choice = e.options[e.selectedIndex].value;
+  }
   // var cssRuleCode = document.all ? 'rules' : 'cssRules'; //account for IE and FF
   // var rule = document.styleSheets[styleIndex][cssRuleCode][ruleIndex];
   // var selector = rule.'choice';  //maybe '#tId'
