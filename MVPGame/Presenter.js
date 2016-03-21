@@ -31,9 +31,7 @@ Presenter.prototype.drawCard = function() {
   var card = this.deck.dealACard();
   this.human.add(card);
   this.view.addCardPlayerHand(card); //pass the updated hand to be displayed
-  if(this.deck.list.length == 0) {
-    this.updateDeck();
-  }
+  this.finishTurn();
   this.playComputer();
   return;
 };
@@ -60,14 +58,8 @@ Presenter.prototype.playCard = function(cardString) {
     if (this.pile.getTopCard().getValue() == "8") {
        this.view.displaySuitPicker();
     } else {
-      if (this.human.isHandEmpty()) {
-        this.view.announceHumanWinner();
-      } else {
-        this.playComputer();
-      }
-    }
-    if(this.deck.list.length == 0) {
-      this.updateDeck();
+      this.finishTurn();
+      this.playComputer();
     }
   } else {
     window.alert("That card is not valid, please pick another card.");
@@ -134,18 +126,13 @@ Presenter.prototype.playCard = function(cardString) {
       this.pile.setAnnouncedSuit(card.getSuit());
     }
     this.view.displayComputerHand(this.computer.getHandCopy()); //add card
-    if (this.computer.isHandEmpty()) {
-      this.view.announceComputerWinner();
-    }
   }
   else {
     var card = this.deck.dealACard();
     this.computer.add(card);
     this.view.addCardComputerHand(card);
   }
-  if(this.deck.list.length == 0) {
-    this.updateDeck();
-  }
+  this.finishTurn();
 };
 
 /**
@@ -153,14 +140,8 @@ Presenter.prototype.playCard = function(cardString) {
  */
 Presenter.prototype.continueGameAfterSuitSelection = function(suit) {
   this.pile.setAnnouncedSuit(suit);
-  if (this.human.isHandEmpty()) {
-      this.view.announceHumanWinner();
-  } else {
-    if(this.deck.list.length == 0) {
-      this.updateDeck();
-    }
-    this.playComputer(); //we didn't call playComputer if we displayed the suit picker..
-  }
+  this.finishTurn();
+  this.playComputer(); //we didn't call playComputer if we displayed the suit picker..
   return;
 };
 
