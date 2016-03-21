@@ -70,6 +70,7 @@ View.prototype.setSuitListener = function() {
 
 /**
  * Display the top card of the discard pile (at the next opportunity).
+ * This function removes the current top card and adds the new top card.
  */
  View.prototype.displayPileTopCard = function(card) {
   this.topCard = card;
