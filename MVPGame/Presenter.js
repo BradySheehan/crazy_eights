@@ -182,7 +182,7 @@ Presenter.prototype.updateDeck = function() {
   this.view.updateTable(topCard);
 }
 
-Presenter.porotype.finishTurn = function() {
+Presenter.prototype.finishTurn = function() {
   if (this.human.isHandEmpty()) {
       this.view.announceHumanWinner();
   } else if (this.computer.isHandEmpty()) {
