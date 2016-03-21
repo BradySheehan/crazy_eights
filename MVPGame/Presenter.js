@@ -182,6 +182,18 @@ Presenter.prototype.updateDeck = function() {
   this.view.updateTable(topCard);
 }
 
+Presenter.porotype.finishTurn = function() {
+  if (this.human.isHandEmpty()) {
+      this.view.announceHumanWinner();
+  } else if (this.computer.isHandEmpty()) {
+    this.view.announceComputerWinner();
+  } else {
+    if(this.deck.list.length == 0) {
+      this.updateDeck();
+    }
+  }
+}
+
 /**
  * Returns a random integer between min (inclusive) and max (inclusive)
  * Note: Using Math.round() will give you a non-uniform distribution!
