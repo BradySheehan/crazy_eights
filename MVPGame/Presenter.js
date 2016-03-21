@@ -47,10 +47,10 @@ Presenter.prototype.playCard = function(cardString) {
   var card = this.human.find(cardString);
   if(this.pile.isValidToPlay(card)) {
     this.human.remove(this.human.indexOf(card));
-    var playerHand = window.document.getElementById("playerHand");
-	  while (playerHand.firstChild) {
-		 playerHand.removeChild(playerHand.firstChild);
-	  }
+   //  var playerHand = window.document.getElementById("playerHand");
+	  // while (playerHand.firstChild) {
+		 // playerHand.removeChild(playerHand.firstChild);
+	  // }
     this.view.displayHumanHand(this.human.getHandCopy()); //display new cards
     var pile = window.document.getElementById("table");
     var img2 = pile.childNodes[1];
@@ -132,10 +132,6 @@ Presenter.prototype.playCard = function(cardString) {
     this.view.displayPileTopCard(card);
     if (this.pile.getTopCard().getValue() == "8") {
       this.pile.setAnnouncedSuit(card.getSuit());
-    }
-    var computerHand = window.document.getElementById("computerHand");
-    while (computerHand.firstChild) {
-      computerHand.removeChild(computerHand.firstChild);
     }
     this.view.displayComputerHand(this.computer.getHandCopy()); //add card
     if (this.computer.isHandEmpty()) {
