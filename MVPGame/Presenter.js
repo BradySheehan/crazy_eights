@@ -156,6 +156,11 @@ Presenter.prototype.updateDeck = function() {
   this.view.updateTable(topCard);
 }
 
+/**
+ * This function gets called anytime a player finishes their turn
+ * and calls view based on the state of the game.
+ */
+
 Presenter.prototype.finishTurn = function() {
   if (this.human.isHandEmpty()) {
       this.view.announceHumanWinner();
