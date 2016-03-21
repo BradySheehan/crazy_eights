@@ -233,7 +233,7 @@ View.prototype.displaySuitPicker = function(hand) {
 
 /**
  * This function removes everything from the current table
- * and calls displayTable with the new top card. 
+ * and calls displayTable with the new top card.
  * @param  {Card} topCard [The card to be put on the table]
  */
 View.prototype.updateTable = function (topCard) {

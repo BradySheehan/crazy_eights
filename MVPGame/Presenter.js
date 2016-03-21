@@ -51,8 +51,9 @@ Presenter.prototype.playCard = function(cardString) {
     if (this.pile.getTopCard().getValue() == "8") {
        this.view.displaySuitPicker();
     } else {
-      this.finishTurn();
-      this.playComputer();
+      if(!this.finishTurn()) {
+        this.playComputer();
+      }
     }
   } else {
     window.alert("That card is not valid, please pick another card.");
@@ -133,8 +134,9 @@ Presenter.prototype.playCard = function(cardString) {
  */
 Presenter.prototype.continueGameAfterSuitSelection = function(suit) {
   this.pile.setAnnouncedSuit(suit);
-  this.finishTurn();
-  this.playComputer(); //we didn't call playComputer if we displayed the suit picker..
+  if(!this.finishTurn()) {
+    this.playComputer(); //we didn't call playComputer if we displayed the suit picker..
+  }
   return;
 };
 
@@ -158,19 +160,23 @@ Presenter.prototype.updateDeck = function() {
 
 /**
  * This function gets called anytime a player finishes their turn
- * and calls view based on the state of the game.
+ * and calls view based on the state of the game. This function will
+ * return if the game is over.
  */
 
 Presenter.prototype.finishTurn = function() {
+  var gameOver = true;
   if (this.human.isHandEmpty()) {
       this.view.announceHumanWinner();
   } else if (this.computer.isHandEmpty()) {
-    this.view.announceComputerWinner();
+      this.view.announceComputerWinner();
   } else {
+    gameOver = false;
     if(this.deck.list.length == 0) {
       this.updateDeck();
     }
   }
+  return gameOver;
 }
 
 /**
