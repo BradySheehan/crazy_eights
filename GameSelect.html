@@ -3,22 +3,22 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title>Select a Game</title>
+  <script type="text/javascript" src="message.js">
+  </script>
   <style type="text/css">
     col { width:20%; }
     td,th  { text-align: center; }
     table, td, th { border: 1px solid gray }
   </style>
     <link rel="stylesheet" href="MVPGame/style2.css" type="text/css">
-    <script type="text/javascript" src="message.js">
-    </script>
   <meta name="generator" content="Amaya, see http://www.w3.org/Amaya/">
 </head>
 
-<body>
+<body onload="setWelcome();">
 <h1><span id="title">Crazy Eights</span></h1>
 
 <!-- This welcome needs to be generated dynamically based on the username they type in -->
-<h1 id="welcome">Welcome, Jess!</h1>
+<h1 id="welcome"></h1>
 
 <table>
   <caption
