@@ -11,7 +11,7 @@ function setWelcome(){
 	  window.document.getElementById("welcome").textContent = "Welcome, "+ params[ind+1] + "!";
   } else {
   	//we get the result of the game they just played
-  	if(params[ind+3] == "win"){
+  	if(params[ind+3] == "won"){
   		window.document.getElementById("welcome").textContent = "Congratulations, " + params[ind+1] + "! Play again?";
   	} else {
   		window.document.getElementById("welcome").textContent = "Sorry, " + params[ind+1]+ ", better luck next time";

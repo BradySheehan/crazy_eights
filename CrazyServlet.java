@@ -40,9 +40,14 @@ public class CrazyServlet extends HttpServlet {
               "</body>\n"+
             "</html>\n");
           servletOut.close();
-      } else {
+      } else { //session is not new
           String signIn = session.getAttribute("signIn").toString();
-          response.sendRedirect("GameSelect.html?signIn="+signIn);
+          if(request.getParameter("result")) {
+            String result = request.getParameter("result").toString();
+            response.sendRedirect("GameSelect.html?signIn="+signIn+"&result="+result);
+          } else {
+            response.sendRedirect("GameSelect.html?signIn="+signIn);
+          }
       }
      }
 

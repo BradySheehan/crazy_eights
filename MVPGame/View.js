@@ -252,7 +252,7 @@ View.prototype.updateTable = function (topCard) {
  */
  View.prototype.announceHumanWinner = function() {
   window.alert("Congratulations... you can beat the computer on " + this.presenter.difficultyLevel + ".");
-  window.location.reload(false);
+  window.location.assign("GameSelect.html/?result=won");
   return;
 };
 
@@ -262,7 +262,7 @@ View.prototype.updateTable = function (topCard) {
  */
  View.prototype.announceComputerWinner = function() {
   window.alert("Well, the computer has won this time. Maybe you can get the next one. ");
-  window.location.reload(false);
+  window.location.assign("GameSelect.html/?result=lost");
   return;
 };
 
