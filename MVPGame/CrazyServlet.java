@@ -24,7 +24,9 @@ public class CrazyServlet extends HttpServlet {
      */
     
     String[] gameWinners = new String[5];
-
+    //need number of cards played for that winner
+    //need the percentage of players that won the game
+    //number of times that game was played. 
     public void doGet (HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException
       {
