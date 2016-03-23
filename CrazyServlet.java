@@ -63,10 +63,14 @@ public class CrazyServlet extends HttpServlet {
           // }
           // 
           String signIn = session.getAttribute("signIn").toString();
-          String signIn = request.getParameter("signIn");
           String welcome = "";//generate this string based on whether they won or lost
           String result = request.getParameter("result");
           String cardsPlayed = request.getParameter("cardsPlayed");
+          if(result.equals("won")) {
+            welcome = "Congratularions, " + signIn + "! Play again?";
+          } else {
+            welcome = "Sorry, " + signIn + ", better luck next time!";
+          }
       }
      }
 
