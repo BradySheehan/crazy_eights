@@ -252,7 +252,8 @@ View.prototype.updateTable = function (topCard) {
  */
  View.prototype.announceHumanWinner = function() {
   window.alert("Congratulations... you can beat the computer on " + this.presenter.difficultyLevel + ".");
-  window.location.assign("GameSelect.html/?result=won");
+  var url = "../GameSelect.html?game="+this.presenter.gameNumber + "&result=won&cardsPlayed="+this.presenter.numCardsPlayed;
+  window.location.href = url;
   return;
 };
 
@@ -262,7 +263,8 @@ View.prototype.updateTable = function (topCard) {
  */
  View.prototype.announceComputerWinner = function() {
   window.alert("Well, the computer has won this time. Maybe you can get the next one. ");
-  window.location.assign("GameSelect.html/?result=lost");
+  var url = "../GameSelect.html?game="+this.presenter.gameNumber + "&result=lost&cardsPlayed=0";
+  window.location.href = url;
   return;
 };
 
@@ -295,7 +297,7 @@ View.prototype.setRuleListener= function(){
 /**
  * Set an event listener on the the forfeit button so that
  * if they select the button, it refreshes the game so that
- * a new game can be played.
+ * a new game can be played. MIGHT WANT TO MODIFY THIS
  */
 View.prototype.setForfeitListener = function(){
    var forfeitSelect = function(event) {
