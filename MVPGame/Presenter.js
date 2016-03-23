@@ -21,6 +21,8 @@
   this.computer = new Player(this.deck);
   this.view = new View(this);
   this.difficultyLevel = 'medium'; //the default difficulty level
+  this.numCardsPlayed = 0;
+  this.gameNumber = getGameNumber();
 }
 
 /**
@@ -44,6 +46,7 @@ Presenter.prototype.drawCard = function() {
 Presenter.prototype.playCard = function(cardString) {
   var card = this.human.find(cardString);
   if(this.pile.isValidToPlay(card)) {
+    this.numCardsPlayed = this.numCardsPlayed + 1;
     this.human.remove(this.human.indexOf(card));
     this.view.displayHumanHand(this.human.getHandCopy()); //display new cards
     this.pile.acceptACard(card);
@@ -187,3 +190,12 @@ Presenter.prototype.finishTurn = function() {
 Presenter.prototype.getRandomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+Presenter.prototype.getGameNumber = function(){
+  var params = window.location.search.split(/[?=&]/);
+  for (var k=1; k<params.length; k+=2) {
+    if (params[k] == "game") {
+        return Number(params[k+1]);
+    }
+  }
+};
