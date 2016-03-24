@@ -80,14 +80,11 @@ public class CrazyServlet extends HttpServlet {
       String welcome = "";//generate this string based on whether they won or lost
       String result = request.getParameter("result");
       PrintWriter servletOut = response.getWriter();
-      servletOut.println(signIn);
       HttpSession session = request.getSession();
       if(signIn!=null) {
         session.setAttribute("signIn", signIn);
-        response.sendRedirect("GameSelect.html?signIn="+signIn);
-      }
 
-      String gameSelect = "<!DOCTYPE html>\n " +
+        String gameSelect = "<!DOCTYPE html>\n " +
         "<html>\n " +
         "<head>\n " +
          " <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n " +
@@ -165,5 +162,9 @@ public class CrazyServlet extends HttpServlet {
         "</table>\n " +
         "</body>\n " +
         "</html>";
+        servletOut.println(gameSelect);
+        servletOut.close();
+
+      }
     }
 }

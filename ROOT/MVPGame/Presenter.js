@@ -22,7 +22,7 @@
   this.view = new View(this);
   this.difficultyLevel = 'medium'; //the default difficulty level
   this.numCardsPlayed = 0;
-  this.gameNumber = getGameNumber();
+  this.gameNumber = this.getGameNumber();
 }
 
 /**
