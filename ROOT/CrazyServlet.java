@@ -30,6 +30,12 @@ public class CrazyServlet extends HttpServlet {
       {
       PrintWriter servletOut = response.getWriter();
       HttpSession session = request.getSession();
+      //i didn't know this. and I thought it was related to the error, but in case you don't know this
+      //i am adding it here:
+      //"getSession() returns the valid session object associated with the request,
+      //identified in the session cookie that is encapsulated in the request object.
+      //Calling the method with no arguments creates a session if one does not exist
+      //that is associated with the request."
       if(session.isNew()) {
           response.setContentType("text/html; charset=\"UTF-8\"");
           servletOut.println(
@@ -56,12 +62,14 @@ public class CrazyServlet extends HttpServlet {
           String welcome = "";//generate this string based on whether they won or lost
           String result = request.getParameter("result");
           String cardsPlayed = request.getParameter("cardsPlayed");
-          if(result.equals("won")) {
+          if(result == null) {
+              welcome = "Welcome, " + signIn + "!";
+          } else if(result.equals("won")) {
             welcome = "Congratularions, " + signIn + "! Play again?";
           } else {
             welcome = "Sorry, " + signIn + ", better luck next time!";
           }
-                  String gameSelect = "<!DOCTYPE html>\n " +
+          String gameSelect = "<!DOCTYPE html>\n " +
         "<html>\n " +
         "<head>\n " +
          " <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n " +
