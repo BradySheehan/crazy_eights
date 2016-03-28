@@ -29,6 +29,7 @@ public class CrazyServlet extends HttpServlet {
                        HttpServletResponse response) throws ServletException, IOException
       {
       PrintWriter servletOut = response.getWriter();
+      response.setHeader("Cache-Control", "no-cache");
       HttpSession session = request.getSession();
       //i didn't know this. and I thought it was related to the error, but in case you don't know this
       //i am adding it here:
@@ -158,6 +159,7 @@ public class CrazyServlet extends HttpServlet {
       String welcome = "";//generate this string based on whether they won or lost
       String result = request.getParameter("result");
       PrintWriter servletOut = response.getWriter();
+      response.setHeader("Cache-Control", "no-cache");
       HttpSession session = request.getSession();
       if(signIn!=null) {
         session.setAttribute("signIn", signIn);
