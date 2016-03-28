@@ -22,7 +22,8 @@ public class CrazyServlet extends HttpServlet {
      *
      * need data structures for each of the statistics? (I feel like we don't need to remember much)
      */
-    
+    String[] winner = new String[5]; //entry 1 corresponds with winner of hand 1, etc.
+
 
 
     public void doGet (HttpServletRequest request,
@@ -212,35 +213,35 @@ public class CrazyServlet extends HttpServlet {
             "  <td>0</td>\n " +
             "  <td>-</td>\n " +
             "  <td>-</td>\n " +
-            "  <td>-</td>\n " +
+            "  <td>"+winner[0]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=1\">2</a></td>\n " +
              " <td>4</td>\n " +
              " <td>50</td>\n " +
               "<td>14</td>\n " +
-             " <td>Sam</td>\n " +
+             " <td>"+winner[1]+"</td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=2\">3</a></td>\n " +
               "<td>8</td>\n " +
               "<td>25</td>\n " +
               "<td>9</td>\n " +
-              "<td>Kim</td>\n " +
+              "<td>"+winner[2]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=3\">4</a></td>\n " +
               "<td>4</td>\n " +
              " <td>75</td>\n " +
             "  <td>12</td>\n " +
-            "  <td>Dana</td>\n " +
+            "  <td>"+winner[3]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=4\">5</a></td>\n " +
               "<td>4</td>\n " +
              " <td>50</td>\n " +
              " <td>14</td>\n " +
-           "   <td>Taylor</td>\n " +
+           "   <td>"+winner[4]+"</td>\n " +
           " </tr>\n " +
          " </tbody>\n " +
         "</table>\n " +
