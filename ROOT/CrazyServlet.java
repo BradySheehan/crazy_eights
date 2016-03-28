@@ -38,13 +38,17 @@ public class CrazyServlet extends HttpServlet {
       //Calling the method with no arguments creates a session if one does not exist
       //that is associated with the request."
       if(session.isNew()) {
+          String signIn = request.getParameter("signIn");
+          if(signIn!=null) {
+            session.setAttribute("signIn", signIn);
+          }
           response.setContentType("text/html; charset=\"UTF-8\"");
           servletOut.println(
             "<!DOCTYPE html> \n " +
              "<html xmlns='http://www.w3.org/1999/xhtml'> \n" +
              " <head> \n "+
                " <title> \n"+
-                  "Crazy Eights Sign-in!"+
+                  "Crazy Eights Sign-in!\n"+
                 "</title>\n"+
               "</head>\n"+
               "<body>\n"+
