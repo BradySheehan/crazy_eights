@@ -22,8 +22,10 @@ public class CrazyServlet extends HttpServlet {
      *
      * need data structures for each of the statistics? (I feel like we don't need to remember much)
      */
-    String[] winner = new String[5]; //entry 1 corresponds with winner of hand 1, etc.
-
+    String[] winner = {"-","-","-","-","-"}; //entry 1 corresponds with winner of hand 1, etc.
+    int[] fewestCards = {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE};
+    int[] numPlayers = {0,0,0,0,0};
+    int[] playersWining = {0,0,0,0,0};
 
 
     public void doGet (HttpServletRequest request,
