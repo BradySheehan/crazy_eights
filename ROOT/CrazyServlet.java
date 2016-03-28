@@ -25,7 +25,7 @@ public class CrazyServlet extends HttpServlet {
     String[] winner = {"-","-","-","-","-"}; //entry 1 corresponds with winner of hand 1, etc.
     int[] fewestCards = {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE};
     int[] numPlayers = {0,0,0,0,0};
-    int[] playersWining = {0,0,0,0,0};
+    int[] percentPlayersWining = {0,0,0,0,0};
 
 
     public void doGet (HttpServletRequest request,
@@ -87,7 +87,7 @@ public class CrazyServlet extends HttpServlet {
             playersWining[gameNumber-1] = playersWining/numPlayers; //not sure if this is right
             welcome = "Sorry, " + signIn + ", better luck next time!";
           }
-          String gameSelect = "<!DOCTYPE html>\n " +
+        String gameSelect = "<!DOCTYPE html>\n " +
         "<html>\n " +
         "<head>\n " +
          " <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n " +
@@ -128,38 +128,38 @@ public class CrazyServlet extends HttpServlet {
             "</tr>\n " +
             "<tr>\n " +
             "  <td><a href=\"MVPGame/Crazy8_2.html?seed=0x6904acd2\">1</a></td>\n " +
-            "  <td>0</td>\n " +
-            "  <td>-</td>\n " +
-            "  <td>-</td>\n " +
-            "  <td>-</td>\n " +
+            "  <td>"numPlayers[0]+"</td>\n " +
+            "  <td>"+percentPlayersWining[0]+"</td>\n " +
+            "  <td>"+fewestCards[0]+"</td>\n " +
+            "  <td>"+winner[0]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=1\">2</a></td>\n " +
-             " <td>4</td>\n " +
-             " <td>50</td>\n " +
-              "<td>14</td>\n " +
-             " <td>Sam</td>\n " +
+             " <td>"numPlayers[1]+"</td>\n " +
+             " <td>"+percentPlayersWining[1]+"</td>\n " +
+              "<td>"+fewestCards[1]+"</td>\n " +
+             " <td>"+winner[1]+"</td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=2\">3</a></td>\n " +
-              "<td>8</td>\n " +
-              "<td>25</td>\n " +
-              "<td>9</td>\n " +
-              "<td>Kim</td>\n " +
+              "<td>"numPlayers[2]+"</td>\n " +
+              "<td>"+percentPlayersWining[2]+"</td>\n " +
+              "<td>"+fewestCards[2]+"</td>\n " +
+              "<td>"+winner[2]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=3\">4</a></td>\n " +
-              "<td>4</td>\n " +
-             " <td>75</td>\n " +
-            "  <td>12</td>\n " +
-            "  <td>Dana</td>\n " +
+              "<td>"numPlayers[3]+"</td>\n " +
+             " <td>"+percentPlayersWining[3]+"</td>\n " +
+            "  <td>"+fewestCards[3]+"</td>\n " +
+            "  <td>"+winner[3]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=4\">5</a></td>\n " +
-              "<td>4</td>\n " +
-             " <td>50</td>\n " +
-             " <td>14</td>\n " +
-           "   <td>Taylor</td>\n " +
+              "<td>"numPlayers[4]+"</td>\n " +
+             " <td>"+percentPlayersWining[4]+"</td>\n " +
+             " <td>"+fewestCards[4]+"</td>\n " +
+           "   <td>"+winner[4]+"</td>\n " +
           " </tr>\n " +
          " </tbody>\n " +
         "</table>\n " +
@@ -222,37 +222,37 @@ public class CrazyServlet extends HttpServlet {
             "</tr>\n " +
             "<tr>\n " +
             "  <td><a href=\"MVPGame/Crazy8_2.html?seed=0x6904acd2\">1</a></td>\n " +
-            "  <td>0</td>\n " +
-            "  <td>-</td>\n " +
-            "  <td>-</td>\n " +
+            "  <td>"numPlayers[0]+"</td>\n " +
+            "  <td>"+percentPlayersWining[0]+"</td>\n " +
+            "  <td>"+fewestCards[0]+"</td>\n " +
             "  <td>"+winner[0]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=1\">2</a></td>\n " +
-             " <td>4</td>\n " +
-             " <td>50</td>\n " +
-              "<td>14</td>\n " +
+             " <td>"numPlayers[1]+"</td>\n " +
+             " <td>"+percentPlayersWining[1]+"</td>\n " +
+              "<td>"+fewestCards[1]+"</td>\n " +
              " <td>"+winner[1]+"</td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=2\">3</a></td>\n " +
-              "<td>8</td>\n " +
-              "<td>25</td>\n " +
-              "<td>9</td>\n " +
+              "<td>"numPlayers[2]+"</td>\n " +
+              "<td>"+percentPlayersWining[2]+"</td>\n " +
+              "<td>"+fewestCards[2]+"</td>\n " +
               "<td>"+winner[2]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=3\">4</a></td>\n " +
-              "<td>4</td>\n " +
-             " <td>75</td>\n " +
-            "  <td>12</td>\n " +
+              "<td>"numPlayers[3]+"</td>\n " +
+             " <td>"+percentPlayersWining[3]+"</td>\n " +
+            "  <td>"+fewestCards[3]+"</td>\n " +
             "  <td>"+winner[3]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=4\">5</a></td>\n " +
-              "<td>4</td>\n " +
-             " <td>50</td>\n " +
-             " <td>14</td>\n " +
+              "<td>"numPlayers[4]+"</td>\n " +
+             " <td>"+percentPlayersWining[4]+"</td>\n " +
+             " <td>"+fewestCards[4]+"</td>\n " +
            "   <td>"+winner[4]+"</td>\n " +
           " </tr>\n " +
          " </tbody>\n " +
