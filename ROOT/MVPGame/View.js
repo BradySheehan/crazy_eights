@@ -251,7 +251,8 @@ View.prototype.updateTable = function (topCard) {
  * so that they can play again.
  */
  View.prototype.announceHumanWinner = function() {
-  window.alert("Congratulations... you can beat the computer on " + this.presenter.difficultyLevel + ".");
+  // window.alert("Congratulations... you can beat the computer on " + this.presenter.difficultyLevel + ".");
+  window.alert("Congratulations... you can beat the computer.");
   var url = "../GameSelect.html?game="+this.presenter.gameNumber + "&result=won&cardsPlayed="+this.presenter.numCardsPlayed;
   window.location.href = url;
   return;
