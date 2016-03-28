@@ -83,6 +83,8 @@ public class CrazyServlet extends HttpServlet {
             }
             welcome = "Congratularions, " + signIn + "! Play again?";
           } else {
+            numPlayers[gameNumber-1]++;
+            playersWining[gameNumber-1] = playersWining/numPlayers; //not sure if this is right
             welcome = "Sorry, " + signIn + ", better luck next time!";
           }
           String gameSelect = "<!DOCTYPE html>\n " +
