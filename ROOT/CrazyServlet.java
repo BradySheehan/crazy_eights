@@ -69,10 +69,18 @@ public class CrazyServlet extends HttpServlet {
           String signIn = session.getAttribute("signIn").toString();
           String welcome = "";//generate this string based on whether they won or lost
           String result = request.getParameter("result");
+          String gameNumber = request.getParameter("game");
           String cardsPlayed = request.getParameter("cardsPlayed");
+          numPlayers[gameNumber-1]++;
           if(result == null) {
               welcome = "Welcome, " + signIn + "!";
           } else if(result.equals("won")) {
+            if(fewestCards[gameNumber-1] >= cardsPlayed) {
+              winner[gameNumber-1] = signIn;
+              fewestCards[gameNumber-1] = cardsPlayed;
+              numPlayers[gameNumber-1]++;
+              playersWining[gameNumber-1] = playersWining+1/numPlayers; //not sure if this is right
+            }
             welcome = "Congratularions, " + signIn + "! Play again?";
           } else {
             welcome = "Sorry, " + signIn + ", better luck next time!";
