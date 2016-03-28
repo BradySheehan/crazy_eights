@@ -156,7 +156,7 @@ public class CrazyServlet extends HttpServlet {
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException {
       String signIn = request.getParameter("signIn");
-      String welcome = "";//generate this string based on whether they won or lost
+      String welcome = "Welcome, "+signIn + "!";//generate this string based on whether they won or lost
       String result = request.getParameter("result");
       PrintWriter servletOut = response.getWriter();
       response.setHeader("Cache-Control", "no-cache");
