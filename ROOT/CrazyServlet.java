@@ -69,7 +69,7 @@ public class CrazyServlet extends HttpServlet {
       } else { //session is not new
           String signIn = session.getAttribute("signIn").toString();
           String welcome = "Welcome, " + signIn + "!";//generate this string based on whether they won or lost
-          if(request.getAttributeNames().values().length > 1) {
+          if(request.getParameterValues().length > 1) {
             String result = request.getParameter("result");
             int gameNumber = Integer.parseInt(request.getParameter("game"));
             int cardsPlayed = Integer.parseInt(request.getParameter("cardsPlayed"));
