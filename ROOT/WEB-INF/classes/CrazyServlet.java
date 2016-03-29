@@ -35,6 +35,7 @@ public class CrazyServlet extends HttpServlet {
     public void doGet (HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException
       {
+      int gameNumber;
       response.setHeader("Cache-Control", "no-cache");
       response.setContentType("text/html; charset=\"UTF-8\"");
       PrintWriter servletOut = response.getWriter();
@@ -65,7 +66,7 @@ public class CrazyServlet extends HttpServlet {
           String welcome = "Welcome, " + signIn + "!"; //generate this string based on whether they won or lost
           if(request.getParameter("result")!=null) {
             String result = request.getParameter("result");
-            int gameNumber = Integer.parseInt(request.getParameter("game"));
+            gameNumber = Integer.parseInt(request.getParameter("game"));
             int cardsPlayed = Integer.parseInt(request.getParameter("cardsPlayed"));
             numPlayers[gameNumber-1]++;
             if(result.equals("won")) {
@@ -131,35 +132,35 @@ public class CrazyServlet extends HttpServlet {
             "  <td>"+numPlayers[0]+"</td>\n " +
             "  <td>"+percentPlayersWinning[0]+"</td>\n " +
             "  <td>"+fewestCards[0]+"</td>\n " +
-            "  <td>"+winner[0]+"</td>\n " +
+            "  <td id=\"winner0\">"+winner[0]+"</span></td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=2\"")+">2</a></td>\n " +
              " <td>"+numPlayers[1]+"</td>\n " +
              " <td>"+percentPlayersWinning[1]+"</td>\n " +
               "<td>"+fewestCards[1]+"</td>\n " +
-             " <td>"+winner[1]+"</td>\n " +
+             " <td id=\"winner1\"winner1\">"+winner[1]+"</span></td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=3\"")+">3</a></td>\n " +
               "<td>"+numPlayers[2]+"</td>\n " +
               "<td>"+percentPlayersWinning[2]+"</td>\n " +
               "<td>"+fewestCards[2]+"</td>\n " +
-              "<td>"+winner[2]+"</td>\n " +
+              "<td id=\"winner2\"winner2\">"+winner[2]+"</span></td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=4\"")+">4</a></td>\n " +
               "<td>"+numPlayers[3]+"</td>\n " +
              " <td>"+percentPlayersWinning[3]+"</td>\n " +
             "  <td>"+fewestCards[3]+"</td>\n " +
-            "  <td>"+winner[3]+"</td>\n " +
+            "  <td id=\"winner3\">"+winner[3]+"</span></td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=5\"")+">5</a></td>\n " +
               "<td>"+numPlayers[4]+"</td>\n " +
              " <td>"+percentPlayersWinning[4]+"</td>\n " +
              " <td>"+fewestCards[4]+"</td>\n " +
-           "   <td>"+winner[4]+"</td>\n " +
+           "   <td id=\"winner4\">"+winner[4]+"</span></td>\n " +
           " </tr>\n " +
          " </tbody>\n " +
         "</table>\n " +
@@ -168,7 +169,12 @@ public class CrazyServlet extends HttpServlet {
 
         servletOut.println(head+body);
         servletOut.close();
-        highlight[gameNumber-1] = "#eee"; //reset the highlighting for next time
+        highlight[0] = "#eee"; //reset the highlighting for next time
+        highlight[1] = "#eee"; //reset the highlighting for next time
+        highlight[2] = "#eee"; //reset the highlighting for next time
+        highlight[3] = "#eee"; //reset the highlighting for next time
+        highlight[4] = "#eee"; //reset the highlighting for next time
+
       }
      }
 
@@ -234,35 +240,35 @@ public class CrazyServlet extends HttpServlet {
             "  <td>"+numPlayers[0]+"</td>\n " +
             "  <td>"+percentPlayersWinning[0]+"</td>\n " +
             "  <td>"+fewestCards[0]+"</td>\n " +
-            "  <td><span id=\"winner0\">"+winner[0]+"</span></td>\n " +
+            "  <td id=\"winner0\">"+winner[0]+"</span></td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=2\"")+">2</a></td>\n " +
              " <td>"+numPlayers[1]+"</td>\n " +
              " <td>"+percentPlayersWinning[1]+"</td>\n " +
               "<td>"+fewestCards[1]+"</td>\n " +
-             " <td><span id=\"winner1\">"+winner[1]+"</span></td>\n " +
+             " <td id=\"winner1\"winner1\">"+winner[1]+"</span></td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=3\"")+">3</a></td>\n " +
               "<td>"+numPlayers[2]+"</td>\n " +
               "<td>"+percentPlayersWinning[2]+"</td>\n " +
               "<td>"+fewestCards[2]+"</td>\n " +
-              "<td><span id=\"winner2\">"+winner[2]+"</span></td>\n " +
+              "<td id=\"winner2\"winner2\">"+winner[2]+"</span></td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=4\"")+">4</a></td>\n " +
               "<td>"+numPlayers[3]+"</td>\n " +
              " <td>"+percentPlayersWinning[3]+"</td>\n " +
             "  <td>"+fewestCards[3]+"</td>\n " +
-            "  <td><span d=\"winner4\">"+winner[3]+"</span></td>\n " +
+            "  <td id=\"winner3\">"+winner[3]+"</span></td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=5\"")+">5</a></td>\n " +
               "<td>"+numPlayers[4]+"</td>\n " +
              " <td>"+percentPlayersWinning[4]+"</td>\n " +
              " <td>"+fewestCards[4]+"</td>\n " +
-           "   <td><span id=\"winner4\">"+winner[4]+"</span></td>\n " +
+           "   <td id=\"winner4\">"+winner[4]+"</span></td>\n " +
           " </tr>\n " +
          " </tbody>\n " +
         "</table>\n " +
