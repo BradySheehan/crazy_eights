@@ -26,7 +26,7 @@ public class CrazyServlet extends HttpServlet {
     String[] winner = {"-","-","-","-","-"}; //entry 1 corresponds with winner of hand 1, etc.
     int[] fewestCards = {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE};
     int[] numPlayers = {0,0,0,0,0};
-    double[] percentPlayersWining = {0,0,0,0,0};
+    double[] percentPlayersWinning = {0,0,0,0,0};
     int[] numWinners = {0,0,0,0,0};
 
     public void doGet (HttpServletRequest request,
@@ -74,18 +74,18 @@ public class CrazyServlet extends HttpServlet {
             String result = request.getParameter("result");
             int gameNumber = Integer.parseInt(request.getParameter("game"));
             int cardsPlayed = Integer.parseInt(request.getParameter("cardsPlayed"));
-            numPlayers[gameNumber-1]++;
+            // numPlayers[gameNumber-1]++;
             if(result.equals("won")) {
               numWinners[gameNumber-1]++;
               if(fewestCards[gameNumber-1] >= cardsPlayed) {
                 winner[gameNumber-1] = signIn;
                 fewestCards[gameNumber-1] = cardsPlayed;
-                percentPlayersWining[gameNumber-1] = ((double)numWinners[gameNumber-1]/numPlayers[gameNumber-1]); //not sure if this is right
+                percentPlayersWinning[gameNumber-1] = ((double)numWinners[gameNumber-1]/numPlayers[gameNumber-1]); //not sure if this is right
               }
-              welcome = "Congratularions, " + signIn + "! Play again?";
+              welcome = "Congratulations, " + signIn + "! Play again?";
             } else {
               numPlayers[gameNumber-1]++;
-              percentPlayersWining[gameNumber-1] = ((percentPlayersWining[gameNumber-1])/numPlayers[gameNumber-1]); //not sure if this is right
+              percentPlayersWinning[gameNumber-1] = ((percentPlayersWinning[gameNumber-1])/numPlayers[gameNumber-1]); //not sure if this is right
               welcome = "Sorry, " + signIn + ", better luck next time!";
             }
           }
@@ -131,35 +131,35 @@ public class CrazyServlet extends HttpServlet {
             "<tr>\n " +
             "  <td><a href=\"MVPGame/Crazy8_2.html?seed=0x6904acd2\">1</a></td>\n " +
             "  <td>"+numPlayers[0]+"</td>\n " +
-            "  <td>"+percentPlayersWining[0]+"</td>\n " +
+            "  <td>"+percentPlayersWinning[0]+"</td>\n " +
             "  <td>"+fewestCards[0]+"</td>\n " +
             "  <td>"+winner[0]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=1\">2</a></td>\n " +
              " <td>"+numPlayers[1]+"</td>\n " +
-             " <td>"+percentPlayersWining[1]+"</td>\n " +
+             " <td>"+percentPlayersWinning[1]+"</td>\n " +
               "<td>"+fewestCards[1]+"</td>\n " +
              " <td>"+winner[1]+"</td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=2\">3</a></td>\n " +
               "<td>"+numPlayers[2]+"</td>\n " +
-              "<td>"+percentPlayersWining[2]+"</td>\n " +
+              "<td>"+percentPlayersWinning[2]+"</td>\n " +
               "<td>"+fewestCards[2]+"</td>\n " +
               "<td>"+winner[2]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=3\">4</a></td>\n " +
               "<td>"+numPlayers[3]+"</td>\n " +
-             " <td>"+percentPlayersWining[3]+"</td>\n " +
+             " <td>"+percentPlayersWinning[3]+"</td>\n " +
             "  <td>"+fewestCards[3]+"</td>\n " +
             "  <td>"+winner[3]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=4\">5</a></td>\n " +
               "<td>"+numPlayers[4]+"</td>\n " +
-             " <td>"+percentPlayersWining[4]+"</td>\n " +
+             " <td>"+percentPlayersWinning[4]+"</td>\n " +
              " <td>"+fewestCards[4]+"</td>\n " +
            "   <td>"+winner[4]+"</td>\n " +
           " </tr>\n " +
@@ -226,35 +226,35 @@ public class CrazyServlet extends HttpServlet {
             "<tr>\n " +
             "  <td><a href=\"MVPGame/Crazy8_2.html?seed=0x6904acd2\">1</a></td>\n " +
             "  <td>"+numPlayers[0]+"</td>\n " +
-            "  <td>"+percentPlayersWining[0]+"</td>\n " +
+            "  <td>"+percentPlayersWinning[0]+"</td>\n " +
             "  <td>"+fewestCards[0]+"</td>\n " +
             "  <td>"+winner[0]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=1\">2</a></td>\n " +
              " <td>"+numPlayers[1]+"</td>\n " +
-             " <td>"+percentPlayersWining[1]+"</td>\n " +
+             " <td>"+percentPlayersWinning[1]+"</td>\n " +
               "<td>"+fewestCards[1]+"</td>\n " +
              " <td>"+winner[1]+"</td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=2\">3</a></td>\n " +
               "<td>"+numPlayers[2]+"</td>\n " +
-              "<td>"+percentPlayersWining[2]+"</td>\n " +
+              "<td>"+percentPlayersWinning[2]+"</td>\n " +
               "<td>"+fewestCards[2]+"</td>\n " +
               "<td>"+winner[2]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=3\">4</a></td>\n " +
               "<td>"+numPlayers[3]+"</td>\n " +
-             " <td>"+percentPlayersWining[3]+"</td>\n " +
+             " <td>"+percentPlayersWinning[3]+"</td>\n " +
             "  <td>"+fewestCards[3]+"</td>\n " +
             "  <td>"+winner[3]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=4\">5</a></td>\n " +
               "<td>"+numPlayers[4]+"</td>\n " +
-             " <td>"+percentPlayersWining[4]+"</td>\n " +
+             " <td>"+percentPlayersWinning[4]+"</td>\n " +
              " <td>"+fewestCards[4]+"</td>\n " +
            "   <td>"+winner[4]+"</td>\n " +
           " </tr>\n " +
