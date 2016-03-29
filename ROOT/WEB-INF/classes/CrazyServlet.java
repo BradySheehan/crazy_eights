@@ -19,11 +19,11 @@ public class CrazyServlet extends HttpServlet {
  *  -similarly, if the user wins on a deck and later loses, the “% Players winning” value should be unchanged by the loss, since the player has been—and should continue to be—counted as a winning player.
  */
 
-    String[] winner = {"-","-","-","-","-"}; //entry 1 corresponds with winner of hand 1, etc.
-    int[] fewestCards = {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE};
-    int[] numPlayers = {0,0,0,0,0};
-    double[] percentPlayersWinning = {0,0,0,0,0};
-    int[] numWinners = {0,0,0,0,0};
+    // String[] winner = {"-","-","-","-","-"}; //entry 1 corresponds with winner of hand 1, etc.
+    // int[] fewestCards = {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE};
+    // int[] numPlayers = {0,0,0,0,0};
+    // double[] percentPlayersWinning = {0,0,0,0,0};
+    // int[] numWinners = {0,0,0,0,0};
     String[] highlight = {"#eee", "#eee", "#eee", "#eee", "#eee"};
 
     private void printEnd(PrintWriter servletOut)
@@ -40,7 +40,7 @@ public class CrazyServlet extends HttpServlet {
       response.setContentType("text/html; charset=\"UTF-8\"");
       PrintWriter servletOut = response.getWriter();
       HttpSession session = request.getSession();
-      request.getQueryString(); //what is this for?
+      request.getQueryString(); //what is this for? who knows
       if(session.isNew()) {
           servletOut.println(
             "<!DOCTYPE html> \n " +
@@ -68,17 +68,23 @@ public class CrazyServlet extends HttpServlet {
             String result = request.getParameter("result");
             gameNumber = Integer.parseInt(request.getParameter("game"));
             int cardsPlayed = Integer.parseInt(request.getParameter("cardsPlayed"));
+
             numPlayers[gameNumber-1]++;
+
             if(result.equals("won")) {
+	
               numWinners[gameNumber-1]++;
+
               highlight[gameNumber-1] = "pink";
-              if(fewestCards[gameNumber-1] >= cardsPlayed) {
+              if(ConcurrentAccess.fewestCards[gameNumber-1] >= cardsPlayed) {
+	
                 winner[gameNumber-1] = signIn;
                 fewestCards[gameNumber-1] = cardsPlayed;
                 percentPlayersWinning[gameNumber-1] = ((double)numWinners[gameNumber-1]/(double)numPlayers[gameNumber-1])*100; //not sure if this is right
               }
               welcome = "Congratulations, " + signIn + "! Play again?";
             } else {
+	
               percentPlayersWinning[gameNumber-1] = ((double)numWinners[gameNumber-1]/(double)numPlayers[gameNumber-1])*100; //not sure if this is right
               welcome = "Sorry, " + signIn + ", better luck next time!";
             }
@@ -128,39 +134,39 @@ public class CrazyServlet extends HttpServlet {
             "    fewest cards</th>\n " +
             "</tr>\n " +
             "<tr>\n " +
-            "  <td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x6904acd2&game=1\"")+">1</a></td>\n " +
-            "  <td>"+numPlayers[0]+"</td>\n " +
-            "  <td>"+percentPlayersWinning[0]+"</td>\n " +
-            "  <td>"+fewestCards[0]+"</td>\n " +
-            "  <td bgcolor="+highlight[4]+">"+winner[0]+"</td>\n " +
+            "  <td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x6904acd2&game=1\"") + ">1</a></td>\n " +
+            "  <td>" +  ConcurrentAccess.numPlayers[0] + "</td>\n " +
+            "  <td>" +  ConcurrentAccess.percentPlayersWinning[0] + "</td>\n " +
+            "  <td>" + ConcurrentAccess. fewestCards[0] + "</td>\n " +
+            "  <td bgcolor="+highlight[4]+">"+ ConcurrentAccess.winner[0]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=2\"")+">2</a></td>\n " +
-             " <td>"+numPlayers[1]+"</td>\n " +
-             " <td>"+percentPlayersWinning[1]+"</td>\n " +
-              "<td>"+fewestCards[1]+"</td>\n " +
-             " <td bgcolor="+highlight[4]+">"+winner[1]+"</td>\n " +
+             " <td>"+ ConcurrentAccess.numPlayers[1]+"</td>\n " +
+             " <td>"+ ConcurrentAccess.percentPlayersWinning[1]+"</td>\n " +
+              "<td>"+ ConcurrentAccess.fewestCards[1]+"</td>\n " +
+             " <td bgcolor="+highlight[4]+">"+ ConcurrentAccess.winner[1]+"</td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=3\"")+">3</a></td>\n " +
-              "<td>"+numPlayers[2]+"</td>\n " +
-              "<td>"+percentPlayersWinning[2]+"</td>\n " +
-              "<td>"+fewestCards[2]+"</td>\n " +
-              "<td bgcolor="+highlight[4]+">"+winner[2]+"</td>\n " +
+              "<td>"+ ConcurrentAccess.numPlayers[2]+"</td>\n " +
+              "<td>"+ ConcurrentAccess.percentPlayersWinning[2]+"</td>\n " +
+              "<td>"+ ConcurrentAccess.fewestCards[2]+"</td>\n " +
+              "<td bgcolor="+highlight[4]+">"+ ConcurrentAccess.winner[2]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=4\"")+">4</a></td>\n " +
-              "<td>"+numPlayers[3]+"</td>\n " +
-             " <td>"+percentPlayersWinning[3]+"</td>\n " +
-            "  <td>"+fewestCards[3]+"</td>\n " +
-            "<td bgcolor="+highlight[4]+">"+winner[3]+"</td>\n " +
+              "<td>"+ ConcurrentAccess.numPlayers[3]+"</td>\n " +
+             " <td>"+ ConcurrentAccess.percentPlayersWinning[3]+"</td>\n " +
+            "  <td>"+ ConcurrentAccess.fewestCards[3]+"</td>\n " +
+            "<td bgcolor="+highlight[4]+">"+ ConcurrentAccess.winner[3]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=5\"")+">5</a></td>\n " +
-              "<td>"+numPlayers[4]+"</td>\n " +
-             " <td>"+percentPlayersWinning[4]+"</td>\n " +
-             " <td>"+fewestCards[4]+"</td>\n " +
-           "   <td bgcolor="+highlight[4]+">"+winner[4]+"</td>\n " +
+              "<td>"+ ConcurrentAccess.numPlayers[4]+"</td>\n " +
+             " <td>"+ ConcurrentAccess.percentPlayersWinning[4]+"</td>\n " +
+             " <td>"+ ConcurrentAccess.fewestCards[4]+"</td>\n " +
+           "   <td bgcolor="+highlight[4]+">"+ ConcurrentAccess.winner[4]+"</td>\n " +
           " </tr>\n " +
          " </tbody>\n " +
         "</table>\n " +
@@ -237,38 +243,38 @@ public class CrazyServlet extends HttpServlet {
             "</tr>\n " +
             "<tr>\n " +
             "  <td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x6904acd2&game=1\"")+">1</a></td>\n " +
-            "  <td>"+numPlayers[0]+"</td>\n " +
-            "  <td>"+percentPlayersWinning[0]+"</td>\n " +
-            "  <td>"+fewestCards[0]+"</td>\n " +
-            "  <td bgcolor="+highlight[4]+">"+winner[0]+"</td>\n " +
+            "  <td>" + ConcurrentAccess.numPlayers[0] + "</td>\n " +
+            "  <td>" + ConcurrentAccess.percentPlayersWinning[0] + "</td>\n " +
+            "  <td>" + ConcurrentAccess.fewestCards[0] + "</td>\n " +
+            "  <td bgcolor=" + highlight[4] + ">" + ConcurrentAccess.winner[0] + "</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=2\"")+">2</a></td>\n " +
-             " <td>"+numPlayers[1]+"</td>\n " +
-             " <td>"+percentPlayersWinning[1]+"</td>\n " +
-              "<td>"+fewestCards[1]+"</td>\n " +
-             " <td bgcolor="+highlight[4]+">"+winner[1]+"</td>\n " +
+             " <td>" + ConcurrentAccess.numPlayers[1] + "</td>\n " +
+             " <td>" + ConcurrentAccess.percentPlayersWinning[1] + "</td>\n " +
+              "<td>" + ConcurrentAccess.fewestCards[1]+"</td>\n " +
+             " <td bgcolor=" + highlight[4]+">"+ ConcurrentAccess.winner[1] + "</td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=3\"")+">3</a></td>\n " +
-              "<td>"+numPlayers[2]+"</td>\n " +
-              "<td>"+percentPlayersWinning[2]+"</td>\n " +
-              "<td>"+fewestCards[2]+"</td>\n " +
-              "<td bgcolor="+highlight[4]+">"+winner[2]+"</td>\n " +
+              "<td>"+ ConcurrentAccess.numPlayers[2] + "</td>\n " +
+              "<td>"+ ConcurrentAccess.percentPlayersWinning[2] + "</td>\n " +
+              "<td>"+ ConcurrentAccess.fewestCards[2] + "</td>\n " +
+              "<td bgcolor=" + highlight[4] + ">" + ConcurrentAccess.winner[2] + "</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
-              "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=4\"")+">4</a></td>\n " +
-              "<td>"+numPlayers[3]+"</td>\n " +
-             " <td>"+percentPlayersWinning[3]+"</td>\n " +
-            "  <td>"+fewestCards[3]+"</td>\n " +
-            "<td bgcolor="+highlight[4]+">"+winner[3]+"</td>\n " +
+              "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=4\"") + ">4</a></td>\n " +
+              "<td>"+ ConcurrentAccess.numPlayers[3] + "</td>\n " +
+             " <td>"+ ConcurrentAccess.percentPlayersWinning[3] + "</td>\n " +
+            "  <td>"+ ConcurrentAccess.fewestCards[3] + "</td>\n " +
+            "<td bgcolor=" + highlight[4]+">"+ ConcurrentAccess.winner[3] + "</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
-              "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=5\"")+">5</a></td>\n " +
-              "<td>"+numPlayers[4]+"</td>\n " +
-             " <td>"+percentPlayersWinning[4]+"</td>\n " +
-             " <td>"+fewestCards[4]+"</td>\n " +
-           "   <td bgcolor="+highlight[4]+">"+winner[4]+"</td>\n " +
+              "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=5\"") + ">5</a></td>\n " +
+              "<td>"+ ConcurrentAccess.numPlayers[4] + "</td>\n " +
+             " <td>"+ ConcurrentAccess.percentPlayersWinning[4]+"</td>\n " +
+             " <td>"+ ConcurrentAccess.fewestCards[4]+"</td>\n " +
+           "   <td bgcolor=" + highlight[4] + ">"+ ConcurrentAccess.winner[4] + "</td>\n " +
           " </tr>\n " +
          " </tbody>\n " +
         "</table>\n " +
@@ -276,9 +282,36 @@ public class CrazyServlet extends HttpServlet {
         "</html>";
         servletOut.println(gameSelect);
         servletOut.close();
-
       }
     }
+}
+
+class ConcurrentAccess {
+	public static String[] winner = {"-","-","-","-","-"}; //entry 1 corresponds with winner of hand 1, etc.
+	public static int[] fewestCards = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
+	public static int[] numPlayers = {0,0,0,0,0};
+	public static double[] percentPlayersWinning = {0,0,0,0,0};
+	public static int[] numWinners = {0,0,0,0,0};
+	
+	public synchronized static void changeWinner() {
+		
+	}
+	
+	public synchronized static void changeFewestCards() {
+			
+	}
+	
+	public synchronized static void changeNumPlayers() {
+			
+	}
+	
+	public synchronized static void changePercentPlayersWinning() {
+			
+	}
+	
+	public synchronized static void changeNumWinners() {
+			
+	}
 }
 
 /**
