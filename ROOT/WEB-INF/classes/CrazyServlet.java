@@ -2,10 +2,11 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import java.util.regex.*;
 import java.util.Enumeration;
 
 /**
- * Hello World! servlet
+ * 
  */
 @WebServlet( urlPatterns={"/CrazyServlet"} )
 public class CrazyServlet extends HttpServlet { 
@@ -70,8 +71,8 @@ public class CrazyServlet extends HttpServlet {
             "</html>\n");
           servletOut.close();
       } else { //session is not new
-          String signIn = session.getAttribute("signIn").toString();
-          String welcome = "Welcome, " + signIn + "!";//generate this string based on whether they won or lost
+          String signIn = WebTechUtil.escapeXML(session.getAttribute("signIn").toString());
+          String welcome = "Welcome, " + signIn + "!"; //generate this string based on whether they won or lost
           if(request.getParameter("result")!=null) {
             String result = request.getParameter("result");
             int gameNumber = Integer.parseInt(request.getParameter("game"));
@@ -107,7 +108,7 @@ public class CrazyServlet extends HttpServlet {
         String body = "<!DOCTYPE html>\n " +
         "<body>\n " +
         "<h1><span id=\"title\">Crazy Eights</span></h1>\n " +
-        "<h1>"+welcome+"</h1>\n " +
+        "<h1>" + WebTechUtil.escapeXML(welcome) + "</h1>\n " +
         "<table>\n " +
           "<caption\n " +
           "style=\"border:dashed; border-color:blue; padding:5px; margin:5px;\">Choose\n " +
@@ -178,8 +179,8 @@ public class CrazyServlet extends HttpServlet {
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException {
       request.getQueryString();
-      String signIn = request.getParameter("signIn");
-      String welcome = "Welcome, "+signIn + "!";//generate this string based on whether they won or lost
+      String signIn = WebTechUtil.escapeXML(request.getParameter("signIn"));
+      // String welcome = "Welcome, " + WsignIn + "!"; //generate this string based on whether they won or lost
       String result = request.getParameter("result");
       response.setHeader("Cache-Control", "no-cache");
       response.setContentType("text/html; charset=\"UTF-8\"");
@@ -204,7 +205,7 @@ public class CrazyServlet extends HttpServlet {
         "</head>\n " +
         "<body>\n " +
         "<h1><span id=\"title\">Crazy Eights</span></h1>\n " +
-        "<h1>"+welcome+"</h1>\n " +
+        "<h1>Welcome, " + WebTechUtil.escapeXML(signIn) + "!</h1>\n " +
         "<table>\n " +
           "<caption\n " +
           "style=\"border:dashed; border-color:blue; padding:5px; margin:5px;\">Choose\n " +
@@ -270,5 +271,63 @@ public class CrazyServlet extends HttpServlet {
         servletOut.close();
 
       }
+    }
+}
+
+/**
+ * Utilities to support examples in "Web Technologies" textbook
+ */
+class WebTechUtil {
+
+    /**
+     * Ampersand pattern used by escapeXML
+     */
+    static private Pattern pAmp = Pattern.compile("&");
+    /**
+     * Less-than pattern used by escapeXML
+     */
+    static private Pattern pLT =  Pattern.compile("<");
+    /**
+     * Greater-than pattern used by escapeXML
+     */
+    static private Pattern pGT =  Pattern.compile(">");
+    /**
+     * Double-quote pattern used by escapeQuotes
+     */
+    static private Pattern pDQ = Pattern.compile("\"");
+    /**
+     * Single-quote pattern used by escapeQuotes
+     */
+    static private Pattern pSQ = Pattern.compile("'");
+
+
+    /**
+     * Return input string with ampersands (&), 
+     * less-than signs (<), and greater-than signs (>)
+     * replaced with character entity references.
+     */
+    static public String escapeXML(String inString)
+    {
+        Matcher matcher = pAmp.matcher(inString);
+        String modified = matcher.replaceAll("&amp;");
+        matcher = pLT.matcher(modified);
+        modified = matcher.replaceAll("&lt;");
+        matcher = pGT.matcher(modified);
+        modified = matcher.replaceAll("&gt;");
+        return modified;
+    }
+
+    /**
+     * Return input string with all quotes replaced
+     * with references.  Use character reference for single quotes
+     * because IE6 does not support &apos; entity reference.
+     */
+    static public String escapeQuotes(String inString)
+    {
+	Matcher matcher = pDQ.matcher(inString);
+	String modified = matcher.replaceAll("&quot;");
+	matcher = pSQ.matcher(modified);
+	modified = matcher.replaceAll("&#39;");
+	return modified;
     }
 }
