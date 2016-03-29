@@ -70,6 +70,7 @@ public class CrazyServlet extends HttpServlet {
             numPlayers[gameNumber-1]++;
             if(result.equals("won")) {
               numWinners[gameNumber-1]++;
+              highlight[gameNumber-1] = "pink";
               if(fewestCards[gameNumber-1] >= cardsPlayed) {
                 winner[gameNumber-1] = signIn;
                 fewestCards[gameNumber-1] = cardsPlayed;
@@ -167,6 +168,7 @@ public class CrazyServlet extends HttpServlet {
 
         servletOut.println(head+body);
         servletOut.close();
+        highlight[gameNumber-1] = "#eee"; //reset the highlighting for next time
       }
      }
 
