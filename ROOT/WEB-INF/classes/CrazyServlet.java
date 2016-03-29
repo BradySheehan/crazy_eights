@@ -28,13 +28,20 @@ public class CrazyServlet extends HttpServlet {
     int[] numPlayers = {0,0,0,0,0};
     int[] percentPlayersWining = {0,0,0,0,0};
 
-
+    private void printEnd(PrintWriter servletOut)
+    {
+          servletOut.println(
+"  </body> \n" +
+"</html> ");
+    }
     public void doGet (HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException
       {
-      PrintWriter servletOut = response.getWriter();
       response.setHeader("Cache-Control", "no-cache");
+      response.setContentType("text/html; charset=\"UTF-8\"");
+      PrintWriter servletOut = response.getWriter();
       HttpSession session = request.getSession();
+      request.getQueryString();
       //i didn't know this. and I thought it was related to the error, but in case you don't know this
       //i am adding it here:
       //"getSession() returns the valid session object associated with the request,
@@ -42,11 +49,6 @@ public class CrazyServlet extends HttpServlet {
       //Calling the method with no arguments creates a session if one does not exist
       //that is associated with the request."
       if(session.isNew()) {
-          String signIn = request.getParameter("signIn");
-          if(signIn!=null) {
-            session.setAttribute("signIn", signIn);
-          }
-          response.setContentType("text/html; charset=\"UTF-8\"");
           servletOut.println(
             "<!DOCTYPE html> \n " +
              "<html xmlns='http://www.w3.org/1999/xhtml'> \n" +
@@ -89,20 +91,20 @@ public class CrazyServlet extends HttpServlet {
               welcome = "Sorry, " + signIn + ", better luck next time!";
             }
           }
-        String gameSelect = "<!DOCTYPE html>\n " +
-        "<html>\n " +
-        "<head>\n " +
-         " <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n " +
-         " <title>Select a Game</title>\n " +
-         " </script>\n " +
-         " <style type=\"text/css\">\n " +
-         "   col { width:20%; }\n " +
-         "   td,th  { text-align: center; }\n " +
-         "   table, td, th { border: 1px solid gray }\n " +
-         " </style>\n " +
-         "   <link rel=\"stylesheet\" href=\"MVPGame/style2.css\" type=\"text/css\">\n " +
-         " <meta name=\"generator\" content=\"Amaya, see http://www.w3.org/Amaya/\">\n " +
-        "</head>\n " +
+          String head ="<html>\n " +
+          "<head>\n " +
+           " <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n " +
+           " <title>Select a Game</title>\n " +
+           " </script>\n " +
+           " <style type=\"text/css\">\n " +
+           "   col { width:20%; }\n " +
+           "   td,th  { text-align: center; }\n " +
+           "   table, td, th { border: 1px solid gray }\n " +
+           " </style>\n " +
+           "   <link rel=\"stylesheet\" href=\"MVPGame/style2.css\" type=\"text/css\">\n " +
+           " <meta name=\"generator\" content=\"Amaya, see http://www.w3.org/Amaya/\">\n " +
+          "</head>\n ";
+        String body = "<!DOCTYPE html>\n " +
         "<body>\n " +
         "<h1><span id=\"title\">Crazy Eights</span></h1>\n " +
         "<h1>"+welcome+"</h1>\n " +
@@ -167,19 +169,20 @@ public class CrazyServlet extends HttpServlet {
         "</table>\n " +
         "</body>\n " +
         "</html>";
-        servletOut.println(gameSelect);
+        servletOut.println(head+body);
         servletOut.close();
       }
      }
 
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException {
-
+      request.getQueryString();
       String signIn = request.getParameter("signIn");
       String welcome = "Welcome, "+signIn + "!";//generate this string based on whether they won or lost
       String result = request.getParameter("result");
-      PrintWriter servletOut = response.getWriter();
       response.setHeader("Cache-Control", "no-cache");
+      response.setContentType("text/html; charset=\"UTF-8\"");
+      PrintWriter servletOut = response.getWriter();
       HttpSession session = request.getSession();
       if(signIn!=null) {
         session.setAttribute("signIn", signIn);
