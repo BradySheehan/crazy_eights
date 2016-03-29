@@ -253,7 +253,7 @@ View.prototype.updateTable = function (topCard) {
  View.prototype.announceHumanWinner = function() {
   // window.alert("Congratulations... you can beat the computer on " + this.presenter.difficultyLevel + ".");
   window.alert("Congratulations... you can beat the computer.");
-  var url = "GameSelect.html?game="+this.presenter.getGameNumber() + "&result=won&cardsPlayed="+this.presenter.numCardsPlayed;
+  var url = "/CrazyServlet?game="+this.presenter.gameNumber + "&result=won&cardsPlayed="+this.presenter.numCardsPlayed;
   window.location.href = url;
   return;
 };
@@ -264,7 +264,7 @@ View.prototype.updateTable = function (topCard) {
  */
  View.prototype.announceComputerWinner = function() {
   window.alert("Well, the computer has won this time. Maybe you can get the next one. ");
-  var url = "GameSelect.html?game="+this.presenter.getGameNumber() + "&result=lost&cardsPlayed=0";
+  var url = "/CrazyServlet?game="+this.presenter.gameNumber + "&result=lost&cardsPlayed=0";
   window.location.href = url;
   return;
 };
