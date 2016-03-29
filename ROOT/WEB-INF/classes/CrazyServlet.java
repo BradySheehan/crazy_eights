@@ -132,35 +132,35 @@ public class CrazyServlet extends HttpServlet {
             "  <td>"+numPlayers[0]+"</td>\n " +
             "  <td>"+percentPlayersWinning[0]+"</td>\n " +
             "  <td>"+fewestCards[0]+"</td>\n " +
-            "  <td id=\"winner0\">"+winner[0]+"</span></td>\n " +
+            "  <td bgcolor="+highlight[4]+">"+winner[0]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=2\"")+">2</a></td>\n " +
              " <td>"+numPlayers[1]+"</td>\n " +
              " <td>"+percentPlayersWinning[1]+"</td>\n " +
               "<td>"+fewestCards[1]+"</td>\n " +
-             " <td id=\"winner1\"winner1\">"+winner[1]+"</span></td>\n " +
+             " <td bgcolor="+highlight[4]+">"+winner[1]+"</td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=3\"")+">3</a></td>\n " +
               "<td>"+numPlayers[2]+"</td>\n " +
               "<td>"+percentPlayersWinning[2]+"</td>\n " +
               "<td>"+fewestCards[2]+"</td>\n " +
-              "<td id=\"winner2\"winner2\">"+winner[2]+"</span></td>\n " +
+              "<td bgcolor="+highlight[4]+">"+winner[2]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=4\"")+">4</a></td>\n " +
               "<td>"+numPlayers[3]+"</td>\n " +
              " <td>"+percentPlayersWinning[3]+"</td>\n " +
             "  <td>"+fewestCards[3]+"</td>\n " +
-            "  <td id=\"winner3\">"+winner[3]+"</span></td>\n " +
+            "<td bgcolor="+highlight[4]+">"+winner[3]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=5\"")+">5</a></td>\n " +
               "<td>"+numPlayers[4]+"</td>\n " +
              " <td>"+percentPlayersWinning[4]+"</td>\n " +
              " <td>"+fewestCards[4]+"</td>\n " +
-           "   <td id=\"winner4\">"+winner[4]+"</span></td>\n " +
+           "   <td bgcolor="+highlight[4]+">"+winner[4]+"</td>\n " +
           " </tr>\n " +
          " </tbody>\n " +
         "</table>\n " +
@@ -240,35 +240,35 @@ public class CrazyServlet extends HttpServlet {
             "  <td>"+numPlayers[0]+"</td>\n " +
             "  <td>"+percentPlayersWinning[0]+"</td>\n " +
             "  <td>"+fewestCards[0]+"</td>\n " +
-            "  <td id=\"winner0\">"+winner[0]+"</span></td>\n " +
+            "  <td bgcolor="+highlight[4]+">"+winner[0]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=2\"")+">2</a></td>\n " +
              " <td>"+numPlayers[1]+"</td>\n " +
              " <td>"+percentPlayersWinning[1]+"</td>\n " +
               "<td>"+fewestCards[1]+"</td>\n " +
-             " <td id=\"winner1\"winner1\">"+winner[1]+"</span></td>\n " +
+             " <td bgcolor="+highlight[4]+">"+winner[1]+"</td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=3\"")+">3</a></td>\n " +
               "<td>"+numPlayers[2]+"</td>\n " +
               "<td>"+percentPlayersWinning[2]+"</td>\n " +
               "<td>"+fewestCards[2]+"</td>\n " +
-              "<td id=\"winner2\"winner2\">"+winner[2]+"</span></td>\n " +
+              "<td bgcolor="+highlight[4]+">"+winner[2]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=4\"")+">4</a></td>\n " +
               "<td>"+numPlayers[3]+"</td>\n " +
              " <td>"+percentPlayersWinning[3]+"</td>\n " +
             "  <td>"+fewestCards[3]+"</td>\n " +
-            "  <td id=\"winner3\">"+winner[3]+"</span></td>\n " +
+            "<td bgcolor="+highlight[4]+">"+winner[3]+"</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=5\"")+">5</a></td>\n " +
               "<td>"+numPlayers[4]+"</td>\n " +
              " <td>"+percentPlayersWinning[4]+"</td>\n " +
              " <td>"+fewestCards[4]+"</td>\n " +
-           "   <td id=\"winner4\">"+winner[4]+"</span></td>\n " +
+           "   <td bgcolor="+highlight[4]+">"+winner[4]+"</td>\n " +
           " </tr>\n " +
          " </tbody>\n " +
         "</table>\n " +
