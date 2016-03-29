@@ -195,6 +195,8 @@ Presenter.prototype.getGameNumber = function(){
   var params = window.location.search.split(/[?=&]/);
   for (var k=1; k<params.length; k+=2) {
     if (params[k] == "game") {
+        window.alert(params[k+1]);
+        window.alert(params[k+2]);
         return Number(params[k+1]);
     }
   }
