@@ -2,6 +2,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import java.util.Enumeration;
 
 /**
  * Hello World! servlet
@@ -67,25 +68,25 @@ public class CrazyServlet extends HttpServlet {
           servletOut.close();
       } else { //session is not new
           String signIn = session.getAttribute("signIn").toString();
-          String welcome = "";//generate this string based on whether they won or lost
-          String result = request.getParameter("result");
-          int gameNumber = Integer.parseInt(request.getParameter("game"));
-          int cardsPlayed = Integer.parseInt(request.getParameter("cardsPlayed"));
-          numPlayers[gameNumber-1]++;
-          if(result == null) {
-              welcome = "Welcome, " + signIn + "!";
-          } else if(result.equals("won")) {
-            if(fewestCards[gameNumber-1] >= cardsPlayed) {
-              winner[gameNumber-1] = signIn;
-              fewestCards[gameNumber-1] = cardsPlayed;
-              numPlayers[gameNumber-1]++;
-              percentPlayersWining[gameNumber-1] = ((percentPlayersWining[gameNumber-1]+1)/numPlayers[gameNumber-1]); //not sure if this is right
-            }
-            welcome = "Congratularions, " + signIn + "! Play again?";
-          } else {
+          String welcome = "Welcome, " + signIn + "!";//generate this string based on whether they won or lost
+          if(request.getAttributeNames().values().length > 1) {
+            String result = request.getParameter("result");
+            int gameNumber = Integer.parseInt(request.getParameter("game"));
+            int cardsPlayed = Integer.parseInt(request.getParameter("cardsPlayed"));
             numPlayers[gameNumber-1]++;
-            percentPlayersWining[gameNumber-1] = ((percentPlayersWining[gameNumber-1])/numPlayers[gameNumber-1]); //not sure if this is right
-            welcome = "Sorry, " + signIn + ", better luck next time!";
+            if(result.equals("won")) {
+              if(fewestCards[gameNumber-1] >= cardsPlayed) {
+                winner[gameNumber-1] = signIn;
+                fewestCards[gameNumber-1] = cardsPlayed;
+                numPlayers[gameNumber-1]++;
+                percentPlayersWining[gameNumber-1] = ((percentPlayersWining[gameNumber-1]+1)/numPlayers[gameNumber-1]); //not sure if this is right
+              }
+              welcome = "Congratularions, " + signIn + "! Play again?";
+            } else {
+              numPlayers[gameNumber-1]++;
+              percentPlayersWining[gameNumber-1] = ((percentPlayersWining[gameNumber-1])/numPlayers[gameNumber-1]); //not sure if this is right
+              welcome = "Sorry, " + signIn + ", better luck next time!";
+            }
           }
         String gameSelect = "<!DOCTYPE html>\n " +
         "<html>\n " +
@@ -172,6 +173,7 @@ public class CrazyServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException {
+
       String signIn = request.getParameter("signIn");
       String welcome = "Welcome, "+signIn + "!";//generate this string based on whether they won or lost
       String result = request.getParameter("result");
