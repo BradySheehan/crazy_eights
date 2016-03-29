@@ -10,31 +10,27 @@ import java.util.Enumeration;
  */
 @WebServlet( urlPatterns={"/CrazyServlet"} )
 public class CrazyServlet extends HttpServlet { 
-    /**
-     *
-     * If we see a get with no session, display the login page
-     * they will then send back a username througha post and the server will store the username
-     * then the server will respond with the stats page and the corresponding welcome message
-     *
-     * modify the GameSelect.html to include in the url as a query string the game number
-     *   in the game we need to extract the seed (deck, already done)
-     *                       also need to extract the game that they played (game#)
-     *                       when someone wins, send a get request to the server with the game number, the result of the game, num cards played, 
-     *   the servlet 
-     *
-     * need data structures for each of the statistics? (I feel like we don't need to remember much)
-     */
+/**
+ * to do:
+ *
+ *  -concurrencY
+ *  -only updating statistics for unique players
+ *  -url rewriting (how to we verify that it is correct?)
+ *  -similarly, if the user wins on a deck and later loses, the “% Players winning” value should be unchanged by the loss, since the player has been—and should continue to be—counted as a winning player.
+ */
+
     String[] winner = {"-","-","-","-","-"}; //entry 1 corresponds with winner of hand 1, etc.
     int[] fewestCards = {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE};
     int[] numPlayers = {0,0,0,0,0};
     double[] percentPlayersWinning = {0,0,0,0,0};
     int[] numWinners = {0,0,0,0,0};
+    String[] highlight = {"#eee", "#eee", "#eee", "#eee", "#eee"};
 
     private void printEnd(PrintWriter servletOut)
     {
           servletOut.println(
-"  </body> \n" +
-"</html> ");
+            "  </body> \n" +
+            "</html> ");
     }
     public void doGet (HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException
@@ -43,13 +39,7 @@ public class CrazyServlet extends HttpServlet {
       response.setContentType("text/html; charset=\"UTF-8\"");
       PrintWriter servletOut = response.getWriter();
       HttpSession session = request.getSession();
-      request.getQueryString();
-      //i didn't know this. and I thought it was related to the error, but in case you don't know this
-      //i am adding it here:
-      //"getSession() returns the valid session object associated with the request,
-      //identified in the session cookie that is encapsulated in the request object.
-      //Calling the method with no arguments creates a session if one does not exist
-      //that is associated with the request."
+      request.getQueryString(); //what is this for?
       if(session.isNew()) {
           servletOut.println(
             "<!DOCTYPE html> \n " +
@@ -87,7 +77,6 @@ public class CrazyServlet extends HttpServlet {
               }
               welcome = "Congratulations, " + signIn + "! Play again?";
             } else {
-              // numPlayers[gameNumber-1]++;
               percentPlayersWinning[gameNumber-1] = ((double)numWinners[gameNumber-1]/(double)numPlayers[gameNumber-1])*100; //not sure if this is right
               welcome = "Sorry, " + signIn + ", better luck next time!";
             }
@@ -101,6 +90,11 @@ public class CrazyServlet extends HttpServlet {
            "   col { width:20%; }\n " +
            "   td,th  { text-align: center; }\n " +
            "   table, td, th { border: 1px solid gray }\n " +
+           "   #winner0 {background="+highlight[0]+";}\n" +
+           "   #winner1 {background="+highlight[1]+";}\n" +
+           "   #winner2 {background="+highlight[2]+";}\n" +
+           "   #winner3 {background="+highlight[3]+";}\n" +
+           "   #winner4 {background="+highlight[4]+";}\n" +
            " </style>\n " +
            "   <link rel=\"stylesheet\" href=\"MVPGame/style2.css\" type=\"text/css\">\n " +
            " <meta name=\"generator\" content=\"Amaya, see http://www.w3.org/Amaya/\">\n " +
@@ -199,6 +193,11 @@ public class CrazyServlet extends HttpServlet {
          "   col { width:20%; }\n " +
          "   td,th  { text-align: center; }\n " +
          "   table, td, th { border: 1px solid gray }\n " +
+         "   #winner0 {background="+highlight[0]+";}\n" +
+         "   #winner1 {background="+highlight[1]+";}\n" +
+         "   #winner2 {background="+highlight[2]+";}\n" +
+         "   #winner3 {background="+highlight[3]+";}\n" +
+         "   #winner4 {background="+highlight[4]+";}\n" +
          " </style>\n " +
          "   <link rel=\"stylesheet\" href=\"MVPGame/style2.css\" type=\"text/css\">\n " +
          " <meta name=\"generator\" content=\"Amaya, see http://www.w3.org/Amaya/\">\n " +
@@ -233,35 +232,35 @@ public class CrazyServlet extends HttpServlet {
             "  <td>"+numPlayers[0]+"</td>\n " +
             "  <td>"+percentPlayersWinning[0]+"</td>\n " +
             "  <td>"+fewestCards[0]+"</td>\n " +
-            "  <td>"+winner[0]+"</td>\n " +
+            "  <td><span id=\"winner0\">"+winner[0]+"</span></td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=2\"")+">2</a></td>\n " +
              " <td>"+numPlayers[1]+"</td>\n " +
              " <td>"+percentPlayersWinning[1]+"</td>\n " +
               "<td>"+fewestCards[1]+"</td>\n " +
-             " <td>"+winner[1]+"</td>\n " +
+             " <td><span id=\"winner1\">"+winner[1]+"</span></td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=3\"")+">3</a></td>\n " +
               "<td>"+numPlayers[2]+"</td>\n " +
               "<td>"+percentPlayersWinning[2]+"</td>\n " +
               "<td>"+fewestCards[2]+"</td>\n " +
-              "<td>"+winner[2]+"</td>\n " +
+              "<td><span id=\"winner2\">"+winner[2]+"</span></td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=4\"")+">4</a></td>\n " +
               "<td>"+numPlayers[3]+"</td>\n " +
              " <td>"+percentPlayersWinning[3]+"</td>\n " +
             "  <td>"+fewestCards[3]+"</td>\n " +
-            "  <td>"+winner[3]+"</td>\n " +
+            "  <td><span d=\"winner4\">"+winner[3]+"</span></td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=5\"")+">5</a></td>\n " +
               "<td>"+numPlayers[4]+"</td>\n " +
              " <td>"+percentPlayersWinning[4]+"</td>\n " +
              " <td>"+fewestCards[4]+"</td>\n " +
-           "   <td>"+winner[4]+"</td>\n " +
+           "   <td><span id=\"winner4\">"+winner[4]+"</span></td>\n " +
           " </tr>\n " +
          " </tbody>\n " +
         "</table>\n " +
