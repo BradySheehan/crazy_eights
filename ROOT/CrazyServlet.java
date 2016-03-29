@@ -26,8 +26,8 @@ public class CrazyServlet extends HttpServlet {
     String[] winner = {"-","-","-","-","-"}; //entry 1 corresponds with winner of hand 1, etc.
     int[] fewestCards = {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE};
     int[] numPlayers = {0,0,0,0,0};
-    int[] percentPlayersWining = {0,0,0,0,0};
-
+    double[] percentPlayersWining = {0,0,0,0,0};
+    int[] numWinners = {0,0,0,0,0};
 
     public void doGet (HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException
@@ -76,11 +76,11 @@ public class CrazyServlet extends HttpServlet {
             int cardsPlayed = Integer.parseInt(request.getParameter("cardsPlayed"));
             numPlayers[gameNumber-1]++;
             if(result.equals("won")) {
+              numWinners[gameNumber-1]++;
               if(fewestCards[gameNumber-1] >= cardsPlayed) {
                 winner[gameNumber-1] = signIn;
                 fewestCards[gameNumber-1] = cardsPlayed;
-                numPlayers[gameNumber-1]++;
-                percentPlayersWining[gameNumber-1] = ((percentPlayersWining[gameNumber-1]+1)/numPlayers[gameNumber-1]); //not sure if this is right
+                percentPlayersWining[gameNumber-1] = ((double)numWinners[gameNumber-1]/numPlayers[gameNumber-1]); //not sure if this is right
               }
               welcome = "Congratularions, " + signIn + "! Play again?";
             } else {
