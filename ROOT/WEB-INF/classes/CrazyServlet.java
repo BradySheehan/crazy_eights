@@ -59,28 +59,28 @@ public class CrazyServlet extends HttpServlet {
             "  <td>" + ConcurrentAccess.numPlayers[0] + "</td>\n " +
             "  <td>" + ConcurrentAccess.percentPlayersWinning[0] + "</td>\n " +
             "  <td>" + ConcurrentAccess.fewestCards[0] + "</td>\n " +
-            "  <td bgcolor=" + highlight[4] + ">" + ConcurrentAccess.winner[0] + "</td>\n " +
+            "  <td bgcolor=" + highlight[0] + ">" + ConcurrentAccess.winner[0] + "</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
              " <td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xe03d8ca4&game=2\"")+">2</a></td>\n " +
              " <td>" + ConcurrentAccess.numPlayers[1] + "</td>\n " +
              " <td>" + ConcurrentAccess.percentPlayersWinning[1] + "</td>\n " +
               "<td>" + ConcurrentAccess.fewestCards[1]+"</td>\n " +
-             " <td bgcolor=" + highlight[4]+">"+ ConcurrentAccess.winner[1] + "</td>\n " +
+             " <td bgcolor=" + highlight[1]+">"+ ConcurrentAccess.winner[1] + "</td>\n " +
             "</tr>\n " +
            " <tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x500aee51&game=3\"")+">3</a></td>\n " +
               "<td>"+ ConcurrentAccess.numPlayers[2] + "</td>\n " +
               "<td>"+ ConcurrentAccess.percentPlayersWinning[2] + "</td>\n " +
               "<td>"+ ConcurrentAccess.fewestCards[2] + "</td>\n " +
-              "<td bgcolor=" + highlight[4] + ">" + ConcurrentAccess.winner[2] + "</td>\n " +
+              "<td bgcolor=" + highlight[2] + ">" + ConcurrentAccess.winner[2] + "</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0x8752f900&game=4\"") + ">4</a></td>\n " +
               "<td>"+ ConcurrentAccess.numPlayers[3] + "</td>\n " +
              " <td>"+ ConcurrentAccess.percentPlayersWinning[3] + "</td>\n " +
             "  <td>"+ ConcurrentAccess.fewestCards[3] + "</td>\n " +
-            "<td bgcolor=" + highlight[4]+">"+ ConcurrentAccess.winner[3] + "</td>\n " +
+            "<td bgcolor=" + highlight[3]+">"+ ConcurrentAccess.winner[3] + "</td>\n " +
             "</tr>\n " +
             "<tr>\n " +
               "<td><a href=" + response.encodeURL("\"MVPGame/Crazy8_2.html?seed=0xbb905669&game=5\"") + ">5</a></td>\n " +
@@ -282,7 +282,7 @@ class ConcurrentAccess {
   }
 
   public synchronized static void updateStats(int gameNumber, String signIn, boolean win, int cardsPlayed) {
-    addPlayer(signIn);
+    addPlayer(signIn, gameNumber);
     if(win) {
       if(fewestCards[gameNumber] >= cardsPlayed) {
         changeWinner(gameNumber, signIn);
@@ -297,6 +297,9 @@ class ConcurrentAccess {
           changeNumPlayers(gameNumber);
       }
     }
+    if(!hasPlayed(signIn, gameNumber)) {
+      playGame(signIn, gameNumber);
+    }
     updatePercentPlayersWinning(gameNumber);
   }
 
@@ -309,7 +312,7 @@ class ConcurrentAccess {
     numWinners[gameNumber]++;
   }
 
-  public synchronized static void addPlayer(String signIn) {
+  public synchronized static void addPlayer(String signIn, int gameNumber) {
     if(!players.containsKey(signIn)) {
       Player p1 = new Player(signIn);
       players.put(signIn, p1);
@@ -320,6 +323,11 @@ class ConcurrentAccess {
     Player p1 = players.get(signIn);
     return p1.hasPlayedGame(gameNumber);
   }
+
+    public synchronized static void playGame(String signIn, int gameNumber) {
+      Player p1 = players.get(signIn);
+      p1.playGame(gameNumber);
+    }
 }
 
 class Player {
