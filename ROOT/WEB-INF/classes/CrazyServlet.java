@@ -14,12 +14,8 @@ public class CrazyServlet extends HttpServlet {
   private static final long serialVersionUID = 1;
 /**
  * to do:
- *
- *  -only updating statistics for unique players
- *  -url rewriting (how to we verify that it is correct?)
- *  -similarly, if the user wins on a deck and later loses, the “% Players winning” 
- *  value should be unchanged by the loss, since the player has been—and should continue 
- *  to be—counted as a winning player.
+ *  -highlighting
+ *  -url rewriting (how to we verify that it is correct??)
  */
     String[] highlight = {"#eee", "#eee", "#eee", "#eee", "#eee"};
 
@@ -286,9 +282,11 @@ class ConcurrentAccess {
   }
 
   public synchronized static void updateStats(int gameNumber, String signIn, boolean win, int cardsPlayed) {
+    addPlayer(signIn);
     if(win) {
       if(fewestCards[gameNumber] >= cardsPlayed) {
         changeWinner(gameNumber, signIn);
+        changeFewestCards(gameNumber, cardsPlayed);
       }
       if(!hasPlayed(signIn, gameNumber)) {
           changeNumPlayers(gameNumber);
@@ -299,10 +297,11 @@ class ConcurrentAccess {
           changeNumPlayers(gameNumber);
       }
     }
+    updatePercentPlayersWinning(gameNumber);
   }
 
 
-  public synchronized static void changePercentPlayersWinning(int gameNumber) {
+  public synchronized static void updatePercentPlayersWinning(int gameNumber) {
     percentPlayersWinning[gameNumber] = ((double)numWinners[gameNumber]/(double)numPlayers[gameNumber])*100; //not sure if this is right
   }
 
