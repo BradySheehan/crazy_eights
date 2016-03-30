@@ -4,6 +4,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.util.regex.*;
 import java.util.Enumeration;
+import java.util.HashMap;
 
 /**
  *
@@ -14,10 +15,11 @@ public class CrazyServlet extends HttpServlet {
 /**
  * to do:
  *
- *  -concurrencY
  *  -only updating statistics for unique players
  *  -url rewriting (how to we verify that it is correct?)
- *  -similarly, if the user wins on a deck and later loses, the “% Players winning” value should be unchanged by the loss, since the player has been—and should continue to be—counted as a winning player.
+ *  -similarly, if the user wins on a deck and later loses, the “% Players winning” 
+ *  value should be unchanged by the loss, since the player has been—and should continue 
+ *  to be—counted as a winning player.
  */
     String[] highlight = {"#eee", "#eee", "#eee", "#eee", "#eee"};
 
@@ -157,18 +159,12 @@ public class CrazyServlet extends HttpServlet {
             String result = request.getParameter("result");
             gameNumber = Integer.parseInt(request.getParameter("game"));
             int cardsPlayed = Integer.parseInt(request.getParameter("cardsPlayed"));
-            ConcurrentAccess.changeNumPlayers(gameNumber-1); //concurrent access
             if(result.equals("won")) {
-              ConcurrentAccess.changeNumWinners(gameNumber-1);
               highlight[gameNumber-1] = "pink";
-              if(ConcurrentAccess.fewestCards[gameNumber-1] >= cardsPlayed) {
-                ConcurrentAccess.changeWinner(gameNumber-1, signIn);
-                ConcurrentAccess.changeFewestCards(gameNumber-1, cardsPlayed);
-                ConcurrentAccess.changePercentPlayersWinning(gameNumber-1);
-              }
+              ConcurrentAccess.updateStats(gameNumber - 1,  signIn, true, cardsPlayed);
               welcome = "Congratulations, " + signIn + "! Play again?";
             } else {
-              ConcurrentAccess.changePercentPlayersWinning(gameNumber-1);
+              ConcurrentAccess.updateStats(gameNumber - 1,  signIn, false, cardsPlayed);
               welcome = "Sorry, " + signIn + ", better luck next time!";
             }
           }
@@ -180,10 +176,10 @@ public class CrazyServlet extends HttpServlet {
           printEnd(servletOut);
           servletOut.close();
           highlight[0] = "#eee"; //reset the highlighting for next time
-          highlight[1] = "#eee"; //reset the highlighting for next time
-          highlight[2] = "#eee"; //reset the highlighting for next time
-          highlight[3] = "#eee"; //reset the highlighting for next time
-          highlight[4] = "#eee"; //reset the highlighting for next time
+          highlight[1] = "#eee";
+          highlight[2] = "#eee";
+          highlight[3] = "#eee"; 
+          highlight[4] = "#eee"; 
 
       }
      }
@@ -275,6 +271,7 @@ class ConcurrentAccess {
   public static int[] numPlayers = {0,0,0,0,0};
   public static double[] percentPlayersWinning = {0,0,0,0,0};
   public static int[] numWinners = {0,0,0,0,0};
+  public static HashMap<String, Player> players = new HashMap<String, Player>();
 
   public synchronized static void changeWinner(int gameNumber, String signIn) {
     winner[gameNumber] = signIn;
@@ -288,12 +285,59 @@ class ConcurrentAccess {
     numPlayers[gameNumber]++;
   }
 
+  public synchronized static void updateStats(int gameNumber, String signIn, boolean win, int cardsPlayed) {
+    if(win) {
+      if(fewestCards[gameNumber] >= cardsPlayed) {
+        changeWinner(gameNumber, signIn);
+      }
+      if(!hasPlayed(signIn, gameNumber)) {
+          changeNumPlayers(gameNumber);
+          changeNumWinners(gameNumber);
+      }
+    } else {
+      if(!hasPlayed(signIn, gameNumber)) {
+          changeNumPlayers(gameNumber);
+      }
+    }
+  }
+
+
   public synchronized static void changePercentPlayersWinning(int gameNumber) {
     percentPlayersWinning[gameNumber] = ((double)numWinners[gameNumber]/(double)numPlayers[gameNumber])*100; //not sure if this is right
-
   }
 
   public synchronized static void changeNumWinners(int gameNumber) { //+1
     numWinners[gameNumber]++;
   }
+
+  public synchronized static void addPlayer(String signIn) {
+    if(!players.containsKey(signIn)) {
+      Player p1 = new Player(signIn);
+      players.put(signIn, p1);
+    }
+  }
+
+  public synchronized static boolean hasPlayed(String signIn, int gameNumber) {
+    Player p1 = players.get(signIn);
+    return p1.hasPlayedGame(gameNumber);
+  }
+}
+
+class Player {
+
+  private String name = "";
+  private boolean[] gamesPlayed = new boolean[5];
+
+  public Player(String signIn) {
+    name = signIn;
+  }
+
+  public void playGame(int gameNumber) {
+    gamesPlayed[gameNumber] = true;
+  }
+
+  public boolean hasPlayedGame(int gameNumber) {
+    return gamesPlayed[gameNumber];
+  }
+
 }
