@@ -10,6 +10,7 @@ import java.util.Enumeration;
  */
 @WebServlet( urlPatterns={"/CrazyServlet"} )
 public class CrazyServlet extends HttpServlet {
+  private static final long serialVersionUID = 1;
 /**
  * to do:
  *
@@ -18,12 +19,6 @@ public class CrazyServlet extends HttpServlet {
  *  -url rewriting (how to we verify that it is correct?)
  *  -similarly, if the user wins on a deck and later loses, the “% Players winning” value should be unchanged by the loss, since the player has been—and should continue to be—counted as a winning player.
  */
-
-    String[] winner = {"-","-","-","-","-"}; //entry 1 corresponds with winner of hand 1, etc.
-    int[] fewestCards = {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE};
-    int[] numPlayers = {0,0,0,0,0};
-    double[] percentPlayersWinning = {0,0,0,0,0};
-    int[] numWinners = {0,0,0,0,0};
     String[] highlight = {"#eee", "#eee", "#eee", "#eee", "#eee"};
 
     private void printEnd(PrintWriter servletOut)
@@ -102,8 +97,8 @@ public class CrazyServlet extends HttpServlet {
     }
 
     private void printHead(PrintWriter servletOut){
-
-      String head =         "<head>\n " +
+      String head =
+      "<head>\n " +
          " <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n " +
          " <title>Select a Game</title>\n " +
          " </script>\n " +
@@ -162,18 +157,18 @@ public class CrazyServlet extends HttpServlet {
             String result = request.getParameter("result");
             gameNumber = Integer.parseInt(request.getParameter("game"));
             int cardsPlayed = Integer.parseInt(request.getParameter("cardsPlayed"));
-            numPlayers[gameNumber-1]++;
+            ConcurrentAccess.changeNumPlayers(gameNumber-1); //concurrent access
             if(result.equals("won")) {
-              numWinners[gameNumber-1]++;
+              ConcurrentAccess.changeNumWinners(gameNumber-1);
               highlight[gameNumber-1] = "pink";
-              if(fewestCards[gameNumber-1] >= cardsPlayed) {
-                winner[gameNumber-1] = signIn;
-                fewestCards[gameNumber-1] = cardsPlayed;
-                percentPlayersWinning[gameNumber-1] = ((double)numWinners[gameNumber-1]/(double)numPlayers[gameNumber-1])*100; //not sure if this is right
+              if(ConcurrentAccess.fewestCards[gameNumber-1] >= cardsPlayed) {
+                ConcurrentAccess.changeWinner(gameNumber-1, signIn);
+                ConcurrentAccess.changeFewestCards(gameNumber-1, cardsPlayed);
+                ConcurrentAccess.changePercentPlayersWinning(gameNumber-1);
               }
               welcome = "Congratulations, " + signIn + "! Play again?";
             } else {
-              percentPlayersWinning[gameNumber-1] = ((double)numWinners[gameNumber-1]/(double)numPlayers[gameNumber-1])*100; //not sure if this is right
+              ConcurrentAccess.changePercentPlayersWinning(gameNumber-1);
               welcome = "Sorry, " + signIn + ", better luck next time!";
             }
           }
@@ -281,23 +276,24 @@ class ConcurrentAccess {
   public static double[] percentPlayersWinning = {0,0,0,0,0};
   public static int[] numWinners = {0,0,0,0,0};
 
-  public synchronized static void changeWinner() {
+  public synchronized static void changeWinner(int gameNumber, String signIn) {
+    winner[gameNumber] = signIn;
+  }
+
+  public synchronized static void changeFewestCards(int gameNumber, int cardsPlayed) {
+    fewestCards[gameNumber] = cardsPlayed;
+  }
+
+  public synchronized static void changeNumPlayers(int gameNumber) { //+1
+    numPlayers[gameNumber]++;
+  }
+
+  public synchronized static void changePercentPlayersWinning(int gameNumber) {
+    percentPlayersWinning[gameNumber] = ((double)numWinners[gameNumber]/(double)numPlayers[gameNumber])*100; //not sure if this is right
 
   }
 
-  public synchronized static void changeFewestCards() {
-
-  }
-
-  public synchronized static void changeNumPlayers() {
-
-  }
-
-  public synchronized static void changePercentPlayersWinning() {
-
-  }
-
-  public synchronized static void changeNumWinners() {
-
+  public synchronized static void changeNumWinners(int gameNumber) { //+1
+    numWinners[gameNumber]++;
   }
 }
